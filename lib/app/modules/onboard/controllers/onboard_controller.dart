@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardController extends GetxController {
   //TODO: Implement OnboardController
 
   final count = 0.obs;
+  final PageController pageController = PageController();
   @override
   void onInit() {
     super.onInit();
