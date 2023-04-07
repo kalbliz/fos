@@ -5,7 +5,7 @@ import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PageTextFieldWidget extends StatelessWidget {
+class FobTextFieldWidget extends StatelessWidget {
   final String hintText;
   final String? titleText;
   final TextEditingController? textEditingController;
@@ -24,7 +24,7 @@ class PageTextFieldWidget extends StatelessWidget {
   final Function(String)? onChanged;
   final AutovalidateMode? autoValidateMode;
 
-  const PageTextFieldWidget(
+  const FobTextFieldWidget(
       {Key? key,
       required this.hintText,
       this.textEditingController,
@@ -52,7 +52,8 @@ class PageTextFieldWidget extends StatelessWidget {
       children: [
         titleText != null
             ? Text(
-               titleText!,style: AppTextStyles.Fourteen400TextAsh,
+                titleText!,
+                style: AppTextStyles.Fourteen400TextAsh,
               )
             : Container(),
         SizedBox(
@@ -77,9 +78,9 @@ class PageTextFieldWidget extends StatelessWidget {
               fontWeight: FontWeight.w500),
           validator: validator,
           decoration: InputDecoration(
-            filled: true,
+            filled: false,
             prefixIcon: prefixIcon,
-            fillColor: AppDarkColors.AppTextAsh,
+            // fillColor: AppDarkColors.AppTextAsh,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: sizeFit(true, 16, context),
                 vertical: sizeFit(false, 4, context)),
@@ -90,15 +91,9 @@ class PageTextFieldWidget extends StatelessWidget {
               fontSize: sizeFit(false, 14, context),
               fontWeight: FontWeight.w400,
             ),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none),
+            border: UnderlineInputBorder(),
+            enabledBorder: UnderlineInputBorder(),
+            focusedBorder: UnderlineInputBorder(),
             focusColor: AppDarkColors.AppPrimaryPink,
             hoverColor: AppDarkColors.AppPrimaryPink,
             errorBorder: OutlineInputBorder(
