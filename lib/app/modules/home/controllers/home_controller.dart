@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-
+  final singleChildScrollController = ScrollController();
+  final resturantsScrollController = ScrollController();
   final count = 0.obs;
   @override
   void onInit() {

@@ -18,7 +18,7 @@ class NavView extends GetView<NavController> {
       ),
       bottomNavigationBar: Obx(
         () => NavigationBar(
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           backgroundColor: AppDarkColors.AppPrimaryWhite,
           height: sizeFit(false, 70, context),
           surfaceTintColor: AppDarkColors.AppAsh,
@@ -72,16 +72,16 @@ class NavView extends GetView<NavController> {
                   ),
                 )),
             const NavigationDestination(
-                label: 'Home',
+                label: 'Account',
                 selectedIcon: SizedBox(
                   child: Icon(
-                    CupertinoIcons.home,
+                    CupertinoIcons.person,
                     color: AppDarkColors.AppPrimaryPink,
                   ),
                 ),
                 icon: SizedBox(
                   child: Icon(
-                    CupertinoIcons.home,
+                    CupertinoIcons.person,
                     color: AppDarkColors.AppAsh,
                   ),
                 )),
