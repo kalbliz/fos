@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:fos/app/modules/accounts/bindings/accounts_binding.dart';
+import 'package:fos/app/modules/accounts/views/accounts_view.dart';
 import 'package:fos/app/modules/auth/bindings/auth_binding.dart';
 import 'package:fos/app/modules/auth/views/auth_view.dart';
 import 'package:fos/app/modules/auth/views/login_view.dart';
@@ -10,13 +12,17 @@ import 'package:fos/app/modules/nav/bindings/nav_binding.dart';
 import 'package:fos/app/modules/nav/views/nav_view.dart';
 import 'package:fos/app/modules/onboard/bindings/onboard_binding.dart';
 import 'package:fos/app/modules/onboard/views/onboard_view.dart';
+import 'package:fos/app/modules/orders/bindings/orders_binding.dart';
+import 'package:fos/app/modules/orders/views/orders_view.dart';
+import 'package:fos/app/modules/search/bindings/search_binding.dart';
+import 'package:fos/app/modules/search/views/search_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SIGN_UP;
+  static const INITIAL = Routes.NAV;
 
   static final routes = [
     GetPage(
@@ -48,6 +54,21 @@ class AppPages {
       name: _Paths.NAV,
       page: () => NavView(),
       binding: NavBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH,
+      page: () => SearchView(),
+      binding: SearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERS,
+      page: () => OrdersView(),
+      binding: OrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNTS,
+      page: () => AccountsView(),
+      binding: AccountsBinding(),
     ),
   ];
 }

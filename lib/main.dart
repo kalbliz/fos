@@ -12,7 +12,16 @@ void main() {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),
+      theme: ThemeData(
+          useMaterial3: true,
+          fontFamily: 'Poppins',
+          navigationBarTheme: NavigationBarThemeData(
+              indicatorColor: Colors.transparent,
+              iconTheme: MaterialStateProperty.all(
+                const IconThemeData(
+                  color: Colors.transparent,
+                ),
+              ))),
     ),
   );
 }
