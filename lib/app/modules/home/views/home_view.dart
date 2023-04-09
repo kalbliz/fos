@@ -18,10 +18,10 @@ class HomeView extends GetView<HomeController> {
       ),
       body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
+            SizedBox(
+              height: sizeFit(false, 110, context),
               child: ListView.builder(
                 itemCount: 7,
                 padding: EdgeInsets.zero,
@@ -42,7 +42,7 @@ class HomeView extends GetView<HomeController> {
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage('assets/images/home/adv.png'))),
+                      image: AssetImage('assets/images/home/banner.jpg'))),
               child: Column(
                 children: [],
               ),
@@ -64,10 +64,9 @@ class Rest extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          'assets/images/home/pizza.png',
-          height: sizeFit(false, 100, context),
-          fit: BoxFit.cover,
+        CircleAvatar(
+          radius: sizeFit(false, 45, context),
+          backgroundImage: AssetImage('assets/images/home/burger.jpg'),
         ),
         Text(
           'Burgers',
