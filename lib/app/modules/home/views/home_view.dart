@@ -17,28 +17,37 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: sizeFit(false, 120, context),
-                child: ListView.builder(
-                  itemCount: 7,
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemExtent: 110,
-                  physics: BouncingScrollPhysics(),
-                  controller: controller.resturantsScrollController,
-                  itemBuilder: (context, index) {
-                    return Rest();
-                  },
-                ),
-              )
-            ],
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: 7,
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemExtent: 110,
+                physics: BouncingScrollPhysics(),
+                controller: controller.resturantsScrollController,
+                itemBuilder: (context, index) {
+                  return Rest();
+                },
+              ),
+            ),
+            Container(
+              height: sizeFit(false, 200, context),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/home/adv.png'))),
+              child: Column(
+                children: [],
+              ),
+            )
+          ],
         ),
       ),
     );
