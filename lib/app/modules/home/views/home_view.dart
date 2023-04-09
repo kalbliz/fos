@@ -19,6 +19,7 @@ class HomeView extends GetView<HomeController> {
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: sizeFit(false, 110, context),
@@ -35,16 +36,47 @@ class HomeView extends GetView<HomeController> {
                 },
               ),
             ),
-            Container(
-              height: sizeFit(false, 200, context),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/home/banner.jpg'))),
+            SizedBox(
+              height: sizeFit(false, 32, context),
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: sizeFit(true, 16, context)),
               child: Column(
-                children: [],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: sizeFit(false, 200, context),
+                    padding: EdgeInsets.symmetric(
+                        vertical: sizeFit(false, 12, context),
+                        horizontal: sizeFit(true, 16, context)),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image:
+                                AssetImage('assets/images/home/banner.jpg'))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Get',
+                          style: AppTextStyles.TwentySix400TextWhite,
+                        ),
+                        Text(
+                          '50% off ',
+                          style: AppTextStyles.TwentySix400TextPink,
+                        ),
+                        Text(
+                          'your first meal!!',
+                          style: AppTextStyles.TwentySix400TextWhite,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             )
           ],
