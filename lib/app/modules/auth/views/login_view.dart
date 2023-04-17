@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fos/app/modules/auth/controllers/login_controller.dart';
 import 'package:fos/app/modules/auth/views/auth_view.dart';
 import 'package:fos/app/routes/app_pages.dart';
+import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:fos/app/utilities/textfield/fob_formfield.dart';

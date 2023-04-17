@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:get/get.dart';
 
 import 'package:fos/app/routes/app_pages.dart';
@@ -75,34 +76,4 @@ class AuthView extends GetView<AuthController> {
   }
 }
 
-class AuthButton extends StatelessWidget {
-  final String title;
-  final void Function()? onTap;
-
-  const AuthButton({
-    Key? key,
-    required this.title,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: sizeFit(false, 48, context),
-        width: sizeFit(true, 206, context),
-        decoration: BoxDecoration(
-            color: AppDarkColors.AppPrimaryPink,
-            borderRadius: BorderRadius.circular(30)),
-        child: Center(
-          child: Text(
-            title,
-            style: AppTextStyles.Sixteen400White,
-          ),
-        ),
-      ),
-    );
-  }
-}
 

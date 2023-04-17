@@ -8,6 +8,7 @@ class AppDarkColors {
   static const Color AppTextAsh = Color.fromRGBO(157, 157, 157, 1);
   static const Color AppAsh = Color.fromRGBO(235, 235, 235, 1);
   static const Color AppRed = Color.fromRGBO(245, 47, 47, 1);
+  static const Color AppYellow = Color.fromRGBO(174, 159, 0, 1);
 }
 
 class AppLightColors {}
