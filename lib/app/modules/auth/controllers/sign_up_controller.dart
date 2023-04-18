@@ -21,6 +21,7 @@ class SignUpController extends GetxController {
       TextEditingController();
   Rx<TextEditingController> locationEditingController =
       TextEditingController(text: '').obs;
+
   final emailValidator = MultiValidator([
     RequiredValidator(errorText: 'email is required'),
     EmailValidator(errorText: 'invalid email'),
