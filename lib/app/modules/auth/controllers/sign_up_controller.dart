@@ -1,9 +1,13 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:fos/app/data/services/auth_services/auth_services.dart';
+import 'package:fos/app/routes/app_pages.dart';
+import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -59,7 +63,7 @@ class SignUpController extends GetxController {
   final ImagePicker picker = ImagePicker();
   Position? position;
   List<Placemark>? placemarks;
-
+  final AuthService authService = Get.find<AuthService>();
   @override
   void onInit() {
     super.onInit();
@@ -131,8 +135,7 @@ class SignUpController extends GetxController {
     pageState.value = ViewState.idle;
   }
 
-  Future registerUser() async {
-    pageState.value = ViewState.busy;
+  Future registerUser(User currentUser) async {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
     fStorage.Reference reference = fStorage.FirebaseStorage.instance
         .ref()
@@ -142,7 +145,55 @@ class SignUpController extends GetxController {
     fStorage.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
     await taskSnapshot.ref.getDownloadURL().then((url) {
       sellerImageUrl = url;
+      saveDatatToFirestore(currentUser);
     });
+  }
+
+  Future saveDatatToFirestore(User currentUser) async {
+    FirebaseFirestore.instance.collection('sellers').doc(currentUser.uid).set({
+      'userID': currentUser.uid,
+      'userEmail': currentUser.email,
+      'userName': nameEditingController.value.text.trim(),
+      'userPhoto': sellerImageUrl,
+      'userPhoneNumber': phoneNumberEditingController.value.text.trim(),
+      'userAddress': locationEditingController.value.text.trim(),
+      'status': 'approved',
+      'earnings': 0.0,
+      'lat': position!.latitude,
+      'lng': position!.longitude
+    });
+    // authService.userEmail = currentUser.email!;
+    // authService.userName = nameEditingController.value.text.trim();
+    // authService.userPhoneNumber =
+    //     phoneNumberEditingController.value.text.trim();
+    // authService.userPhoto = sellerImageUrl;
+  }
+
+  void authenticateAndSignUp() async {
+    pageState.value = ViewState.busy;
+    User? currentUser;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailEditingController.value.text.trim(),
+            password: passwordEditingController.value.text.trim())
+        .then((auth) {
+      currentUser = auth.user;
+    }).catchError((error) {
+      pageState.value = ViewState.idle;
+      showDialog(
+          context: Get.context!,
+          builder: (builder) {
+            return ErrorDialog(
+              message: error.message.toString(),
+            );
+          });
+    });
+    if (currentUser != null) {
+      await registerUser(currentUser!).then((value) {
+        Get.offAllNamed(Routes.LOGIN);
+      });
+    }
     pageState.value = ViewState.idle;
   }
 }

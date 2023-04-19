@@ -5,7 +5,7 @@ import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FobTextFieldWidget extends StatelessWidget {
+class FosTextFieldWidget extends StatelessWidget {
   final String hintText;
   final String? titleText;
   final TextEditingController? textEditingController;
@@ -24,7 +24,7 @@ class FobTextFieldWidget extends StatelessWidget {
   final Function(String)? onChanged;
   final AutovalidateMode? autoValidateMode;
 
-  const FobTextFieldWidget(
+  const FosTextFieldWidget(
       {Key? key,
       required this.hintText,
       this.textEditingController,

@@ -69,7 +69,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(
                               width: sizeFit(true, 300, context),
-                              child: FobTextFieldWidget(
+                              child: FosTextFieldWidget(
                                 hintText: 'Enter your name',
                                 textEditingController:
                                     controller.nameEditingController,
@@ -81,7 +81,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(
                               width: sizeFit(true, 300, context),
-                              child: FobTextFieldWidget(
+                              child: FosTextFieldWidget(
                                 hintText: 'Enter your email',
                                 textEditingController:
                                     controller.emailEditingController,
@@ -93,7 +93,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(
                               width: sizeFit(true, 300, context),
-                              child: FobTextFieldWidget(
+                              child: FosTextFieldWidget(
                                 hintText: 'Create Password',
                                 textEditingController:
                                     controller.passwordEditingController,
@@ -105,7 +105,7 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                             SizedBox(
                               width: sizeFit(true, 300, context),
-                              child: FobTextFieldWidget(
+                              child: FosTextFieldWidget(
                                 hintText: 'Enter phone number',
                                 textEditingController:
                                     controller.phoneNumberEditingController,
@@ -118,7 +118,7 @@ class SignUpView extends GetView<SignUpController> {
                             SizedBox(
                               width: sizeFit(true, 300, context),
                               child: Obx(() {
-                                return FobTextFieldWidget(
+                                return FosTextFieldWidget(
                                   hintText: 'Resturant location',
                                   enabled: false,
                                   textEditingController: controller
@@ -149,7 +149,7 @@ class SignUpView extends GetView<SignUpController> {
                             if (controller.signUpFormKey.currentState!
                                     .validate() &&
                                 controller.file.value != '') {
-                              controller.registerUser();
+                              controller.authenticateAndSignUp();
                             } else {
                               showDialog(
                                   context: context,
