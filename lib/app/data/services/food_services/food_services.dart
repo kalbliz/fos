@@ -28,6 +28,33 @@ class FoodServices extends GetxService {
       for (var element in responseData) {
         foodMenus.add(element);
       }
+      foodMenus.sort(((a, b) {
+        return Comparable.compare(
+            a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
+      }));
+    });
+  }
+
+  Future getFoodMenusFromResturant({required String resturantName}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('foodMenus')
+        .where('sellerName', isEqualTo: resturantName)
+        .get()
+        .then((response) async {
+      var responseData =
+          response.docs.map((e) => FoodMenus.fromDocumentSnapshot(e)).toList();
+      //clear list
+      // foodMenus.clear();
+      for (var element in responseData) {
+        //add to list
+        // foodMenus.add(element);
+      }
+      //sort list
+      // foodMenus.sort(((a, b) {
+      //   return Comparable.compare(
+      //       a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
+      // }));
     });
   }
 }

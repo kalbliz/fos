@@ -39,18 +39,18 @@ class HomeView extends GetView<HomeController> {
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemExtent: 110,
+                        itemExtent: 90,
                         physics: BouncingScrollPhysics(),
                         controller: controller.resturantsScrollController,
                         itemBuilder: (context, index) {
-                          return Rest(
+                          return FoodAvatar(
                             index: index,
                           );
                         },
                       ),
                     ),
                     SizedBox(
-                      height: sizeFit(false, 32, context),
+                      height: sizeFit(false, 16, context),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -86,6 +86,13 @@ class HomeView extends GetView<HomeController> {
                                   'your first meal!!',
                                   style: AppTextStyles.TwentySix400TextWhite,
                                 ),
+                                SizedBox(
+                                  height: sizeFit(false, 12, context),
+                                ),
+                                SizedBox(
+                                    width: sizeFit(true, 150, context),
+                                    child: AuthButton(
+                                        title: 'Order Now', onTap: () {}))
                               ],
                             ),
                           ),
@@ -101,7 +108,7 @@ class HomeView extends GetView<HomeController> {
                         // controller.firebaseAuth.signOut().then((response) {
                         //   Get.offAllNamed(Routes.LOGIN);
                         // });
-                        controller.foodServices.getFoodMenus();
+                        controller.getFoodMeuns();
                       },
                     )
                   ],
@@ -112,29 +119,39 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-class Rest extends StatelessWidget {
+class FoodAvatar extends StatelessWidget {
   final HomeController controller = HomeController();
   final int index;
-  Rest({
+  FoodAvatar({
     Key? key,
     required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: sizeFit(false, 40, context),
-          backgroundImage: CachedNetworkImageProvider(
-              controller.foodServices.foodMenus[index].foodImage!),
-        ),
-        Text(
-          controller.foodServices.foodMenus[index].foodName!,
-          style: AppTextStyles.Fourteen400TextAsh,
-        )
-      ],
+    return InkWell(
+      onTap: () {
+        Get.toNamed(Routes.FOOD_DETAILS, arguments: [
+          {"index": index},
+        ]);
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(
+            radius: sizeFit(false, 40, context),
+            backgroundImage: CachedNetworkImageProvider(
+                controller.foodServices.foodMenus[index].foodImage!),
+          ),
+          SizedBox(
+            height: sizeFit(false, 4, context),
+          ),
+          Text(
+            controller.foodServices.foodMenus[index].foodName!.capitalize!,
+            style: AppTextStyles.Sixteen400TextBlack,
+          )
+        ],
+      ),
     );
   }
 }

@@ -6,6 +6,8 @@ import 'package:fos/app/modules/auth/bindings/auth_binding.dart';
 import 'package:fos/app/modules/auth/views/auth_view.dart';
 import 'package:fos/app/modules/auth/views/login_view.dart';
 import 'package:fos/app/modules/auth/views/sign_up_view.dart';
+import 'package:fos/app/modules/food_details/bindings/food_details_binding.dart';
+import 'package:fos/app/modules/food_details/views/food_details_view.dart';
 import 'package:fos/app/modules/home/bindings/home_binding.dart';
 import 'package:fos/app/modules/home/views/home_view.dart';
 import 'package:fos/app/modules/nav/bindings/nav_binding.dart';
@@ -22,7 +24,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.ONBOARD;
 
   static final routes = [
     GetPage(
@@ -69,6 +71,11 @@ class AppPages {
       name: _Paths.ACCOUNTS,
       page: () => AccountsView(),
       binding: AccountsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FOOD_DETAILS,
+      page: () => FoodDetailsView(),
+      binding: FoodDetailsBinding(),
     ),
   ];
 }

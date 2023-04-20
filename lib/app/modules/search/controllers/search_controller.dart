@@ -7,8 +7,11 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
 import 'package:fos/app/modules/nav/controllers/nav_controller.dart';
+import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
+import 'package:fos/app/utilities/dialogues/general_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
+import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart%20';
 
@@ -39,6 +42,7 @@ class SearchController extends GetxController {
   final ImagePicker picker = ImagePicker();
   final AuthService authService = Get.find<AuthService>();
   final FoodServices foodServices = Get.find<FoodServices>();
+  final GeneralDialog generalDialog = GeneralDialog();
   @override
   void onInit() {
     super.onInit();
@@ -77,13 +81,16 @@ class SearchController extends GetxController {
   }
 
   Future saveFoodData() async {
-    await fireStore.collection('foodMenus').doc(authService.userID).set({
-      foodTitleEditingController.value.text.trim(): {
-        'foodName': foodTitleEditingController.value.text.trim(),
-        'foodDescription': foodDescriptionEditingController.value.text.trim(),
-        'foodImage': foodImageUrl,
-        'foodPrice': foodPriceEditingController.value.text.trim(),
-      }
+    await fireStore.collection('foodMenus').doc().set({
+      'foodName': foodTitleEditingController.value.text.trim(),
+      'foodDescription': foodDescriptionEditingController.value.text.trim(),
+      'foodImage': foodImageUrl,
+      'foodPrice': int.tryParse(foodPriceEditingController.value.text.trim()),
+      'sellerName': authService.userName
+    }).then((value) async {
+      await foodServices.getFoodMenus();
+      generalDialog.foodUploadSuccessCupertinoMessage('Your food has been savved ');
+      
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(
@@ -94,23 +101,5 @@ class SearchController extends GetxController {
             );
           });
     });
-    // await fireStore.collection('foodMenus').doc(authService.userID).set({
-    //   'foodName': foodTitleEditingController.value.text.trim(),
-    //   'foodDescription': foodDescriptionEditingController.value.text.trim(),
-    //   'foodImage': foodImageUrl,
-    //   'foodPrice': foodPriceEditingController.value.text.trim(),
-    // }).catchError((onError) {
-    //   debugPrint(onError.toString());
-    //   showDialog(
-    //       context: Get.context!,
-    //       builder: (builder) {
-    //         return ErrorDialog(
-    //           message: onError.toString(),
-    //         );
-    //       });
-    // });
-
-    await foodServices.getFoodMenus();
-    NavController().tabIndex.value = 0;
   }
 }
