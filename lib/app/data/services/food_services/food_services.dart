@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
+import 'package:fos/app/data/models/resturants/getResturantsResponseModel.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class FoodServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final List<FoodMenus> foodMenus = [];
+  final List<ResturantModel> resturantsList = [];
   @override
   void onReady() {
     // TODO: implement onReady
@@ -55,6 +57,23 @@ class FoodServices extends GetxService {
       //   return Comparable.compare(
       //       a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
       // }));
+    });
+  }
+
+  Future getResturants() async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('sellers').get().then((response) async {
+      var responseData = response.docs
+          .map((e) => ResturantModel.fromDocumentSnapshot(e))
+          .toList();
+      resturantsList.clear();
+      for (var element in responseData) {
+        resturantsList.add(element);
+      }
+      resturantsList.sort(((a, b) {
+        return Comparable.compare(
+            a.userName!.toLowerCase(), b.userName!.toLowerCase());
+      }));
     });
   }
 }

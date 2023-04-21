@@ -19,7 +19,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getFoodMeuns();
+    getMenus();
   }
 
   @override
@@ -31,9 +31,10 @@ class HomeController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
 
-  Future getFoodMeuns() async {
+  Future getMenus() async {
     pageViewState.value = ViewState.busy;
     await foodServices.getFoodMenus();
+    await foodServices.getResturants();
     pageViewState.value = ViewState.idle;
   }
 }

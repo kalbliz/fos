@@ -100,7 +100,25 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     SizedBox(
-                      height: sizeFit(false, 32, context),
+                      height: sizeFit(false, 16, context),
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 110, context),
+                      child: ListView.builder(
+                        itemCount:
+                            controller.foodServices.resturantsList.length,
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemExtent: 90,
+                        physics: BouncingScrollPhysics(),
+                        controller: controller.resturantsScrollController,
+                        itemBuilder: (context, index) {
+                          return ResturantAvatar(
+                            index: index,
+                          );
+                        },
+                      ),
                     ),
                     AuthButton(
                       title: 'Log Out',
@@ -108,7 +126,7 @@ class HomeView extends GetView<HomeController> {
                         // controller.firebaseAuth.signOut().then((response) {
                         //   Get.offAllNamed(Routes.LOGIN);
                         // });
-                        controller.getFoodMeuns();
+                        controller.getMenus();
                       },
                     )
                   ],
@@ -148,6 +166,47 @@ class FoodAvatar extends StatelessWidget {
           ),
           Text(
             controller.foodServices.foodMenus[index].foodName!.capitalize!,
+            style: AppTextStyles.Sixteen400TextBlack,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ResturantAvatar extends StatelessWidget {
+  final HomeController controller = HomeController();
+  final int index;
+  ResturantAvatar({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Get.toNamed(Routes.FOOD_DETAILS, arguments: [
+          {"index": index},
+        ]);
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: sizeFit(false, 90, context),
+            width: sizeFit(true, 100, context),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(controller
+                        .foodServices.resturantsList[index].userPhoto!))),
+          ),
+          SizedBox(
+            height: sizeFit(false, 4, context),
+          ),
+          Text(
+            controller.foodServices.resturantsList[index].userName!.capitalize!,
             style: AppTextStyles.Sixteen400TextBlack,
           )
         ],
