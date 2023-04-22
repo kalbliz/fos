@@ -26,6 +26,7 @@ class ResturantListView extends GetView<ResturantListController> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
+                    debugPrint(index.toString());
                     Get.toNamed(Routes.RESTURANT_DETAILS, arguments: [
                       {"index": index},
                     ]);

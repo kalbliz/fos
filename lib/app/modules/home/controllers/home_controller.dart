@@ -5,11 +5,14 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
+import 'package:sidebarx/sidebarx.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
   final singleChildScrollController = ScrollController();
   final resturantsScrollController = ScrollController();
+  final sidebarController =
+      SidebarXController(selectedIndex: 0, extended: true);
   final AuthService authService = Get.find<AuthService>();
   final FoodServices foodServices = Get.find<FoodServices>();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;

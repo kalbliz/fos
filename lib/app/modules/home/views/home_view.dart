@@ -11,6 +11,7 @@ import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
+import 'package:sidebarx/sidebarx.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -18,7 +19,40 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Container(),
+      drawer: SidebarX(
+        controller: controller.sidebarController,
+        footerItems: [
+          SidebarXItem(
+              icon: Icons.exit_to_app_outlined, label: 'Log Out', onTap: () {})
+        ],
+        showToggleButton: false,
+        separatorBuilder: (context, index) {
+          return Divider(
+            color: AppDarkColors.AppPrimaryWhite,
+            indent: sizeFit(true, 15, context),
+            endIndent: sizeFit(true, 15, context),
+          );
+        },
+        extendedTheme: SidebarXTheme(textStyle: AppTextStyles.Sixteen400White),
+        theme: SidebarXTheme(
+            padding:
+                EdgeInsets.symmetric(vertical: sizeFit(false, 50, context)),
+            width: sizeFit(true, 100, context),
+            selectedIconTheme: IconThemeData(
+              color: AppDarkColors.AppPrimaryWhite,
+            ),
+            iconTheme: IconThemeData(
+              color: AppDarkColors.AppPrimaryWhite,
+            ),
+            textStyle: AppTextStyles.Sixteen400White,
+            decoration: BoxDecoration(color: AppDarkColors.AppPrimaryPink)),
+        items: [
+          SidebarXItem(
+              icon: Icons.add_circle_outline, label: 'Add Food', onTap: () {}),
+          SidebarXItem(
+              icon: Icons.add_circle_outline, label: 'Add Food', onTap: () {}),
+        ],
+      ),
       appBar: AppBar(
         title: Text('Hey ${controller.authService.userName.capitalize}'),
         centerTitle: true,
