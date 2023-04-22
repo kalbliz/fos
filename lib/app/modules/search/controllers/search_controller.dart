@@ -89,7 +89,7 @@ class SearchController extends GetxController {
       'sellerName': authService.userName
     }).then((value) async {
       await foodServices.getFoodMenus();
-      generalDialog.foodUploadSuccessCupertinoMessage('Your food has been savved ');
+      generalDialog.foodUploadSuccessCupertinoMessage('Your food has been saved ');
       
     }).catchError((onError) {
       debugPrint(onError.toString());

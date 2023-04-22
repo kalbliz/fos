@@ -19,4 +19,7 @@ class AuthService extends GetxService {
     _box = GetStorage();
     super.onInit();
   }
+  Future getResturantProfile()async{
+    
+  }
 }
