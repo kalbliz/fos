@@ -16,6 +16,10 @@ import 'package:fos/app/modules/onboard/bindings/onboard_binding.dart';
 import 'package:fos/app/modules/onboard/views/onboard_view.dart';
 import 'package:fos/app/modules/orders/bindings/orders_binding.dart';
 import 'package:fos/app/modules/orders/views/orders_view.dart';
+import 'package:fos/app/modules/resturant_details/bindings/resturant_details_binding.dart';
+import 'package:fos/app/modules/resturant_details/views/resturant_details_view.dart';
+import 'package:fos/app/modules/resturant_list/bindings/resturant_list_binding.dart';
+import 'package:fos/app/modules/resturant_list/views/resturant_list_view.dart';
 import 'package:fos/app/modules/search/bindings/search_binding.dart';
 import 'package:fos/app/modules/search/views/search_view.dart';
 
@@ -76,6 +80,16 @@ class AppPages {
       name: _Paths.FOOD_DETAILS,
       page: () => FoodDetailsView(),
       binding: FoodDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESTURANT_DETAILS,
+      page: () => ResturantDetailsView(),
+      binding: ResturantDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESTURANT_LIST,
+      page: () => ResturantListView(),
+      binding: ResturantListBinding(),
     ),
   ];
 }

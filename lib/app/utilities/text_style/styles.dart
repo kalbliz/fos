@@ -38,7 +38,12 @@ class AppTextStyles {
   static TextStyle Eighteen600TextBlack = GoogleFonts.poppins(
     color: AppDarkColors.AppTextBlack,
     fontSize: sizeFit(false, 18, Get.context!),
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w800,
+  );
+  static TextStyle Twenty600TextBlack = GoogleFonts.poppins(
+    color: AppDarkColors.AppTextBlack,
+    fontSize: sizeFit(false, 20, Get.context!),
+    fontWeight: FontWeight.w600,
   );
   static TextStyle TwentyFour500TextBlack = GoogleFonts.poppins(
       color: AppDarkColors.AppTextBlack,

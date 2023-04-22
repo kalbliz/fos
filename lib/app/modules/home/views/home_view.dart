@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/loader/image_loader.dart';
 import 'package:get/get.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
@@ -148,9 +149,23 @@ class HomeView extends GetView<HomeController> {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizeFit(true, 16, context)),
-                        child: Text(
-                          'Resturants around your location',
-                          style: AppTextStyles.TwentyFour500TextBlack,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'In your location',
+                              style: AppTextStyles.Twenty600TextBlack,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed(Routes.RESTURANT_LIST);
+                              },
+                              child: Text(
+                                'see all',
+                                style: AppTextStyles.Fourteen400TextPink,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -160,7 +175,7 @@ class HomeView extends GetView<HomeController> {
                         padding:
                             EdgeInsets.only(left: sizeFit(true, 16, context)),
                         child: SizedBox(
-                          height: sizeFit(false, 200, context),
+                          height: sizeFit(false, 230, context),
                           child: ListView.separated(
                             itemCount: controller.foodServices.foodMenus.length,
                             padding: EdgeInsets.zero,
@@ -182,15 +197,15 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                      AuthButton(
-                        title: 'Log Out',
-                        onTap: () {
-                          // controller.firebaseAuth.signOut().then((response) {
-                          //   Get.offAllNamed(Routes.LOGIN);
-                          // });
-                          controller.getMenus();
-                        },
-                      )
+                      // AuthButton(
+                      //   title: 'Log Out',
+                      //   onTap: () {
+                      //     // controller.firebaseAuth.signOut().then((response) {
+                      //     //   Get.offAllNamed(Routes.LOGIN);
+                      //     // });
+                      //     controller.getMenus();
+                      //   },
+                      // )
                     ],
                   ),
                 );
@@ -339,6 +354,24 @@ class ResturantInLocationAvatar extends StatelessWidget {
           SizedBox(
             height: sizeFit(false, 1, context),
           ),
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 0,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemSize: sizeFit(false, 18, context),
+            itemCount: 5,
+            ignoreGestures: true,
+            itemPadding: EdgeInsets.zero,
+            itemBuilder: (context, _) => Icon(
+              Icons.star_rounded,
+              color: AppDarkColors.AppPrimaryPink,
+              size: sizeFit(false, 15, context),
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+            },
+          )
         ],
       ),
     );
