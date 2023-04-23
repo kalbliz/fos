@@ -11,8 +11,7 @@ class HomeController extends GetxController {
   //TODO: Implement HomeController
   final singleChildScrollController = ScrollController();
   final resturantsScrollController = ScrollController();
-  final sidebarController =
-      SidebarXController(selectedIndex: 0, extended: true);
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService authService = Get.find<AuthService>();
   final FoodServices foodServices = Get.find<FoodServices>();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;

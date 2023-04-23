@@ -6,6 +6,8 @@ import 'package:fos/app/modules/auth/bindings/auth_binding.dart';
 import 'package:fos/app/modules/auth/views/auth_view.dart';
 import 'package:fos/app/modules/auth/views/login_view.dart';
 import 'package:fos/app/modules/auth/views/sign_up_view.dart';
+import 'package:fos/app/modules/create_food/bindings/create_food_binding.dart';
+import 'package:fos/app/modules/create_food/views/create_food_view.dart';
 import 'package:fos/app/modules/food_details/bindings/food_details_binding.dart';
 import 'package:fos/app/modules/food_details/views/food_details_view.dart';
 import 'package:fos/app/modules/home/bindings/home_binding.dart';
@@ -90,6 +92,11 @@ class AppPages {
       name: _Paths.RESTURANT_LIST,
       page: () => ResturantListView(),
       binding: ResturantListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_FOOD,
+      page: () => CreateFoodView(),
+      binding: CreateFoodBinding(),
     ),
   ];
 }

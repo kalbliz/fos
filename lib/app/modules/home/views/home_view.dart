@@ -19,39 +19,84 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SidebarX(
-        controller: controller.sidebarController,
-        footerItems: [
-          SidebarXItem(
-              icon: Icons.exit_to_app_outlined, label: 'Log Out', onTap: () {})
-        ],
-        showToggleButton: false,
-        separatorBuilder: (context, index) {
-          return Divider(
-            color: AppDarkColors.AppPrimaryWhite,
-            indent: sizeFit(true, 15, context),
-            endIndent: sizeFit(true, 15, context),
-          );
-        },
-        extendedTheme: SidebarXTheme(textStyle: AppTextStyles.Sixteen400White),
-        theme: SidebarXTheme(
-            padding:
-                EdgeInsets.symmetric(vertical: sizeFit(false, 50, context)),
-            width: sizeFit(true, 100, context),
-            selectedIconTheme: IconThemeData(
-              color: AppDarkColors.AppPrimaryWhite,
+      key: controller.scaffoldKey,
+      drawer: Drawer(
+        width: sizeFit(true, 100, context),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        backgroundColor: AppDarkColors.AppPrimaryPink,
+        child: SafeArea(
+          child: SizedBox(
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        Get.offAndToNamed(Routes.CREATE_FOOD);
+                      },
+                      title: Icon(
+                        Icons.add,
+                        color: AppDarkColors.AppPrimaryWhite,
+                        size: sizeFit(false, 22, context),
+                      ),
+                      subtitle: Text(
+                        'Add Food',
+                        style: AppTextStyles.Sixteen400White,
+                      ),
+                    ),
+                    Divider(
+                      height: sizeFit(false, 0, context),
+                      color: AppDarkColors.AppPrimaryWhite,
+                      indent: sizeFit(true, 15, context),
+                      endIndent: sizeFit(true, 15, context),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 10, context),
+                ),
+                Column(
+                  children: [
+                    ListTile(
+                      title: Icon(
+                        Icons.add,
+                        color: AppDarkColors.AppPrimaryWhite,
+                        size: sizeFit(false, 22, context),
+                      ),
+                      subtitle: Text(
+                        'Add Resturant',
+                        style: AppTextStyles.Sixteen400White,
+                      ),
+                    ),
+                    Divider(
+                      height: sizeFit(false, 0, context),
+                      color: AppDarkColors.AppPrimaryWhite,
+                      indent: sizeFit(true, 15, context),
+                      endIndent: sizeFit(true, 15, context),
+                    ),
+                  ],
+                ),
+                ListTile(
+                  onTap: () {
+                    controller.firebaseAuth.signOut().then((response) {
+                      Get.offAllNamed(Routes.LOGIN);
+                    });
+                    controller.getMenus();
+                  },
+                  title: Icon(
+                    Icons.logout,
+                    color: AppDarkColors.AppPrimaryWhite,
+                    size: sizeFit(false, 22, context),
+                  ),
+                  subtitle: Text(
+                    'Log Out',
+                    style: AppTextStyles.Sixteen400White,
+                  ),
+                ),
+              ],
             ),
-            iconTheme: IconThemeData(
-              color: AppDarkColors.AppPrimaryWhite,
-            ),
-            textStyle: AppTextStyles.Sixteen400White,
-            decoration: BoxDecoration(color: AppDarkColors.AppPrimaryPink)),
-        items: [
-          SidebarXItem(
-              icon: Icons.add_circle_outline, label: 'Add Food', onTap: () {}),
-          SidebarXItem(
-              icon: Icons.add_circle_outline, label: 'Add Food', onTap: () {}),
-        ],
+          ),
+        ),
       ),
       appBar: AppBar(
         title: Text('Hey ${controller.authService.userName.capitalize}'),
@@ -231,15 +276,6 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                      // AuthButton(
-                      //   title: 'Log Out',
-                      //   onTap: () {
-                      //     // controller.firebaseAuth.signOut().then((response) {
-                      //     //   Get.offAllNamed(Routes.LOGIN);
-                      //     // });
-                      //     controller.getMenus();
-                      //   },
-                      // )
                     ],
                   ),
                 );
