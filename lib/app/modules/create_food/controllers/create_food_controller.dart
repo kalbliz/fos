@@ -84,6 +84,7 @@ class CreateFoodController extends GetxController {
 
   Future saveFoodData() async {
     await fireStore.collection('foodMenus').doc().set({
+      
       'foodName': foodTitleEditingController.value.text.trim(),
       'foodDescription': foodDescriptionEditingController.value.text.trim(),
       'foodImage': foodImageUrl,

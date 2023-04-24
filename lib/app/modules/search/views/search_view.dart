@@ -40,6 +40,9 @@ class SearchView extends GetView<SearchController> {
                                 textEditingController:
                                     controller.searchTextEditingController,
                                 hintText: '',
+                                onChanged: (String value) {
+                                  controller.searchFood();
+                                },
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     Icons.search,
@@ -63,6 +66,7 @@ class SearchView extends GetView<SearchController> {
                               : GridView.builder(
                                   shrinkWrap: true,
                                   itemCount: controller.searchMenu.length,
+                                  physics: BouncingScrollPhysics(),
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2),

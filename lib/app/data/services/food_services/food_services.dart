@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class FoodServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
-  final List<FoodMenus> foodMenus = [];
+  final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
   final List<ResturantModel> resturantsList = [];
   @override
   void onReady() {
@@ -26,6 +26,7 @@ class FoodServices extends GetxService {
         .then((response) async {
       var responseData =
           response.docs.map((e) => FoodMenus.fromDocumentSnapshot(e)).toList();
+
       foodMenus.clear();
       for (var element in responseData) {
         foodMenus.add(element);
@@ -35,6 +36,12 @@ class FoodServices extends GetxService {
             a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
       }));
     });
+  }
+
+  Future deleteFoodMenus(String id) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('foodMenus').doc(id).delete();
+    getFoodMenus();
   }
 
   Future getFoodMenusFromResturant({required String resturantName}) async {

@@ -37,6 +37,7 @@ class SearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    loadFoods();
   }
 
   @override
@@ -46,7 +47,6 @@ class SearchController extends GetxController {
 
   @override
   void onClose() {}
- 
 
   Future searchFood() async {
     pageState.value = ViewState.busy;
@@ -55,29 +55,13 @@ class SearchController extends GetxController {
             .toLowerCase()
             .contains(searchTextEditingController.value.text.toLowerCase()))
         .toList();
-        
+
     pageState.value = ViewState.idle;
   }
-  // Future saveFoodData() async {
-  //   await fireStore.collection('foodMenus').doc().set({
-  //     'foodName': searchEditingController.value.text.trim(),
-  //     'foodDescription': foodDescriptionEditingController.value.text.trim(),
-  //     'foodImage': foodImageUrl,
-  //     'foodPrice': int.tryParse(foodPriceEditingController.value.text.trim()),
-  //     'sellerName': authService.userName
-  //   }).then((value) async {
-  //     await foodServices.getFoodMenus();
-  //     generalDialog
-  //         .foodUploadSuccessCupertinoMessage('Your food has been saved ');
-  //   }).catchError((onError) {
-  //     debugPrint(onError.toString());
-  //     showDialog(
-  //         context: Get.context!,
-  //         builder: (builder) {
-  //           return ErrorDialog(
-  //             message: onError.toString(),
-  //           );
-  //         });
-  //   });
-  // }
+
+  loadFoods() async {
+    pageState.value = ViewState.busy;
+    searchMenu.value = foodServices.foodMenus;
+    pageState.value = ViewState.idle;
+  }
 }

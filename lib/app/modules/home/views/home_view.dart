@@ -174,7 +174,10 @@ class HomeView extends GetView<HomeController> {
                                   SizedBox(
                                       width: sizeFit(true, 150, context),
                                       child: AuthButton(
-                                          title: 'Order Now', onTap: () {}))
+                                          title: 'Order Now',
+                                          onTap: () {
+                                            controller.getMenus();
+                                          }))
                                 ],
                               ),
                             ),
