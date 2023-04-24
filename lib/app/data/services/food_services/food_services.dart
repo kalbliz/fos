@@ -11,6 +11,7 @@ class FoodServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
+  final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
   final List<ResturantModel> resturantsList = [];
   @override
   void onReady() {
