@@ -83,8 +83,9 @@ class FosTextFieldWidget extends StatelessWidget {
               fillColor: AppDarkColors.AppTextAsh,
               contentPadding: EdgeInsets.symmetric(
                   horizontal: sizeFit(true, 16, context),
-                  vertical: sizeFit(false, 4, context)),
-              suffixIcon: suffixIcon,
+                  vertical: sizeFit(false, 0, context)),
+              // suffixIcon: suffixIcon,
+              suffix: suffixIcon,
               hintText: hintText,
               hintStyle: GoogleFonts.nunito(
                 color: AppDarkColors.AppTextAsh,

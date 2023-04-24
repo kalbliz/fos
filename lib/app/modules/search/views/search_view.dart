@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
+import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:fos/app/utilities/textfield/fob_formfield.dart';
 
 import 'package:get/get.dart';
@@ -17,103 +20,87 @@ class SearchView extends GetView<SearchController> {
     return Scaffold(
         appBar: AppBar(
           leading: SizedBox(),
-          title: Text('SearchView'),
+          title: Text('Search for the food you want'),
           centerTitle: true,
         ),
         body: Obx(() {
           return controller.pageState.value == ViewState.busy
               ? Center(child: CircularProgressIndicator.adaptive())
-              : Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: sizeFit(true, 16, context)),
-                        child: Form(
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: sizeFit(true, 16, context)),
+                    child: Column(
+                      children: [
+                        Form(
                           key: controller.foodFormKey,
                           child: Column(
                             children: [
-                              Obx(() {
-                                return InkWell(
-                                  onTap: () {
-                                    controller.getImage();
-                                  },
-                                  child: CircleAvatar(
-                                    radius: sizeFit(false, 50, context),
-                                    backgroundColor:
-                                        AppDarkColors.AppPrimaryPink,
-                                    backgroundImage: controller.file.value == ''
-                                        ? null
-                                        : FileImage(
-                                            File(controller.file.value)),
-                                    child: controller.file.value == ''
-                                        ? Icon(
-                                            Icons.add_photo_alternate,
-                                            size: sizeFit(false, 30, context),
-                                            color:
-                                                AppDarkColors.AppPrimaryWhite,
-                                          )
-                                        : null,
+                              FosTextFieldWidget(
+                                textEditingController:
+                                    controller.searchTextEditingController,
+                                hintText: '',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    Icons.search,
+                                    color: AppDarkColors.AppPrimaryPink,
+                                    size: sizeFit(false, 20, context),
                                   ),
-                                );
-                              }),
-                              SizedBox(
-                                height: sizeFit(false, 16, context),
-                              ),
-                              SizedBox(
-                                width: sizeFit(true, 300, context),
-                                child: FosTextFieldWidget(
-                                  hintText: 'Enter Food Name',
-                                  textEditingController:
-                                      controller.foodTitleEditingController,
-                                  validator: controller.foodTitleValidator,
+                                  onPressed: () {
+                                    controller.searchFood();
+                                  },
                                 ),
-                              ),
-                              SizedBox(
-                                height: sizeFit(false, 16, context),
-                              ),
-                              SizedBox(
-                                width: sizeFit(true, 300, context),
-                                child: FosTextFieldWidget(
-                                  hintText: 'Describe the Food',
-                                  textEditingController: controller
-                                      .foodDescriptionEditingController,
-                                  validator:
-                                      controller.foodDescriptionValidator,
-                                ),
-                              ),
-                              SizedBox(
-                                height: sizeFit(false, 16, context),
-                              ),
-                              SizedBox(
-                                width: sizeFit(true, 300, context),
-                                child: FosTextFieldWidget(
-                                  hintText: 'Set Food Price in Naira',
-                                  textEditingController:
-                                      controller.foodPriceEditingController,
-                                  validator: controller.foodPriceValidator,
-                                  textInputType: TextInputType.number,
-                                ),
-                              ),
+                              )
                             ],
                           ),
                         ),
-                      ),
+                        SizedBox(
+                          height: sizeFit(false, 36, context),
+                        ),
+                        Obx(() {
+                          return controller.searchMenu.isEmpty
+                              ? Text('Sorry There is no food with that name')
+                              : GridView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: controller.searchMenu.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2),
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Get.toNamed(Routes.FOOD_DETAILS,
+                                            arguments: [
+                                              {"index": index},
+                                            ]);
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          CircleAvatar(
+                                            radius: sizeFit(false, 60, context),
+                                            backgroundImage:
+                                                CachedNetworkImageProvider(
+                                                    controller.searchMenu[index]
+                                                        .foodImage!),
+                                          ),
+                                          SizedBox(
+                                            height: sizeFit(false, 4, context),
+                                          ),
+                                          Text(
+                                            controller.searchMenu[index]
+                                                .foodName!.capitalize!,
+                                            style: AppTextStyles
+                                                .Sixteen400TextBlack,
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  });
+                        })
+                      ],
                     ),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: AuthButton(
-                          title: 'Upload Food',
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            if (controller.foodFormKey.currentState!
-                                    .validate() &&
-                                controller.file.value != '') {
-                              controller.uploadFoodDetails();
-                            }
-                          },
-                        ))
-                  ],
+                  ),
                 );
         }));
   }
