@@ -301,7 +301,7 @@ class FoodAvatar extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(Routes.FOOD_DETAILS, arguments: [
-          {"index": index},
+          {"id": controller.foodServices.foodMenus.elementAt(index).id},
         ]);
       },
       child: Column(

@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
+import 'package:fos/app/data/services/cart_services/cart_service.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
+import 'package:fos/app/data/services/orders/order_service.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 
@@ -17,6 +19,8 @@ void main() async {
   await Get.putAsync<AuthService>(() async => AuthService());
   await Get.putAsync<ImageUploadService>(() async => ImageUploadService());
   await Get.putAsync<FoodServices>(() async => FoodServices());
+  await Get.putAsync<OrderServices>(() async => OrderServices());
+    await Get.putAsync<CartServices>(() async => CartServices());
 
   await Firebase.initializeApp(
       options: const FirebaseOptions(

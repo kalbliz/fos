@@ -4,16 +4,16 @@ import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
 
-class OrdersController extends GetxController {
-  //TODO: Implement OrdersController
+class CartController extends GetxController {
+  //TODO: Implement CartController
   final pageState = ViewState.idle.obs;
   final foodServices = Get.find<FoodServices>();
-  final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
+  final RxList<FoodMenus> orderMenu = <FoodMenus>[].obs;
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
-   
+    orderMenu.value = foodServices.foodMenus;
   }
 
   @override
