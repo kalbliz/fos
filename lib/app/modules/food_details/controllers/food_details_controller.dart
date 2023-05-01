@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
+import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
 
@@ -31,9 +32,8 @@ class FoodDetailsController extends GetxController {
 
   Future addToCart() async {
     pageView.value = ViewState.busy;
-    foodMenus = FoodMenus(
-
-    );
+    foodMenus = foodServices.foodMenus.elementAt(
+        foodServices.foodMenus.indexWhere((element) => element.id == id));
     await cartServices
         .addCartDetailToDb(
             foodMenus: foodMenus,
@@ -41,6 +41,7 @@ class FoodDetailsController extends GetxController {
             status: status.value)
         .then((response) {
       debugPrint(response.toString());
+      Get.toNamed(Routes.CART);
     });
     pageView.value = ViewState.idle;
   }

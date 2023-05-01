@@ -21,7 +21,7 @@ class FoodDetailsView extends GetView<FoodDetailsController> {
         ),
         body: Obx(() {
           return controller.pageView.value == ViewState.busy
-              ? CircularProgressIndicator.adaptive()
+              ? Center(child: CircularProgressIndicator.adaptive())
               : Stack(
                   children: [
                     SingleChildScrollView(
@@ -191,7 +191,9 @@ class FoodDetailsView extends GetView<FoodDetailsController> {
                             bottom: sizeFit(false, 20, context)),
                         child: AuthButton(
                           title: 'Order Now',
-                          onTap: () {},
+                          onTap: () {
+                            controller.addToCart();
+                          },
                         ),
                       ),
                     )

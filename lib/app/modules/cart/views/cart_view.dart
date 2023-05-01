@@ -22,92 +22,108 @@ class CartView extends GetView<CartController> {
         body: SafeArea(
           child: Obx(() {
             return controller.pageState.value == ViewState.busy
-                ? CircularProgressIndicator.adaptive()
+                ? Center(child: CircularProgressIndicator.adaptive())
                 : Stack(
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: sizeFit(true, 16, context)),
-                        child: Column(
-                          children: [
-                            Obx(() {
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount:
-                                      controller.foodServices.foodMenus.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: sizeFit(false, 10, context)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius:
-                                                    sizeFit(false, 40, context),
-                                                backgroundImage:
-                                                    CachedNetworkImageProvider(
-                                                        controller.orderMenu
-                                                            .elementAt(0)
-                                                            .foodImage!),
-                                              ),
-                                              SizedBox(
-                                                width:
-                                                    sizeFit(true, 16, context),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                        child: Obx(() {
+                          return controller.cartServices.cartList.isEmpty
+                              ? Center(
+                                  child: Text(
+                                  'Cart is Empty',
+                                  style: AppTextStyles.Eighteen600TextBlack,
+                                ))
+                              : Column(
+                                  children: [
+                                    Obx(() {
+                                      return ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: controller
+                                              .cartServices.cartList.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: sizeFit(
+                                                      false, 10, context)),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Text(
-                                                    controller.orderMenu
-                                                        .elementAt(0)
-                                                        .foodName!,
-                                                    style: AppTextStyles
-                                                        .Sixteen500TextBlack,
+                                                  Row(
+                                                    children: [
+                                                      CircleAvatar(
+                                                        radius: sizeFit(
+                                                            false, 40, context),
+                                                        backgroundImage:
+                                                            CachedNetworkImageProvider(
+                                                                controller
+                                                                    .orderMenu
+                                                                    .elementAt(
+                                                                        0)
+                                                                    .foodImage!),
+                                                      ),
+                                                      SizedBox(
+                                                        width: sizeFit(
+                                                            true, 16, context),
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            controller.orderMenu
+                                                                .elementAt(0)
+                                                                .foodName!,
+                                                            style: AppTextStyles
+                                                                .Sixteen500TextBlack,
+                                                          ),
+                                                          Text(
+                                                            'View',
+                                                            style: AppTextStyles
+                                                                .Fourteen400TextPink,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    'View',
-                                                    style: AppTextStyles
-                                                        .Fourteen400TextPink,
+                                                  IconButton(
+                                                    icon: Icon(
+                                                      CupertinoIcons.delete,
+                                                      color: AppDarkColors
+                                                          .AppPrimaryPink,
+                                                      size: sizeFit(
+                                                          false, 20, context),
+                                                    ),
+                                                    onPressed: () {
+                                                      controller.deleteOrder(
+                                                          controller.orderMenu
+                                                              .elementAt(0)
+                                                              .id);
+                                                    },
                                                   )
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                          IconButton(
-                                            icon: Icon(
-                                              CupertinoIcons.delete,
-                                              color:
-                                                  AppDarkColors.AppPrimaryPink,
-                                              size: sizeFit(false, 20, context),
-                                            ),
-                                            onPressed: () {
-                                              controller.deleteOrder(controller
-                                                  .orderMenu
-                                                  .elementAt(0)
-                                                  .id);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  });
-                            }),
-                          ],
-                        ),
+                                            );
+                                          });
+                                    }),
+                                  ],
+                                );
+                        }),
                       ),
-                      Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                              padding: EdgeInsets.only(
-                                  bottom: sizeFit(false, 10, context)),
-                              child: AuthButton(
-                                  title: 'Complete Order', onTap: () {})))
+                      controller.cartServices.cartList.isEmpty
+                          ? SizedBox()
+                          : Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: sizeFit(false, 10, context)),
+                                  child: AuthButton(
+                                      title: 'Complete Order', onTap: () {})))
                     ],
                   );
           }),
