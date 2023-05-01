@@ -76,6 +76,30 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ],
                 ),
+                Column(
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        Get.offAndToNamed(Routes.CHECK_OUT);
+                      },
+                      title: Icon(
+                        Icons.add,
+                        color: AppDarkColors.AppPrimaryWhite,
+                        size: sizeFit(false, 22, context),
+                      ),
+                      subtitle: Text(
+                        'Check Out',
+                        style: AppTextStyles.Sixteen400White,
+                      ),
+                    ),
+                    Divider(
+                      height: sizeFit(false, 0, context),
+                      color: AppDarkColors.AppPrimaryWhite,
+                      indent: sizeFit(true, 15, context),
+                      endIndent: sizeFit(true, 15, context),
+                    ),
+                  ],
+                ),
                 ListTile(
                   onTap: () {
                     controller.firebaseAuth.signOut().then((response) {
