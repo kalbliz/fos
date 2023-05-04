@@ -21,6 +21,7 @@ class CheckOutController extends GetxController {
   final count = 0.obs;
   final AuthService authService = Get.find<AuthService>();
   final CartServices cartService = Get.find<CartServices>();
+  final Rx<num> total = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -28,6 +29,7 @@ class CheckOutController extends GetxController {
     email.text = authService.userEmail;
     phone.text = authService.userPhoneNumber;
     address.text = authService.userAddress;
+    calculateTotal();
   }
 
   @override
@@ -49,7 +51,7 @@ class CheckOutController extends GetxController {
         //the first 10 fields below are required/mandatory
         context: context,
         customer: customer,
-        amount: amount.value.text,
+        amount: total.value.toString(),
         //Use your Public and Encription Keys from your Flutterwave account on the dashboard
 
         publicKey: "FLWPUBK_TEST-e280c645e5fb6a6a4a89935a41ded69e-X",
@@ -84,5 +86,13 @@ class CheckOutController extends GetxController {
       debugPrint(e.toString());
     }
     pageViewState.value = ViewState.idle;
+  }
+
+  calculateTotal() async {
+    num sum = 0;
+    for (var element in cartService.cartList) {
+      sum += element.foodPrice!;
+    }
+    total.value = sum;
   }
 }

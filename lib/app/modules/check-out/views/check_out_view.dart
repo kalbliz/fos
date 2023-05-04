@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:get/get.dart';
 
 import 'package:fos/app/utilities/buttons/auth_button.dart';
@@ -21,6 +22,7 @@ class CheckOutView extends GetView<CheckOutController> {
             child: Stack(
           children: [
             SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -95,6 +97,7 @@ class CheckOutView extends GetView<CheckOutController> {
                     padding: EdgeInsets.symmetric(
                         horizontal: sizeFit(true, 24, context)),
                     child: ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: controller.cartService.cartList.length,
                       itemBuilder: (context, index) {
@@ -106,13 +109,32 @@ class CheckOutView extends GetView<CheckOutController> {
                               .elementAt(index)
                               .foodName!,
                           resturantName: controller.cartService.cartList
-                              .elementAt(index).foodName!,
+                              .elementAt(index)
+                              .foodName!,
                         );
                       },
                       separatorBuilder: (context, index) {
                         return Divider();
                       },
                     ),
+                  ),
+                  SizedBox(
+                    height: sizeFit(false, 16, context),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: sizeFit(true, 24, context)),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Total',
+                              style: AppTextStyles.Sixteen400TextBlack),
+                          Text('NGN${controller.total.value.toString()}',
+                              style: AppTextStyles.Sixteen600Pink),
+                        ]),
+                  ),
+                  SizedBox(
+                    height: sizeFit(false, 100, context),
                   )
                 ],
               ),
@@ -120,6 +142,8 @@ class CheckOutView extends GetView<CheckOutController> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
+                height: sizeFit(false, 60, context),
+                color: AppDarkColors.AppPrimaryWhite,
                 padding: EdgeInsets.only(bottom: sizeFit(false, 10, context)),
                 child: AuthButton(
                   onTap: () {
