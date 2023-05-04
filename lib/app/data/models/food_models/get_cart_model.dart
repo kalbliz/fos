@@ -1,23 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartModel {
-  CartModel({
-    this.foodName,
-    this.id,
-    this.foodDescription,
-    this.foodImage,
-    this.foodPrice,
-    this.quantity,
-    this.status,
-  });
+  CartModel(
+      {this.foodName,
+      this.id,
+      this.foodDescription,
+      this.foodImage,
+      this.foodPrice,
+      this.quantity,
+      this.status,
+      this.foodId});
 
   final String? foodName;
   final String? foodDescription;
   final String? foodImage;
   final num? foodPrice;
-
   final int? quantity;
   final String? status;
+  dynamic foodId;
   dynamic id;
 
   factory CartModel.fromDocumentSnapshot(
@@ -29,6 +29,7 @@ class CartModel {
           foodPrice: json["foodPrice"],
           quantity: json['quantity'],
           status: json['status'],
+          foodId: json['foodId'],
           id: json.id);
 
   Map<String, dynamic> toMap() => {
@@ -38,6 +39,7 @@ class CartModel {
         "foodPrice": foodPrice,
         "status": status,
         "quantity": quantity,
+        "foodId": foodId,
         "id": id
       };
 }

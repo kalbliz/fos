@@ -38,80 +38,80 @@ class CartView extends GetView<CartController> {
                                 ))
                               : Column(
                                   children: [
-                                    Obx(() {
-                                      return ListView.builder(
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: controller
-                                              .cartServices.cartList.length,
-                                          itemBuilder: (context, index) {
-                                            return Padding(
-                                              padding: EdgeInsets.only(
-                                                  bottom: sizeFit(
-                                                      false, 10, context)),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      CircleAvatar(
-                                                        radius: sizeFit(
-                                                            false, 40, context),
-                                                        backgroundImage:
-                                                            CachedNetworkImageProvider(
-                                                                controller
-                                                                    .orderMenu
-                                                                    .elementAt(
-                                                                        0)
-                                                                    .foodImage!),
-                                                      ),
-                                                      SizedBox(
-                                                        width: sizeFit(
-                                                            true, 16, context),
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            controller.orderMenu
-                                                                .elementAt(0)
-                                                                .foodName!,
-                                                            style: AppTextStyles
-                                                                .Sixteen500TextBlack,
-                                                          ),
-                                                          Text(
-                                                            'View',
-                                                            style: AppTextStyles
-                                                                .Fourteen400TextPink,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  IconButton(
-                                                    icon: Icon(
-                                                      CupertinoIcons.delete,
-                                                      color: AppDarkColors
-                                                          .AppPrimaryPink,
-                                                      size: sizeFit(
-                                                          false, 20, context),
+                                    ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: controller
+                                            .cartServices.cartList.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: sizeFit(
+                                                    false, 10, context)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: sizeFit(
+                                                          false, 40, context),
+                                                      backgroundImage:
+                                                          CachedNetworkImageProvider(
+                                                              controller
+                                                                  .cartServices
+                                                                  .cartList[
+                                                                      index]
+                                                                  .foodImage!),
                                                     ),
-                                                    onPressed: () {
-                                                      controller.deleteOrder(
-                                                          controller.orderMenu
-                                                              .elementAt(0)
-                                                              .id);
-                                                    },
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          });
-                                    }),
+                                                    SizedBox(
+                                                      width: sizeFit(
+                                                          true, 16, context),
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          controller
+                                                              .cartServices
+                                                              .cartList[index]
+                                                              .foodName!,
+                                                          style: AppTextStyles
+                                                              .Sixteen500TextBlack,
+                                                        ),
+                                                        Text(
+                                                          'View',
+                                                          style: AppTextStyles
+                                                              .Fourteen400TextPink,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(
+                                                    CupertinoIcons.delete,
+                                                    color: AppDarkColors
+                                                        .AppPrimaryPink,
+                                                    size: sizeFit(
+                                                        false, 20, context),
+                                                  ),
+                                                  onPressed: () {
+                                                    controller.deleteOrder(
+                                                        controller
+                                                            .cartServices
+                                                            .cartList[index]
+                                                            .id);
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        })
                                   ],
                                 );
                         }),

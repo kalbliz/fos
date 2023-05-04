@@ -28,7 +28,8 @@ class CartServices extends GetxService {
       "foodName": foodMenus.foodName,
       "foodPrice": foodMenus.foodPrice,
       "quantity": quantity,
-      "status": status
+      "status": status,
+      "foodId":foodMenus.id
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(

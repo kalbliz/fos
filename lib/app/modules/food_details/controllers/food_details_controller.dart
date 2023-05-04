@@ -40,8 +40,9 @@ class FoodDetailsController extends GetxController {
             quantity: quantity.value,
             status: status.value)
         .then((response) {
-      debugPrint(response.toString());
-      Get.toNamed(Routes.CART);
+      Get.toNamed(Routes.CART, arguments: [
+        {"id": id}
+      ]);
     });
     pageView.value = ViewState.idle;
   }
