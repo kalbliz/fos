@@ -41,6 +41,26 @@ class CartServices extends GetxService {
     });
   }
 
+  Future deleteCartDetailsFromDb() async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('cart').get().then((snapShot) {
+      for (DocumentSnapshot ds in snapShot.docs) {
+        ds.reference.delete();
+      }
+      debugPrint('Cart deleted');
+      getCart();
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      showDialog(
+          context: Get.context!,
+          builder: (builder) {
+            return ErrorDialog(
+              message: onError.toString(),
+            );
+          });
+    });
+  }
+
   Future getCart() async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('cart').get().then((response) async {

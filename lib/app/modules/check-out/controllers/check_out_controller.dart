@@ -63,7 +63,7 @@ class CheckOutController extends GetxController {
         redirectUrl:
             'https://thechoicepetshop.com/wc-api/Flw_WC_Payment_Webhook/');
     try {
-      await flutterwave.charge().then((response) {
+      await flutterwave.charge().then((response) async {
         debugPrint(response.transactionId);
 
         if (response.status == null) {
@@ -72,19 +72,19 @@ class CheckOutController extends GetxController {
           if (response.status == "Transaction successful") {
             print(response.status);
             print(response.transactionId);
-
-            Get.back();
           } else if (response.status == 'cancelled') {
-            Get.back();
             print(response.status);
           } else {
             print(response.status);
           }
         }
+        await cartService.deleteCartDetailsFromDb();
+        calculateTotal();
       });
     } catch (e) {
       debugPrint(e.toString());
     }
+
     pageViewState.value = ViewState.idle;
   }
 
