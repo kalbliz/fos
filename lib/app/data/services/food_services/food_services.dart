@@ -41,7 +41,13 @@ class FoodServices extends GetxService {
 
   Future deleteFoodMenus(String id) async {
     firebaseFireStore = FirebaseFirestore.instance;
-    await firebaseFireStore.collection('foodMenus').doc(id).delete();
+    await firebaseFireStore
+        .collection('foodMenus')
+        .doc(id)
+        .delete()
+        .catchError((onError) {
+      debugPrint(onError.toString());
+    });
     getFoodMenus();
   }
 

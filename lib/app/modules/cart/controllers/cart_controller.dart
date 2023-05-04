@@ -36,9 +36,9 @@ class CartController extends GetxController {
     pageState.value = ViewState.idle;
   }
 
-  Future deleteOrder(String id) async {
+  Future deleteFromCart(String id) async {
     pageState.value = ViewState.busy;
-    await foodServices.deleteFoodMenus(id);
+    await cartServices.deleteFoodFromCart(id);
     debugPrint('delete successful');
     pageState.value = ViewState.idle;
   }

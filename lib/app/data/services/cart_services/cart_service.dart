@@ -29,7 +29,7 @@ class CartServices extends GetxService {
       "foodPrice": foodMenus.foodPrice,
       "quantity": quantity,
       "status": status,
-      "foodId":foodMenus.id
+      "foodId": foodMenus.id
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(
@@ -77,5 +77,17 @@ class CartServices extends GetxService {
             a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
       }));
     });
+  }
+
+  Future deleteFoodFromCart(String id) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('cart')
+        .doc(id)
+        .delete()
+        .catchError((onError) {
+      debugPrint(onError.toString());
+    });
+    getCart();
   }
 }

@@ -101,7 +101,7 @@ class CartView extends GetView<CartController> {
                                                         false, 20, context),
                                                   ),
                                                   onPressed: () {
-                                                    controller.deleteOrder(
+                                                    controller.deleteFromCart(
                                                         controller
                                                             .cartServices
                                                             .cartList[index]
