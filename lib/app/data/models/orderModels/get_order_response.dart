@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final orderModel = orderModelFromMap(jsonString);
+//     final OrderModel = OrderModelFromMap(jsonString);
 
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// List<OrderModel> orderModelFromMap(String str) =>
+// List<OrderModel> OrderModelFromMap(String str) =>
 //     List<OrderModel>.from(json.decode(str).map((x) => OrderModel.fromMap(x)));
 
-// String orderModelToMap(List<OrderModel> data) =>
+// String OrderModelToMap(List<OrderModel> data) =>
 //     json.encode(List<dynamic>.from(data.map((x) => x.toMap())));
 
 class OrderModel {
@@ -27,11 +27,13 @@ class OrderModel {
   final String? foodName;
   final String? foodDescription;
   final String? foodImage;
-  final String? foodPrice;
+  final num? foodPrice;
   final String? resturantName;
   final String? resturantAdress;
   final String? deliveryStatus;
   final String? clientName;
+
+  
 
   factory OrderModel.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>

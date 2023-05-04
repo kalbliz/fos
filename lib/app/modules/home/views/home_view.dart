@@ -140,20 +140,24 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       SizedBox(
                         height: sizeFit(false, 110, context),
-                        child: ListView.builder(
-                          itemCount: controller.foodServices.foodMenus.length,
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemExtent: 90,
-                          physics: BouncingScrollPhysics(),
-                          controller: controller.resturantsScrollController,
-                          itemBuilder: (context, index) {
-                            return FoodAvatar(
-                              index: index,
-                            );
-                          },
-                        ),
+                        child: controller.foodServices.foodMenus.isEmpty
+                            ? Center(child: Text('No food available'))
+                            : ListView.builder(
+                                itemCount:
+                                    controller.foodServices.foodMenus.length,
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemExtent: 90,
+                                physics: BouncingScrollPhysics(),
+                                controller:
+                                    controller.resturantsScrollController,
+                                itemBuilder: (context, index) {
+                                  return FoodAvatar(
+                                    index: index,
+                                  );
+                                },
+                              ),
                       ),
                       SizedBox(
                         height: sizeFit(false, 16, context),
@@ -227,26 +231,29 @@ class HomeView extends GetView<HomeController> {
                             EdgeInsets.only(left: sizeFit(true, 16, context)),
                         child: SizedBox(
                           height: sizeFit(false, 120, context),
-                          child: ListView.separated(
-                            itemCount:
-                                controller.foodServices.resturantsList.length,
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            controller: controller.resturantsScrollController,
-                            itemBuilder: (context, index) {
-                              return ResturantAvatar(
-                                index: index,
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                width: sizeFit(true, 12, context),
-                              );
-                            },
-                          ),
+                          child: controller.foodServices.resturantsList.isEmpty
+                              ? Text('No resturants available')
+                              : ListView.separated(
+                                  itemCount: controller
+                                      .foodServices.resturantsList.length,
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: BouncingScrollPhysics(),
+                                  controller:
+                                      controller.resturantsScrollController,
+                                  itemBuilder: (context, index) {
+                                    return ResturantAvatar(
+                                      index: index,
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return SizedBox(
+                                      width: sizeFit(true, 12, context),
+                                    );
+                                  },
+                                ),
                         ),
                       ),
                       SizedBox(
@@ -282,25 +289,29 @@ class HomeView extends GetView<HomeController> {
                             EdgeInsets.only(left: sizeFit(true, 16, context)),
                         child: SizedBox(
                           height: sizeFit(false, 230, context),
-                          child: ListView.separated(
-                            itemCount: controller.foodServices.foodMenus.length,
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            controller: controller.resturantsScrollController,
-                            itemBuilder: (context, index) {
-                              return ResturantInLocationAvatar(
-                                index: index,
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                width: sizeFit(true, 12, context),
-                              );
-                            },
-                          ),
+                          child: controller.foodServices.foodMenus.isEmpty
+                              ? Center(child: Text('No food available'))
+                              : ListView.separated(
+                                  itemCount:
+                                      controller.foodServices.foodMenus.length,
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: BouncingScrollPhysics(),
+                                  controller:
+                                      controller.resturantsScrollController,
+                                  itemBuilder: (context, index) {
+                                    return ResturantInLocationAvatar(
+                                      index: index,
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return SizedBox(
+                                      width: sizeFit(true, 12, context),
+                                    );
+                                  },
+                                ),
                         ),
                       ),
                     ],
@@ -341,6 +352,7 @@ class FoodAvatar extends StatelessWidget {
           ),
           Text(
             controller.foodServices.foodMenus[index].foodName!.capitalize!,
+            overflow: TextOverflow.ellipsis,
             style: AppTextStyles.Sixteen400TextBlack,
           )
         ],
@@ -438,7 +450,7 @@ class ResturantInLocationAvatar extends StatelessWidget {
             height: sizeFit(false, 1, context),
           ),
           Text(
-            controller.foodServices.foodMenus[index].sellerName!.capitalize!,
+            controller.foodServices.foodMenus[index].resturantName!.capitalize!,
             style: AppTextStyles.Fourteen400TextAsh,
           ),
           SizedBox(

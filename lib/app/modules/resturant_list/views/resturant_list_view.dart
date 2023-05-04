@@ -70,7 +70,7 @@ class ResturantListView extends GetView<ResturantListController> {
                               ),
                               Text(
                                 controller.foodServices.foodMenus[index]
-                                    .sellerName!.capitalize!,
+                                    .resturantName!.capitalize!,
                                 style: AppTextStyles.Fourteen400TextAsh,
                               ),
                               SizedBox(

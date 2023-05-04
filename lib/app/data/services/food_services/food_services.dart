@@ -19,6 +19,27 @@ class FoodServices extends GetxService {
     super.onReady();
   }
 
+  Future saveFoodData({
+    required String foodName,
+    required String foodDescription,
+    required String foodImage,
+    required num foodPrice,
+    required String resturantName,
+    required String resturantAddress,
+  }) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('foodMenus').doc().set({
+      'foodName': foodName,
+      'foodDescription': foodDescription,
+      'foodImage': foodImage,
+      'foodPrice': foodPrice,
+      'resturantName': resturantName,
+      'resturantAddress': resturantAddress
+    }).then((value) async {
+      getFoodMenus();
+    });
+  }
+
   Future getFoodMenus() async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore

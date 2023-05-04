@@ -107,11 +107,11 @@ class CartView extends GetView<CartController> {
                                                             .cartList[index]
                                                             .id);
                                                   },
-                                                )
+                                                ),
                                               ],
                                             ),
                                           );
-                                        })
+                                        }),
                                   ],
                                 );
                         }),

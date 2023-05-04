@@ -1,20 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FoodMenus {
-  FoodMenus(
-      {this.foodName,
-      this.id,
-      this.foodDescription,
-      this.foodImage,
-      this.foodPrice,
-      this.sellerName});
+  FoodMenus( {
+    this.foodName,
+    this.id,
+    this.foodDescription,
+    this.foodImage,
+    this.foodPrice,
+    this.resturantName,
+    this.resturantAddress,
+  });
 
   final String? foodName;
   final String? foodDescription;
   final String? foodImage;
   final num? foodPrice;
-  final String? sellerName;
+  final String? resturantName;
   dynamic id;
+  final String? resturantAddress;
 
   factory FoodMenus.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
@@ -23,7 +26,8 @@ class FoodMenus {
           foodDescription: json["foodDescription"],
           foodImage: json["foodImage"],
           foodPrice: json["foodPrice"],
-          sellerName: json["sellerName"],
+          resturantAddress: json["resturantAddress"],
+          resturantName: json['resturantName'],
           id: json.id);
 
   Map<String, dynamic> toMap() => {
@@ -31,7 +35,8 @@ class FoodMenus {
         "foodDescription": foodDescription,
         "foodImage": foodImage,
         "foodPrice": foodPrice,
-        "sellerName": sellerName,
+        "resturantName": resturantName,
+        "resturantAddress":resturantAddress,
         "id": id
       };
 }

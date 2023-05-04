@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
-import 'package:fos/app/data/models/food_models/get_cart_model.dart';
+import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';

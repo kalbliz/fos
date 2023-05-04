@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
@@ -42,6 +43,7 @@ class CreateFoodController extends GetxController {
   final AuthService authService = Get.find<AuthService>();
   final FoodServices foodServices = Get.find<FoodServices>();
   final GeneralDialog generalDialog = GeneralDialog();
+  late FoodMenus foodMenu;
   @override
   void onInit() {
     super.onInit();
@@ -53,9 +55,7 @@ class CreateFoodController extends GetxController {
   }
 
   @override
-  void onClose() {
-    
-  }
+  void onClose() {}
 
   void increment() => count.value++;
   Future getImage() async {
@@ -83,15 +83,23 @@ class CreateFoodController extends GetxController {
   }
 
   Future saveFoodData() async {
-    await fireStore.collection('foodMenus').doc().set({
-      
-      'foodName': foodTitleEditingController.value.text.trim(),
-      'foodDescription': foodDescriptionEditingController.value.text.trim(),
-      'foodImage': foodImageUrl,
-      'foodPrice': int.tryParse(foodPriceEditingController.value.text.trim()),
-      'sellerName': authService.userName
-    }).then((value) async {
-      await foodServices.getFoodMenus();
+    foodMenu = FoodMenus(
+      foodName: foodTitleEditingController.value.text.trim(),
+      foodDescription: foodDescriptionEditingController.value.text.trim(),
+      foodImage: foodImageUrl,
+      foodPrice: int.tryParse(foodPriceEditingController.value.text.trim()),
+      resturantAddress: authService.userAddress,
+      resturantName: authService.userName,
+    );
+    await foodServices
+        .saveFoodData(
+            foodName: foodMenu.foodName!,
+            foodDescription: foodMenu.foodDescription!,
+            foodImage: foodMenu.foodImage!,
+            foodPrice: foodMenu.foodPrice!,
+            resturantName: foodMenu.resturantName!,
+            resturantAddress: foodMenu.resturantAddress!)
+        .then((value) {
       generalDialog
           .foodUploadSuccessCupertinoMessage('Your food has been saved ');
     }).catchError((onError) {
