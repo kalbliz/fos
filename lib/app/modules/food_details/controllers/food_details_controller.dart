@@ -14,7 +14,7 @@ class FoodDetailsController extends GetxController {
   final count = 0.obs;
   final pageView = ViewState.idle.obs;
   late FoodMenus foodMenus;
-  final quantity = 0.obs;
+  final quantity = 1.obs;
   final status = 'pending'.obs;
   @override
   void onInit() {

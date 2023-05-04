@@ -34,14 +34,14 @@ class OrdersView extends GetView<OrdersController> {
         body: SafeArea(
           child: Obx(() {
             return controller.pageState.value == ViewState.busy
-                ? CircularProgressIndicator.adaptive()
+                ? Center(child: CircularProgressIndicator.adaptive())
                 : Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: sizeFit(true, 16, context)),
                     child: Column(
                       children: [
                         Obx(() {
-                          return controller.orderList.isEmpty
+                          return controller.orderServices.orderList.isEmpty
                               ? Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: sizeFit(true, 16, context),
@@ -68,7 +68,7 @@ class OrdersView extends GetView<OrdersController> {
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
                                   itemCount:
-                                      controller.foodServices.foodMenus.length,
+                                      controller.orderServices.orderList.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: EdgeInsets.only(
@@ -82,11 +82,8 @@ class OrdersView extends GetView<OrdersController> {
                                               CircleAvatar(
                                                 radius:
                                                     sizeFit(false, 40, context),
-                                                backgroundImage:
-                                                    CachedNetworkImageProvider(
-                                                        controller.orderList
-                                                            .elementAt(0)
-                                                            .foodImage!),
+                                                backgroundImage: AssetImage(
+                                                    'assets/images/home/green-check-icons.jpg'),
                                               ),
                                               SizedBox(
                                                 width:
@@ -97,7 +94,8 @@ class OrdersView extends GetView<OrdersController> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    controller.orderList
+                                                    controller
+                                                        .orderServices.orderList
                                                         .elementAt(0)
                                                         .foodName!,
                                                     style: AppTextStyles
@@ -120,10 +118,10 @@ class OrdersView extends GetView<OrdersController> {
                                               size: sizeFit(false, 20, context),
                                             ),
                                             onPressed: () {
-                                              controller.deleteOrder(controller
-                                                  .orderList
-                                                  .elementAt(0)
-                                                  .id);
+                                              // controller.deleteOrder(controller
+                                              //     .orderList
+                                              //     .elementAt(0)
+                                              //     .id);
                                             },
                                           )
                                         ],
