@@ -26,18 +26,8 @@ class OrderModel {
 
   factory OrderModel.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
-      OrderModel(
-        total: json["total"],
-          id: json.id,
-          cartList: json["cart"] == null
-              ? []
-              : List<CartModel>.from(
-                  json["cart"]!.map((x) => CartModel.fromDocumentSnapshot(x))),
-          status: json["status"]);
+      OrderModel(total: json["total"], id: json.id, status: json["status"]);
 
-  Map<String, dynamic> toMap() => {
-        "cart": cartList,
-        "status": status,
-        "total":total
-      };
+  Map<String, dynamic> toMap() =>
+      {"cartList": cartList, "status": status, "total": total};
 }

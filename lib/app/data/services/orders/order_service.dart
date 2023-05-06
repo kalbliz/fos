@@ -71,6 +71,7 @@ class OrderServices extends GetxService {
       orderList.clear();
       for (var element in responseData) {
         orderList.add(element);
+        print(element.cartList);
       }
     });
   }

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
+import 'package:fos/app/data/services/orders/order_service.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
 import 'package:sidebarx/sidebarx.dart';
@@ -14,6 +15,7 @@ class HomeController extends GetxController {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final AuthService authService = Get.find<AuthService>();
   final FoodServices foodServices = Get.find<FoodServices>();
+  final OrderServices orderServices = Get.find<OrderServices>();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
   final pageViewState = ViewState.idle.obs;

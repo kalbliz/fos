@@ -204,7 +204,8 @@ class HomeView extends GetView<HomeController> {
                                       child: AuthButton(
                                           title: 'Order Now',
                                           onTap: () {
-                                            controller.getMenus();
+                                            controller.orderServices
+                                                .getOrderList();
                                           }))
                                 ],
                               ),
