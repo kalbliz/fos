@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
@@ -36,20 +38,22 @@ class OrderServices extends GetxService {
       required num total}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     final ordersCollection = firebaseFireStore.collection('orders').doc();
-    final cartListFromOrderCollection = ordersCollection.collection('cartList');
-    await ordersCollection
-        .set({"status": status, "total": total}).then((value) async {
-      for (var element in foodMenus) {
-        await cartListFromOrderCollection.add({
-          "foodDescription": element.foodDescription,
-          "foodImage": element.foodImage,
-          "foodName": element.foodName,
-          "foodPrice": element.foodPrice,
-          "status": status,
-          "foodId": element.id,
-          "time": DateTime.now(),
-        });
-      }
+
+    await ordersCollection.set({
+      "status": status,
+      "total": total,
+      "cartList": [
+        for (var element in foodMenus)
+          {
+            "foodDescription": element.foodDescription,
+            "foodImage": element.foodImage,
+            "foodName": element.foodName,
+            "foodPrice": element.foodPrice,
+            "status": status,
+            "foodId": element.id,
+            "time": DateTime.now(),
+          }
+      ]
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(
@@ -64,14 +68,15 @@ class OrderServices extends GetxService {
 
   Future getOrderList() async {
     firebaseFireStore = FirebaseFirestore.instance;
+
     await firebaseFireStore.collection('orders').get().then((response) async {
       var responseData =
-          response.docs.map((e) => OrderModel.fromDocumentSnapshot(e)).toList();
+          response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
 
       orderList.clear();
       for (var element in responseData) {
         orderList.add(element);
-        print(element.cartList);
+        debugPrint(element.toString());
       }
     });
   }

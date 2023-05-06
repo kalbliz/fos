@@ -1,3 +1,6 @@
+import 'package:fos/app/modules/check-out/views/check_out_view.dart';
+import 'package:fos/app/modules/order_details/bindings/cart_binding.dart';
+import 'package:fos/app/modules/order_details/views/order_details_view.dart';
 import 'package:get/get.dart';
 
 import 'package:fos/app/modules/accounts/bindings/accounts_binding.dart';
@@ -9,7 +12,6 @@ import 'package:fos/app/modules/auth/views/sign_up_view.dart';
 import 'package:fos/app/modules/cart/bindings/cart_binding.dart';
 import 'package:fos/app/modules/cart/views/cart_view.dart';
 import 'package:fos/app/modules/check-out/bindings/check_out_binding.dart';
-import 'package:fos/app/modules/check-out/views/check_out_view.dart';
 import 'package:fos/app/modules/create_food/bindings/create_food_binding.dart';
 import 'package:fos/app/modules/create_food/views/create_food_view.dart';
 import 'package:fos/app/modules/food_details/bindings/food_details_binding.dart';
@@ -111,6 +113,11 @@ class AppPages {
       name: _Paths.CHECK_OUT,
       page: () => CheckOutView(),
       binding: CheckOutBinding(),
+    ),
+      GetPage(
+      name: _Paths.ORDER_DETAILS,
+      page: () => OrderDetailsViews(),
+      binding: OrderDetailsBinding(),
     ),
   ];
 }

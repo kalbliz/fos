@@ -64,31 +64,48 @@ class OrdersView extends GetView<OrdersController> {
                                     ],
                                   ),
                                 )
-                              : ListView.builder(
+                              : ListView.separated(
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
                                   itemCount:
                                       controller.orderServices.orderList.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: sizeFit(false, 10, context)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(controller
+                                        padding: EdgeInsets.only(
+                                            bottom:
+                                                sizeFit(false, 10, context)),
+                                        child: ListTile(
+                                          onTap: () {
+                                            Get.toNamed(Routes.ORDER_DETAILS,
+                                                arguments: [
+                                                  {"index": index}
+                                                ]);
+                                          },
+                                          title: Text(controller
                                               .orderServices.orderList
                                               .elementAt(index)
                                               .id),
-                                          Text(controller
+                                          subtitle: Text(controller
                                               .orderServices.orderList
                                               .elementAt(index)
                                               .status!),
-                                        ],
-                                      ),
+                                          trailing: Text(
+                                            controller.orderServices.orderList
+                                                .elementAt(index)
+                                                .total!
+                                                .floor()
+                                                .toString(),
+                                            style: AppTextStyles
+                                                .Fourteen400TextPink,
+                                          ),
+                                        ));
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return SizedBox(
+                                      height: sizeFit(false, 16, context),
                                     );
-                                  });
+                                  },
+                                );
                         }),
                       ],
                     ),

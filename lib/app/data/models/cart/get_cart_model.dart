@@ -33,7 +33,8 @@ class CartModel {
           status: json['status'],
           foodId: json['foodId'],
           time: json["time"],
-          id: json.id);
+          id: json.id
+          );
 
   Map<String, dynamic> toMap() => {
         "foodName": foodName,
