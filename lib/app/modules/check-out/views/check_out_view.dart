@@ -139,9 +139,11 @@ class CheckOutView extends GetView<CheckOutController> {
                                 children: [
                                   Text('Total',
                                       style: AppTextStyles.Sixteen400TextBlack),
-                                  Text(
-                                      'NGN${controller.total.value.toString()}',
-                                      style: AppTextStyles.Sixteen600Pink),
+                                  Obx(() {
+                                    return Text(
+                                        'NGN${controller.total.value.toString()}',
+                                        style: AppTextStyles.Sixteen600Pink);
+                                  }),
                                 ]),
                           ),
                           SizedBox(

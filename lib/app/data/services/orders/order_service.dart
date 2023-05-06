@@ -13,16 +13,43 @@ class OrderServices extends GetxService {
   final RxList<OrderModel> orderList = <OrderModel>[].obs;
 
   Future addOrderDetailToDb(
-      {required FoodMenus foodMenus, required String status}) async {
+      {required CartModel cart, required String status}) async {
     firebaseFireStore = FirebaseFirestore.instance;
-    await firebaseFireStore.collection('orders').doc().set({
-      "foodDescription": foodMenus.foodDescription,
-      "foodImage": foodMenus.foodImage,
-      "foodPrice": foodMenus.foodPrice,
-      "resturantName": foodMenus.resturantName,
-      "resturantAdress": foodMenus.resturantAddress,
-      "deliveryStatus": status,
-      "clientName": authService.userName
+    await firebaseFireStore
+        .collection('orders')
+        .doc()
+        .set({"cart": cart, "status": status}).catchError((onError) {
+      debugPrint(onError.toString());
+      showDialog(
+          context: Get.context!,
+          builder: (builder) {
+            return ErrorDialog(
+              message: onError.toString(),
+            );
+          });
+    });
+  }
+
+  Future addOrderDetailToDb2(
+      {required List<CartModel> foodMenus,
+      required String status,
+      required num total}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    final ordersCollection = firebaseFireStore.collection('orders').doc();
+    final cartListFromOrderCollection = ordersCollection.collection('cartList');
+    await ordersCollection
+        .set({"status": status, "total": total}).then((value) async {
+      for (var element in foodMenus) {
+        await cartListFromOrderCollection.add({
+          "foodDescription": element.foodDescription,
+          "foodImage": element.foodImage,
+          "foodName": element.foodName,
+          "foodPrice": element.foodPrice,
+          "status": status,
+          "foodId": element.id,
+          "time": DateTime.now(),
+        });
+      }
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(
@@ -45,10 +72,6 @@ class OrderServices extends GetxService {
       for (var element in responseData) {
         orderList.add(element);
       }
-      orderList.sort(((a, b) {
-        return Comparable.compare(
-            a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
-      }));
     });
   }
 }

@@ -9,6 +9,7 @@ class CartModel {
       this.foodPrice,
       this.quantity,
       this.status,
+      this.time,
       this.foodId});
 
   final String? foodName;
@@ -19,6 +20,7 @@ class CartModel {
   final String? status;
   dynamic foodId;
   dynamic id;
+  final Timestamp? time;
 
   factory CartModel.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
@@ -30,6 +32,7 @@ class CartModel {
           quantity: json['quantity'],
           status: json['status'],
           foodId: json['foodId'],
+          time: json["time"],
           id: json.id);
 
   Map<String, dynamic> toMap() => {
@@ -40,6 +43,7 @@ class CartModel {
         "status": status,
         "quantity": quantity,
         "foodId": foodId,
-        "id": id
+        "id": id,
+        "time": time
       };
 }

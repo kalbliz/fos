@@ -16,10 +16,11 @@ class CartServices extends GetxService {
   final RxList<CartModel> cartList = <CartModel>[].obs;
   final GeneralDialog generalDialog = GeneralDialog();
 
-  Future addCartDetailToDb(
-      {required FoodMenus foodMenus,
-      required int quantity,
-      required String status}) async {
+  Future addCartDetailToDb({
+    required FoodMenus foodMenus,
+    required int quantity,
+    required String status,
+  }) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('cart').doc().set({
       "foodDescription": foodMenus.foodDescription,
@@ -28,7 +29,8 @@ class CartServices extends GetxService {
       "foodPrice": foodMenus.foodPrice,
       "quantity": quantity,
       "status": status,
-      "foodId": foodMenus.id
+      "foodId": foodMenus.id,
+      "time": DateTime.now(),
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(

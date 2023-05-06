@@ -4,6 +4,7 @@ import 'package:flutterwave_standard/models/requests/customer.dart';
 import 'package:flutterwave_standard/models/requests/customizations.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
+import 'package:fos/app/data/services/orders/order_service.dart';
 
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
@@ -78,7 +79,11 @@ class CheckOutController extends GetxController {
             print(response.status);
           }
         }
-        await cartService.deleteCartDetailsFromDb();
+        await OrderServices().addOrderDetailToDb2(
+            foodMenus: cartService.cartList,
+            status: 'success',
+            total: total.value);
+
         calculateTotal();
       });
     } catch (e) {

@@ -77,53 +77,14 @@ class OrdersView extends GetView<OrdersController> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius:
-                                                    sizeFit(false, 40, context),
-                                                backgroundImage: AssetImage(
-                                                    'assets/images/home/green-check-icons.jpg'),
-                                              ),
-                                              SizedBox(
-                                                width:
-                                                    sizeFit(true, 16, context),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    controller
-                                                        .orderServices.orderList
-                                                        .elementAt(0)
-                                                        .foodName!,
-                                                    style: AppTextStyles
-                                                        .Sixteen500TextBlack,
-                                                  ),
-                                                  Text(
-                                                    'View',
-                                                    style: AppTextStyles
-                                                        .Fourteen400TextPink,
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          IconButton(
-                                            icon: Icon(
-                                              CupertinoIcons.delete,
-                                              color:
-                                                  AppDarkColors.AppPrimaryPink,
-                                              size: sizeFit(false, 20, context),
-                                            ),
-                                            onPressed: () {
-                                              // controller.deleteOrder(controller
-                                              //     .orderList
-                                              //     .elementAt(0)
-                                              //     .id);
-                                            },
-                                          )
+                                          Text(controller
+                                              .orderServices.orderList
+                                              .elementAt(index)
+                                              .id),
+                                          Text(controller
+                                              .orderServices.orderList
+                                              .elementAt(index)
+                                              .status!),
                                         ],
                                       ),
                                     );
