@@ -100,7 +100,7 @@ class CheckOutView extends GetView<CheckOutController> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: sizeFit(true, 24, context)),
                             child: controller.cartService.cartList.isEmpty
-                                ? Text('Cart is Emoty')
+                                ? Center(child: Text('Cart is Empty'))
                                 : ListView.separated(
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
@@ -130,22 +130,26 @@ class CheckOutView extends GetView<CheckOutController> {
                           SizedBox(
                             height: sizeFit(false, 16, context),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: sizeFit(true, 24, context)),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Total',
-                                      style: AppTextStyles.Sixteen400TextBlack),
-                                  Obx(() {
-                                    return Text(
-                                        'NGN${controller.total.value.toString()}',
-                                        style: AppTextStyles.Sixteen600Pink);
-                                  }),
-                                ]),
-                          ),
+                          controller.cartService.cartList.isEmpty
+                              ? SizedBox()
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: sizeFit(true, 24, context)),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Total',
+                                            style: AppTextStyles
+                                                .Sixteen400TextBlack),
+                                        Obx(() {
+                                          return Text(
+                                              'NGN${controller.total.value.toString()}',
+                                              style:
+                                                  AppTextStyles.Sixteen600Pink);
+                                        }),
+                                      ]),
+                                ),
                           SizedBox(
                             height: sizeFit(false, 100, context),
                           )

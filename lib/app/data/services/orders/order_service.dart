@@ -41,6 +41,7 @@ class OrderServices extends GetxService {
 
     await ordersCollection.set({
       "status": status,
+      "userId":authService.userID,
       "total": total,
       "cartList": [
         for (var element in foodMenus)

@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
+import 'package:fos/app/utilities/loader/image_loader.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
+import 'package:fos/app/utilities/text_style/styles.dart';
 
 import 'package:get/get.dart';
 
@@ -10,65 +13,142 @@ class AccountsView extends GetView<AccountsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppDarkColors.AppAsh,
+        backgroundColor: AppDarkColors.AppPrimaryWhite,
         body: SafeArea(
             child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: sizeFit(true, 30, context),
-                vertical: sizeFit(false, 24, context)),
+                vertical: sizeFit(false, 34, context)),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: sizeFit(false, 45, context),
-                ),
-                Text('Amrita joshi'),
-                Text('Oakhla, New Delhi'),
-                SizedBox(
-                  height: sizeFit(false, 10, context),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: sizeFit(true, 28, context),
-                      vertical: sizeFit(false, 20, context)),
-                  decoration: BoxDecoration(
-                      color: AppDarkColors.AppPrimaryWhite,
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.person,
-                            size: sizeFit(false, 22, context),
-                            color: AppDarkColors.AppPrimaryPink,
-                          ),
-                          SizedBox(
-                            width: sizeFit(true, 8, context),
-                          ),
-                          Text('Amrita Joshi')
-                        ],
-                      ),
-                      SizedBox(
-                        height: sizeFit(false, 8, context),
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.email,
-                            size: sizeFit(false, 22, context),
-                            color: AppDarkColors.AppPrimaryPink,
-                          ),
-                          SizedBox(
-                            width: sizeFit(true, 8, context),
-                          ),
-                          Text('Amritajoshi@gmail.com')
-                        ],
-                      ),
-                    ],
+                Center(
+                  child: CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                        controller.authService.userPhoto),
+                    radius: sizeFit(false, 50, context),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'User Information',
+                      style: AppTextStyles.Eighteen600TextBlack,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: sizeFit(false, 8, context),
+                          vertical: sizeFit(false, 4, context)),
+                      decoration: BoxDecoration(
+                          color: AppDarkColors.AppYellow,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        'Online',
+                        style: AppTextStyles.Sixteen400White,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'User Name',
+                      style: AppTextStyles.Fourteen500TextAsh,
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 4, context),
+                    ),
+                    Text(
+                      controller.authService.userName.capitalize!,
+                      style: AppTextStyles.Eighteen600TextBlack,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'User Phone Number',
+                      style: AppTextStyles.Fourteen500TextAsh,
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 4, context),
+                    ),
+                    Text(
+                      controller.authService.userPhoneNumber.capitalize!,
+                      style: AppTextStyles.Eighteen600TextBlack,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'User Email ',
+                      style: AppTextStyles.Fourteen500TextAsh,
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 4, context),
+                    ),
+                    Text(
+                      controller.authService.userEmail.capitalize!,
+                      style: AppTextStyles.Eighteen600TextBlack,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'User Address',
+                      style: AppTextStyles.Fourteen500TextAsh,
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 4, context),
+                    ),
+                    Text(
+                      controller.authService.userAddress.capitalize!,
+                      style: AppTextStyles.Eighteen600TextBlack,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Number of orders',
+                      style: AppTextStyles.Fourteen500TextAsh,
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 4, context),
+                    ),
+                    Text(
+                      controller.orderService.orderList.length.toString(),
+                      style: AppTextStyles.Eighteen600TextBlack,
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

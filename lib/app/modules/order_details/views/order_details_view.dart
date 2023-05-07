@@ -93,19 +93,36 @@ class OrderDetailsViews extends GetView<OrderDetailsController> {
                                                                   controller
                                                                       .index)
                                                               .cartList![index]
-                                                              .foodName!,
+                                                              .foodName!
+                                                              .capitalize!,
                                                           style: AppTextStyles
                                                               .Sixteen500TextBlack,
                                                         ),
                                                         Text(
-                                                          'View',
+                                                          controller
+                                                              .orderServices
+                                                              .orderList
+                                                              .elementAt(
+                                                                  controller
+                                                                      .index)
+                                                              .cartList![index]
+                                                              .time!
+                                                              .toDate()
+                                                              .toString(),
+                                                          overflow:
+                                                              TextOverflow.clip,
                                                           style: AppTextStyles
-                                                              .Fourteen400TextPink,
-                                                        )
+                                                              .Fourteen400TextAsh,
+                                                        ),
                                                       ],
                                                     ),
                                                   ],
                                                 ),
+                                                Text(
+                                                  'NGN${controller.orderServices.orderList.elementAt(controller.index).cartList![index].foodPrice!.toString()}',
+                                                  style: AppTextStyles
+                                                      .Fourteen400TextPink,
+                                                )
                                               ],
                                             ),
                                           );

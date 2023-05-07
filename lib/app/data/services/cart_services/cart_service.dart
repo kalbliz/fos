@@ -30,6 +30,7 @@ class CartServices extends GetxService {
       "quantity": quantity,
       "status": status,
       "foodId": foodMenus.id,
+      "userId":authService.userID,
       "time": DateTime.now(),
     }).catchError((onError) {
       debugPrint(onError.toString());

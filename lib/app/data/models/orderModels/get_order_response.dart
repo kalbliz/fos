@@ -5,12 +5,12 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 OrderModel OrderModelFromJson(String str) =>
     OrderModel.fromDocumentSnapShot(json.decode(str));
 
-String OrderModelToJson(OrderModel data) =>
-    json.encode(data.toJson());
+String OrderModelToJson(OrderModel data) => json.encode(data.toJson());
 
 class OrderModel {
   String? status;
@@ -50,11 +50,13 @@ class CartList {
   final String? status;
   dynamic foodId;
   dynamic id;
+  final String? userId;
   final Timestamp? time;
 
   CartList(
       {this.foodName,
       this.id,
+      this.userId,
       this.foodDescription,
       this.foodImage,
       this.foodPrice,
@@ -71,7 +73,8 @@ class CartList {
         quantity: json['quantity'],
         status: json['status'],
         foodId: json['foodId'],
-        time: json["time"],
+        time: json['time'],
+        userId: json['userId']
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,6 +86,7 @@ class CartList {
         "quantity": quantity,
         "foodId": foodId,
         "id": id,
-        "time": time
+        "time": time,
+        "userId":userId
       };
 }

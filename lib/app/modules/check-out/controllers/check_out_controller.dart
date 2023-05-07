@@ -79,12 +79,13 @@ class CheckOutController extends GetxController {
             print(response.status);
           }
         }
-        await OrderServices().addOrderDetailToDb2(
+        await Get.find<OrderServices>().addOrderDetailToDb2(
             foodMenus: cartService.cartList,
             status: 'success',
             total: total.value);
-
-        calculateTotal();
+        await Get.find<OrderServices>().getOrderList();
+        await Get.find<CartServices>().deleteCartDetailsFromDb();
+        await calculateTotal();
       });
     } catch (e) {
       debugPrint(e.toString());

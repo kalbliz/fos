@@ -17,7 +17,6 @@ class OrderDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
   }
 
   @override
@@ -28,6 +27,4 @@ class OrderDetailsController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
-
-
 }
