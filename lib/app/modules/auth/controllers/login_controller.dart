@@ -50,8 +50,15 @@ class LoginController extends GetxController {
         .signInWithEmailAndPassword(
             email: emailEditingController.value.text.trim(),
             password: passwordEditingController.value.text.trim())
-        .then((response) {
-      currentUser = response.user!;
+        .then((response) async {
+      debugPrint(response.user!.email);
+      if (currentUser != null) {
+        currentUser = response.user!;
+        readUserDetails(currentUser!)
+            .then((value) => Get.offAllNamed(Routes.NAV));
+      } else {
+        loginUser();
+      }
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;
       showDialog(
@@ -62,11 +69,7 @@ class LoginController extends GetxController {
 
       debugPrint(onError.toString());
     });
-    if (currentUser != null) {
-      await readUserDetails(currentUser!);
 
-      Get.toNamed(Routes.NAV);
-    }
     pageViewState.value = ViewState.idle;
   }
 

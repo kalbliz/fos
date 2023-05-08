@@ -21,6 +21,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   sidebarx: ^0.15.0
   flutterwave_standard: ^1.0.7
+  
   flutter:
     sdk: flutter
   firebase_core: ^2.9.0

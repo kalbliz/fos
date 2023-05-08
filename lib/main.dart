@@ -20,7 +20,7 @@ void main() async {
   await Get.putAsync<ImageUploadService>(() async => ImageUploadService());
   await Get.putAsync<FoodServices>(() async => FoodServices());
   await Get.putAsync<OrderServices>(() async => OrderServices());
-    await Get.putAsync<CartServices>(() async => CartServices());
+  await Get.putAsync<CartServices>(() async => CartServices());
 
   await Firebase.initializeApp(
       options: const FirebaseOptions(
