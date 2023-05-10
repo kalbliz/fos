@@ -64,6 +64,6 @@ class DefaultFirebaseOptions {
     projectId: 'fos-app-7d3a7',
     storageBucket: 'fos-app-7d3a7.appspot.com',
     iosClientId: '197822104172-1jgos76duavlcfpgo1mbngg2cok62qii.apps.googleusercontent.com',
-    iosBundleId: 'com.example.fos',
+    iosBundleId: 'com.tobias.fos',
   );
 }

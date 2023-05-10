@@ -1,4 +1,4 @@
-package com.example.fos
+package com.tobias.fos
 
 import io.flutter.embedding.android.FlutterActivity
 

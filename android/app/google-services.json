@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:197822104172:android:21633aa74d26978a6b4e49",
+        "mobilesdk_app_id": "1:197822104172:android:3c7213a37a11d7bb6b4e49",
         "android_client_info": {
-          "package_name": "com.example.fos"
+          "package_name": "com.tobias.fos"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "197822104172-9epltipbjv9aa9s0lejrabdtgrccav0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tobias.fos",
+            "certificate_hash": "01fc4b49ba4f0f0a86b5c3e39e92b75211e549d9"
+          }
+        },
         {
           "client_id": "197822104172-f7up3km2ooiosusfojm6s0meqm5p2m99.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "197822104172-f7up3km2ooiosusfojm6s0meqm5p2m99.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "197822104172-1jgos76duavlcfpgo1mbngg2cok62qii.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fos"
+              }
             }
           ]
         }

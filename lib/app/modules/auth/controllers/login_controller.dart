@@ -45,27 +45,22 @@ class LoginController extends GetxController {
 
   Future loginUser() async {
     pageViewState.value = ViewState.busy;
-    User? currentUser;
+
     await firebaseAuth
         .signInWithEmailAndPassword(
             email: emailEditingController.value.text.trim(),
             password: passwordEditingController.value.text.trim())
         .then((response) async {
-      currentUser = response.user!;
-
-      if (currentUser != null) {
-        await readUserDetails(currentUser!)
-            .then((value) => Get.offAllNamed(Routes.NAV));
-      } else {
-        response.user!.reload();
-        await loginUser();
-      }
+      // User currentUser;
+      // currentUser = response.user!;
+      await readUserDetails(response.user!)
+          .then((value) => Get.offAllNamed(Routes.NAV))
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;
       showDialog(
           context: Get.context!,
           builder: (builder) {
-            return ErrorDialog(message: onError.toString());
+            return ErrorDialog(message: onError);
           });
 
       debugPrint(onError.toString());
@@ -88,6 +83,14 @@ class LoginController extends GetxController {
       authService.userAddress = response.data()!['userAddress'];
       authService.status = response.data()!['userStatus'];
       authService.earnings = response.data()!['earnings'];
+    }).catchError((onError){
+
+      showDialog(
+          context: Get.context!,
+          builder: (builder) {
+            return ErrorDialog(message: onError);
+          });
+        
     });
   }
 }
