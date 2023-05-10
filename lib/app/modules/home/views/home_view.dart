@@ -374,8 +374,19 @@ class ResturantAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.FOOD_DETAILS, arguments: [
-          {"index": index},
+        controller.foodServices.foodFromResturant.clear();
+        for (var element in controller.foodServices.foodMenus) {
+          if (element.resturantName ==
+              controller.foodServices.resturantsList[index].userName) {
+            controller.foodServices.foodFromResturant.add(element);
+          }
+        }
+        Get.toNamed(Routes.RESTURANT_DETAILS, arguments: [
+          {
+            "resturantName": controller
+                .foodServices.resturantsList[index].userName!.capitalize,
+            "resturantIndex": index
+          },
         ]);
       },
       child: Column(
@@ -420,7 +431,7 @@ class ResturantInLocationAvatar extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.toNamed(Routes.FOOD_DETAILS, arguments: [
-          {"index": index},
+          {"id": controller.foodServices.foodMenus[index].id},
         ]);
       },
       child: Column(

@@ -51,13 +51,14 @@ class LoginController extends GetxController {
             email: emailEditingController.value.text.trim(),
             password: passwordEditingController.value.text.trim())
         .then((response) async {
-      debugPrint(response.user!.email);
+      currentUser = response.user!;
+
       if (currentUser != null) {
-        currentUser = response.user!;
-        readUserDetails(currentUser!)
+        await readUserDetails(currentUser!)
             .then((value) => Get.offAllNamed(Routes.NAV));
       } else {
-        loginUser();
+        response.user!.reload();
+        await loginUser();
       }
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;

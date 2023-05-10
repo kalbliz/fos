@@ -13,6 +13,7 @@ class FoodServices extends GetxService {
   final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
   final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
   final List<ResturantModel> resturantsList = [];
+  final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
   @override
   void onReady() {
     // TODO: implement onReady
@@ -79,19 +80,10 @@ class FoodServices extends GetxService {
         .where('sellerName', isEqualTo: resturantName)
         .get()
         .then((response) async {
+      debugPrint(response.docs.toString());
       var responseData =
           response.docs.map((e) => FoodMenus.fromDocumentSnapshot(e)).toList();
-      //clear list
-      // foodMenus.clear();
-      for (var element in responseData) {
-        //add to list
-        // foodMenus.add(element);
-      }
-      //sort list
-      // foodMenus.sort(((a, b) {
-      //   return Comparable.compare(
-      //       a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
-      // }));
+      foodFromResturant.value = responseData;
     });
   }
 
