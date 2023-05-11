@@ -19,7 +19,10 @@ abstract class Routes {
   static const CREATE_FOOD = _Paths.CREATE_FOOD;
   static const CART = _Paths.CART;
   static const CHECK_OUT = _Paths.CHECK_OUT;
-   static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
+  static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
+  static const RESTURANT_HOME = _Paths.RESTURANT_HOME;
+  static const RESTURANT_ORDERS = _Paths.RESTURANT_ORDERS;
+  static const RESTURANT_PROFILE = _Paths.RESTURANT_PROFILE;
 }
 
 abstract class _Paths {
@@ -39,4 +42,7 @@ abstract class _Paths {
   static const CART = '/cart';
   static const CHECK_OUT = '/check-out';
   static const ORDER_DETAILS = '/order-details';
+  static const RESTURANT_HOME = '/resturant-home';
+  static const RESTURANT_ORDERS = '/resturant-orders';
+  static const RESTURANT_PROFILE = '/resturant-profile';
 }
