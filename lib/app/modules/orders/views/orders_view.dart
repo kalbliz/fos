@@ -38,77 +38,71 @@ class OrdersView extends GetView<OrdersController> {
                 : Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: sizeFit(true, 16, context)),
-                    child: Column(
-                      children: [
-                        Obx(() {
-                          return controller.orderServices.orderList.isEmpty
-                              ? Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: sizeFit(true, 16, context),
-                                      vertical: sizeFit(false, 24, context)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Center(
-                                        child: Image.asset(
-                                          'assets/images/home/empty_orders.png',
-                                          fit: BoxFit.fitHeight,
-                                          height: sizeFit(false, 300, context),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: sizeFit(false, 40, context),
-                                      ),
-                                      Text('AHHH! You have no food order yet')
-                                    ],
+                    child: Obx(() {
+                      return controller.orderServices.orderList.isEmpty
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: sizeFit(true, 16, context),
+                                  vertical: sizeFit(false, 24, context)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: Image.asset(
+                                      'assets/images/home/empty_orders.png',
+                                      fit: BoxFit.fitHeight,
+                                      height: sizeFit(false, 300, context),
+                                    ),
                                   ),
-                                )
-                              : ListView.separated(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount:
-                                      controller.orderServices.orderList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom:
-                                                sizeFit(false, 10, context)),
-                                        child: ListTile(
-                                          onTap: () {
-                                            Get.toNamed(Routes.ORDER_DETAILS,
-                                                arguments: [
-                                                  {"index": index}
-                                                ]);
-                                          },
-                                          title: Text(controller
-                                              .orderServices.orderList
-                                              .elementAt(index)
-                                              .id),
-                                          subtitle: Text(controller
-                                              .orderServices.orderList
-                                              .elementAt(index)
-                                              .status!),
-                                          trailing: Text(
-                                            controller.orderServices.orderList
-                                                .elementAt(index)
-                                                .total!
-                                                .floor()
-                                                .toString(),
-                                            style: AppTextStyles
-                                                .Fourteen400TextPink,
-                                          ),
-                                        ));
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: sizeFit(false, 16, context),
-                                    );
-                                  },
+                                  SizedBox(
+                                    height: sizeFit(false, 40, context),
+                                  ),
+                                  Text('AHHH! You have no food order yet')
+                                ],
+                              ),
+                            )
+                          : ListView.separated(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount:
+                                  controller.orderServices.orderList.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: sizeFit(false, 10, context)),
+                                    child: ListTile(
+                                      onTap: () {
+                                        Get.toNamed(Routes.ORDER_DETAILS,
+                                            arguments: [
+                                              {"index": index}
+                                            ]);
+                                      },
+                                      title: Text(controller
+                                          .orderServices.orderList
+                                          .elementAt(index)
+                                          .id),
+                                      subtitle: Text(controller
+                                          .orderServices.orderList
+                                          .elementAt(index)
+                                          .status!),
+                                      trailing: Text(
+                                        controller.orderServices.orderList
+                                            .elementAt(index)
+                                            .total!
+                                            .floor()
+                                            .toString(),
+                                        style:
+                                            AppTextStyles.Fourteen400TextPink,
+                                      ),
+                                    ));
+                              },
+                              separatorBuilder: (context, index) {
+                                return SizedBox(
+                                  height: sizeFit(false, 16, context),
                                 );
-                        }),
-                      ],
-                    ),
+                              },
+                            );
+                    }),
                   );
           }),
         ));

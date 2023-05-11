@@ -12,7 +12,7 @@ class FoodServices extends GetxService {
   final AuthService authService = Get.find<AuthService>();
   final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
   final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
-  final List<ResturantModel> resturantsList = [];
+  final List<UserModel> resturantsList = [];
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
   @override
   void onReady() {
@@ -89,13 +89,16 @@ class FoodServices extends GetxService {
 
   Future getResturants() async {
     firebaseFireStore = FirebaseFirestore.instance;
-    await firebaseFireStore.collection('sellers').get().then((response) async {
-      var responseData = response.docs
-          .map((e) => ResturantModel.fromDocumentSnapshot(e))
-          .toList();
+    await firebaseFireStore.collection('allUsers').get().then((response) async {
+      var responseData =
+          response.docs.map((e) => UserModel.fromDocumentSnapshot(e)).toList();
       resturantsList.clear();
       for (var element in responseData) {
-        resturantsList.add(element);
+        if (element.userState == 'resturant') {
+          resturantsList.add(element);
+        } else {
+          null;
+        }
       }
       resturantsList.sort(((a, b) {
         return Comparable.compare(

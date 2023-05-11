@@ -10,6 +10,11 @@ class AppTextStyles {
     fontSize: sizeFit(false, 14, Get.context!),
     fontWeight: FontWeight.w400,
   );
+  static TextStyle Twelve400White = GoogleFonts.poppins(
+    color: AppDarkColors.AppPrimaryWhite,
+    fontSize: sizeFit(false, 12, Get.context!),
+    fontWeight: FontWeight.w400,
+  );
   static TextStyle Sixteen500TextBlack = GoogleFonts.poppins(
     color: AppDarkColors.AppTextBlack,
     fontSize: sizeFit(false, 16, Get.context!),
@@ -40,7 +45,7 @@ class AppTextStyles {
     fontSize: sizeFit(false, 16, Get.context!),
     fontWeight: FontWeight.w400,
   );
-   static TextStyle Sixteen600Pink = GoogleFonts.poppins(
+  static TextStyle Sixteen600Pink = GoogleFonts.poppins(
     color: AppDarkColors.AppPrimaryPink,
     fontSize: sizeFit(false, 16, Get.context!),
     fontWeight: FontWeight.w600,

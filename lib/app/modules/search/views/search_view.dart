@@ -75,7 +75,10 @@ class SearchView extends GetView<SearchController> {
                                       onTap: () {
                                         Get.toNamed(Routes.FOOD_DETAILS,
                                             arguments: [
-                                              {"index": index},
+                                              {
+                                                "id": controller
+                                                    .searchMenu[index].id!
+                                              },
                                             ]);
                                       },
                                       child: Column(

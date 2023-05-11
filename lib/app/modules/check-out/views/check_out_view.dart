@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
+import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
 
@@ -165,7 +166,14 @@ class CheckOutView extends GetView<CheckOutController> {
                             bottom: sizeFit(false, 10, context)),
                         child: AuthButton(
                           onTap: () {
-                            controller.makeFlutterwavePayment(context);
+                            if (controller.cartService.cartList.isEmpty) {
+                              Get.snackbar('Warning', 'Cart is empty',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: AppDarkColors.AppRed,
+                                  colorText: AppDarkColors.AppPrimaryWhite);
+                            } else {
+                              controller.makeFlutterwavePayment(context);
+                            }
                           },
                           title: 'Make Payment',
                         ),

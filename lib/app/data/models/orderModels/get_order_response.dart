@@ -16,9 +16,10 @@ class OrderModel {
   String? status;
   int? total;
   List<CartList>? cartList;
+  final String? userId;
   dynamic id;
 
-  OrderModel({this.status, this.total, this.cartList, this.id});
+  OrderModel({this.status, this.total, this.cartList, this.userId, this.id});
 
   factory OrderModel.fromDocumentSnapShot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
@@ -30,6 +31,7 @@ class OrderModel {
             ? []
             : List<CartList>.from(
                 json["cartList"]!.map((x) => CartList.from(x))),
+                userId: json['userId']
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,6 +40,7 @@ class OrderModel {
         "cartList": cartList == null
             ? []
             : List<dynamic>.from(cartList!.map((x) => x.toJson())),
+             "userId": userId
       };
 }
 
@@ -50,13 +53,13 @@ class CartList {
   final String? status;
   dynamic foodId;
   dynamic id;
-  final String? userId;
+  
   final Timestamp? time;
 
   CartList(
       {this.foodName,
       this.id,
-      this.userId,
+      
       this.foodDescription,
       this.foodImage,
       this.foodPrice,
@@ -74,7 +77,7 @@ class CartList {
         status: json['status'],
         foodId: json['foodId'],
         time: json['time'],
-        userId: json['userId']
+        
       );
 
   Map<String, dynamic> toJson() => {
@@ -87,6 +90,6 @@ class CartList {
         "foodId": foodId,
         "id": id,
         "time": time,
-        "userId":userId
+       
       };
 }

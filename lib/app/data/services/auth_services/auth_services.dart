@@ -11,6 +11,7 @@ class AuthService extends GetxService {
   String userPhoneNumber = '';
   String userAddress = '';
   String status = '';
+   String userState = '';
   double earnings = 0;
 
   @override

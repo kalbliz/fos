@@ -53,8 +53,9 @@ class LoginController extends GetxController {
         .then((response) async {
       // User currentUser;
       // currentUser = response.user!;
-      await readUserDetails(response.user!)
-          .then((value) => Get.offAllNamed(Routes.NAV))
+      await readUserDetails(response.user!).then((value) {
+        Get.offAllNamed(Routes.NAV);
+      });
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;
       showDialog(
@@ -71,7 +72,7 @@ class LoginController extends GetxController {
 
   Future readUserDetails(User currentUser) async {
     await firebaseFirestore
-        .collection('sellers')
+        .collection('allUsers')
         .doc(currentUser.uid)
         .get()
         .then((response) async {
@@ -83,14 +84,13 @@ class LoginController extends GetxController {
       authService.userAddress = response.data()!['userAddress'];
       authService.status = response.data()!['userStatus'];
       authService.earnings = response.data()!['earnings'];
-    }).catchError((onError){
-
+      authService.userState = response.data()!['userState'];
+    }).catchError((onError) {
       showDialog(
           context: Get.context!,
           builder: (builder) {
-            return ErrorDialog(message: onError);
+            return ErrorDialog(message: onError.toString());
           });
-        
     });
   }
 }

@@ -26,22 +26,48 @@ class ResturantDetailsView extends GetView<ResturantDetailsController> {
         physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
-            Container(
-              height: sizeFit(false, 250, context),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                fit: BoxFit.cover,
-                image: CachedNetworkImageProvider(
-                  controller.foodServices.resturantsList
-                      .elementAt(controller.resturantIndex)
-                      .userPhoto!,
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  height: sizeFit(false, 200, context),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider(
+                      controller.foodServices.resturantsList
+                          .elementAt(controller.resturantIndex)
+                          .userPhoto!,
+                    ),
+                  )),
                 ),
-              )),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: sizeFit(true, 8, context),
+                          vertical: sizeFit(false, 4, context)),
+                      decoration: BoxDecoration(
+                          color: AppDarkColors.AppPrimaryBlack,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        controller.foodServices.resturantsList
+                            .elementAt(controller.resturantIndex)
+                            .userAddress!,
+                        style: AppTextStyles.Twelve400White,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
+            Text('Returant Menu', style: AppTextStyles.Eighteen600TextBlack),
             Obx(() {
               return controller.pageViewState.value == ViewState.busy
-                  ? const CircularProgressIndicator.adaptive()
+                  ? Center(child: const CircularProgressIndicator.adaptive())
                   : GridView.builder(
                       controller: ScrollController(),
                       scrollDirection: Axis.vertical,
@@ -51,9 +77,9 @@ class ResturantDetailsView extends GetView<ResturantDetailsController> {
                           vertical: sizeFit(false, 24, context)),
                       itemCount:
                           controller.foodServices.foodFromResturant.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisExtent: sizeFit(false, 140, context),
+                          crossAxisCount: 2),
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
@@ -68,7 +94,7 @@ class ResturantDetailsView extends GetView<ResturantDetailsController> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CircleAvatar(
-                                radius: sizeFit(false, 60, context),
+                                radius: sizeFit(false, 40, context),
                                 backgroundImage: CachedNetworkImageProvider(
                                     controller.foodServices
                                         .foodFromResturant[index].foodImage!),
@@ -80,7 +106,14 @@ class ResturantDetailsView extends GetView<ResturantDetailsController> {
                                 controller.foodServices.foodFromResturant[index]
                                     .foodName!.capitalize!,
                                 style: AppTextStyles.Sixteen400TextBlack,
-                              )
+                              ),
+                              SizedBox(
+                                height: sizeFit(false, 2, context),
+                              ),
+                              Text(
+                                ' NGN${controller.foodServices.foodFromResturant[index].foodPrice!.toString()}',
+                                style: AppTextStyles.Fourteen400TextPink,
+                              ),
                             ],
                           ),
                         );

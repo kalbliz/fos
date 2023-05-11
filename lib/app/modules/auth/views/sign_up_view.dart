@@ -7,6 +7,7 @@ import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
+import 'package:fos/app/utilities/enums/user_type.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
@@ -34,36 +35,39 @@ class SignUpView extends GetView<SignUpController> {
                     child: Column(children: [
                       Image.asset(
                         'assets/images/onboard/signup_image.png',
-                        height: sizeFit(false, 300, context),
-                      ),
-                      SizedBox(
-                        height: sizeFit(false, 22, context),
+                        height: sizeFit(false, 250, context),
                       ),
                       Form(
                         key: controller.signUpFormKey,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Obx(() {
-                              return InkWell(
-                                onTap: () {
-                                  controller.getImage();
-                                },
-                                child: CircleAvatar(
-                                  radius: sizeFit(false, 50, context),
-                                  backgroundColor: AppDarkColors.AppPrimaryPink,
-                                  backgroundImage: controller.file.value == ''
-                                      ? null
-                                      : FileImage(File(controller.file.value)),
-                                  child: controller.file.value == ''
-                                      ? Icon(
-                                          Icons.add_photo_alternate,
-                                          size: sizeFit(false, 30, context),
-                                          color: AppDarkColors.AppPrimaryWhite,
-                                        )
-                                      : null,
-                                ),
-                              );
-                            }),
+                            Center(
+                              child: Obx(() {
+                                return InkWell(
+                                  onTap: () {
+                                    controller.getImage();
+                                  },
+                                  child: CircleAvatar(
+                                    radius: sizeFit(false, 50, context),
+                                    backgroundColor:
+                                        AppDarkColors.AppPrimaryPink,
+                                    backgroundImage: controller.file.value == ''
+                                        ? null
+                                        : FileImage(
+                                            File(controller.file.value)),
+                                    child: controller.file.value == ''
+                                        ? Icon(
+                                            Icons.add_photo_alternate,
+                                            size: sizeFit(false, 30, context),
+                                            color:
+                                                AppDarkColors.AppPrimaryWhite,
+                                          )
+                                        : null,
+                                  ),
+                                );
+                              }),
+                            ),
                             SizedBox(
                               height: sizeFit(false, 16, context),
                             ),
@@ -74,6 +78,7 @@ class SignUpView extends GetView<SignUpController> {
                                 textEditingController:
                                     controller.nameEditingController,
                                 validator: controller.nameValidator,
+                                textInputType: TextInputType.text,
                               ),
                             ),
                             SizedBox(
@@ -86,6 +91,7 @@ class SignUpView extends GetView<SignUpController> {
                                 textEditingController:
                                     controller.emailEditingController,
                                 validator: controller.emailValidator,
+                                textInputType: TextInputType.emailAddress,
                               ),
                             ),
                             SizedBox(
@@ -98,6 +104,7 @@ class SignUpView extends GetView<SignUpController> {
                                 textEditingController:
                                     controller.passwordEditingController,
                                 validator: controller.passwordValidator,
+                                textInputType: TextInputType.visiblePassword,
                               ),
                             ),
                             SizedBox(
@@ -110,6 +117,7 @@ class SignUpView extends GetView<SignUpController> {
                                 textEditingController:
                                     controller.phoneNumberEditingController,
                                 validator: controller.phoneNumberValidator,
+                                textInputType: TextInputType.phone,
                               ),
                             ),
                             SizedBox(
@@ -119,7 +127,7 @@ class SignUpView extends GetView<SignUpController> {
                               width: sizeFit(true, 300, context),
                               child: Obx(() {
                                 return FosTextFieldWidget(
-                                  hintText: 'Resturant location',
+                                  hintText: 'Your location',
                                   enabled: false,
                                   textEditingController: controller
                                       .locationEditingController.value,
@@ -130,12 +138,62 @@ class SignUpView extends GetView<SignUpController> {
                             SizedBox(
                               height: sizeFit(false, 16, context),
                             ),
-                            AuthButton(
-                                title: 'Get current location',
-                                boxColror: AppDarkColors.AppYellow,
-                                onTap: () {
-                                  controller.locationPermission();
-                                })
+                            Center(
+                              child: AuthButton(
+                                  title: 'Get current location',
+                                  boxColror: AppDarkColors.AppYellow,
+                                  onTap: () {
+                                    controller.locationPermission();
+                                  }),
+                            ),
+                            SizedBox(
+                              height: sizeFit(false, 16, context),
+                            ),
+                            Text('What do you want to register as?'),
+                            Obx(() {
+                              return RadioListTile<UserState>(
+                                contentPadding: EdgeInsets.zero,
+                                dense: true,
+                                title: const Text('User'),
+                                value: UserState.user,
+                                groupValue: controller.userState.value,
+                                onChanged: (UserState? value) {
+                                  controller.userState.value = value!;
+                                  debugPrint(
+                                      controller.userState.value.toString());
+                                },
+                                visualDensity:
+                                    VisualDensity(horizontal: -4, vertical: -4),
+                              );
+                            }),
+                            Obx(() {
+                              return RadioListTile<UserState>(
+                                contentPadding: EdgeInsets.zero,
+                                dense: true,
+                                title: const Text('Resturant'),
+                                value: UserState.resturant,
+                                groupValue: controller.userState.value,
+                                onChanged: (UserState? value) {
+                                  controller.userState.value = value!;
+                                },
+                                visualDensity:
+                                    VisualDensity(horizontal: -4, vertical: -4),
+                              );
+                            }),
+                            Obx(() {
+                              return RadioListTile<UserState>(
+                                contentPadding: EdgeInsets.zero,
+                                dense: true,
+                                title: const Text('Rider'),
+                                value: UserState.rider,
+                                groupValue: controller.userState.value,
+                                onChanged: (UserState? value) {
+                                  controller.userState.value = value!;
+                                },
+                                visualDensity:
+                                    VisualDensity(horizontal: -4, vertical: -4),
+                              );
+                            })
                           ],
                         ),
                       ),

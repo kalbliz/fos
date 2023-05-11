@@ -41,7 +41,7 @@ class OrderServices extends GetxService {
 
     await ordersCollection.set({
       "status": status,
-      "userId":authService.userID,
+      "userId": authService.userID,
       "total": total,
       "cartList": [
         for (var element in foodMenus)
@@ -76,8 +76,11 @@ class OrderServices extends GetxService {
 
       orderList.clear();
       for (var element in responseData) {
-        orderList.add(element);
-        debugPrint(element.toString());
+        if (element.userId == authService.userID) {
+          orderList.add(element);
+        } else {
+          null;
+        }
       }
     });
   }

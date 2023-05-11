@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ResturantModel {
-  ResturantModel(
+class UserModel {
+  UserModel(
       {this.userAddress,
       this.userEmail,
       this.userID,
       this.userName,
       this.userPhoneNumber,
       this.userPhoto,
+      this.userState,
       this.earnings});
 
   final String? userAddress;
@@ -16,11 +17,12 @@ class ResturantModel {
   final String? userName;
   final String? userPhoneNumber;
   final String? userPhoto;
+   final String? userState;
   final num? earnings;
 
-  factory ResturantModel.fromDocumentSnapshot(
+  factory UserModel.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
-      ResturantModel(
+      UserModel(
         userAddress: json['userAddress'],
         userEmail: json['userEmail'],
         userID: json['userID'],
@@ -28,6 +30,7 @@ class ResturantModel {
         userPhoneNumber: json['userPhoneNumber'],
         userPhoto: json['userPhoto'],
         earnings: json['earnings'],
+        userState: json['userState']
       );
 
   Map<String, dynamic> toMap() => {
@@ -37,6 +40,7 @@ class ResturantModel {
         "userName": userName,
         "userPhoneNumber": userPhoneNumber,
         "userPhoto": userPhoto,
-        "earnings": earnings
+        "earnings": earnings,
+        "userState":userState
       };
 }

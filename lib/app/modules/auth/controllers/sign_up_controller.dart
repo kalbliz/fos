@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/routes/app_pages.dart';
+import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
+import 'package:fos/app/utilities/enums/user_type.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,7 @@ class SignUpController extends GetxController {
   //TODO: Implement SignUpController
   final GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   final pageState = ViewState.idle.obs;
+  final userState = UserState.user.obs;
   final TextEditingController emailEditingController = TextEditingController();
   final TextEditingController nameEditingController = TextEditingController();
   final TextEditingController passwordEditingController =
@@ -96,6 +99,11 @@ class SignUpController extends GetxController {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
+      Get.snackbar('Error',
+          'Unable to automatically turn on location services. Please turn on location services',
+          snackPosition: SnackPosition.TOP,
+          colorText: AppDarkColors.AppRed,
+          backgroundColor: AppDarkColors.AppPrimaryBlack);
       return Future.error('Location services are disabled.');
     }
 
@@ -108,12 +116,14 @@ class SignUpController extends GetxController {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
+        permission = await Geolocator.requestPermission();
         return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
+      debugPrint('permission disabled');
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
@@ -150,7 +160,7 @@ class SignUpController extends GetxController {
   }
 
   Future saveDatatToFirestore(User currentUser) async {
-    FirebaseFirestore.instance.collection('sellers').doc(currentUser.uid).set({
+    FirebaseFirestore.instance.collection("allUsers").doc(currentUser.uid).set({
       'userID': currentUser.uid,
       'userEmail': currentUser.email,
       'userName': nameEditingController.value.text.trim(),
@@ -158,15 +168,15 @@ class SignUpController extends GetxController {
       'userPhoneNumber': phoneNumberEditingController.value.text.trim(),
       'userAddress': locationEditingController.value.text.trim(),
       'status': 'approved',
+      'userState': userState.value == UserState.resturant
+          ? "resturant"
+          : userState.value == UserState.user
+              ? "user"
+              : "rider",
       'earnings': 0.0,
       'lat': position!.latitude,
       'lng': position!.longitude
     });
-    // authService.userEmail = currentUser.email!;
-    // authService.userName = nameEditingController.value.text.trim();
-    // authService.userPhoneNumber =
-    //     phoneNumberEditingController.value.text.trim();
-    // authService.userPhoto = sellerImageUrl;
   }
 
   void authenticateAndSignUp() async {
