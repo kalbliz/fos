@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
@@ -5,11 +6,13 @@ import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ResturantHomeController extends GetxController {
+class ResturantHomeController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   //TODO: Implement ResturantHomeController
 
   final foodService = Get.find<FoodServices>();
-
+  final currentTabIndex = 0.obs;
+  late TabController tabController;
   final authService = Get.find<AuthService>();
   final pageViewState = ViewState.idle.obs;
   final count = 0.obs;
@@ -18,6 +21,7 @@ class ResturantHomeController extends GetxController {
     super.onInit();
     getFood();
     getresturantOrders();
+   tabController = TabController(length: 2, vsync: this);
   }
 
   @override

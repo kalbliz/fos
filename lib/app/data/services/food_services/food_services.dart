@@ -17,6 +17,8 @@ class FoodServices extends GetxService {
   final List<UserModel> resturantsList = [];
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
   final RxList<OrderModel> resturantOrdersList = <OrderModel>[].obs;
+  final RxList<OrderModel> pendingOrdersList = <OrderModel>[].obs;
+  final RxList<OrderModel> completedOrdersList = <OrderModel>[].obs;
   @override
   void onReady() {
     // TODO: implement onReady
@@ -123,6 +125,9 @@ class FoodServices extends GetxService {
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       for (var element in responseData) {
         resturantOrdersList.add(element);
+        element.status == 'success'
+            ? completedOrdersList.add(element)
+            : pendingOrdersList.add(element);
       }
     }).catchError((onError) {
       throw onError;

@@ -35,3 +35,35 @@ class AuthButton extends StatelessWidget {
     );
   }
 }
+class ActionButton extends StatelessWidget {
+  final String action;
+  void Function()? onTap;
+  ActionButton({
+    Key? key,
+    required this.action,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: sizeFit(false, 50, context),
+        width: sizeFit(true, 50, context),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: action == 'accept'
+                    ? AppDarkColors.AppGreen
+                    : AppDarkColors.AppPrimaryPink),
+            borderRadius: BorderRadius.circular(8)),
+        child: Icon(
+          action == 'accept' ? Icons.check : Icons.close,
+          color: action == 'accept'
+              ? AppDarkColors.AppGreen
+              : AppDarkColors.AppPrimaryPink,
+        ),
+      ),
+    );
+  }
+}
