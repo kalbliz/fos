@@ -100,6 +100,8 @@ class CreateFoodController extends GetxController {
             resturantName: foodMenu.resturantName!,
             resturantAddress: foodMenu.resturantAddress!)
         .then((value) {
+      foodServices.getFoodMenusFromResturant(
+          resturantName: authService.userName);
       generalDialog
           .foodUploadSuccessCupertinoMessage('Your food has been saved ');
     }).catchError((onError) {

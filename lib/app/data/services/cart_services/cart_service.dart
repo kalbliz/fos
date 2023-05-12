@@ -27,10 +27,13 @@ class CartServices extends GetxService {
       "foodImage": foodMenus.foodImage,
       "foodName": foodMenus.foodName,
       "foodPrice": foodMenus.foodPrice,
+      "clientName": authService.userName,
+      "clientLocation": authService.userAddress,
+      "resturantName": foodMenus.resturantName,
       "quantity": quantity,
       "status": status,
       "foodId": foodMenus.id,
-      "userId":authService.userID,
+      "userId": authService.userID,
       "time": DateTime.now(),
     }).catchError((onError) {
       debugPrint(onError.toString());

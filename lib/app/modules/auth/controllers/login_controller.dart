@@ -61,7 +61,7 @@ class LoginController extends GetxController {
       showDialog(
           context: Get.context!,
           builder: (builder) {
-            return ErrorDialog(message: onError);
+            return ErrorDialog(message: onError.toString());
           });
 
       debugPrint(onError.toString());

@@ -9,12 +9,18 @@ class CartModel {
       this.foodPrice,
       this.quantity,
       this.status,
+      this.clientName,
+      this.resturantName,
+      this.clientLocation,
       this.time,
       this.foodId});
 
   final String? foodName;
   final String? foodDescription;
   final String? foodImage;
+  final String? clientName;
+  final String? clientLocation;
+  final String? resturantName;
   final num? foodPrice;
   final int? quantity;
   final String? status;
@@ -33,8 +39,10 @@ class CartModel {
           status: json['status'],
           foodId: json['foodId'],
           time: json["time"],
-          id: json.id
-          );
+          clientLocation: json["clientLocation"],
+          resturantName: json['resturantName'],
+          clientName: json["clientName"],
+          id: json.id);
 
   Map<String, dynamic> toMap() => {
         "foodName": foodName,
@@ -45,6 +53,9 @@ class CartModel {
         "quantity": quantity,
         "foodId": foodId,
         "id": id,
-        "time": time
+        "time": time,
+        "clientName": clientName,
+        "clientLocation": clientLocation,
+        "resturantName":resturantName,
       };
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
@@ -6,7 +7,7 @@ import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/orders/order_service.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +31,13 @@ void main() async {
     projectId: 'fos-app-7d3a7',
     storageBucket: 'fos-app-7d3a7.appspot.com',
   ));
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   runApp(
     GetMaterialApp(
       title: "Application",

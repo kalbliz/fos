@@ -15,24 +15,39 @@ String OrderModelToJson(OrderModel data) => json.encode(data.toJson());
 class OrderModel {
   String? status;
   int? total;
+  String? clientName;
+  String? clientPhoto;
+  String? clientLocation;
+  String? clientPhoneNumber;
   List<CartList>? cartList;
   final String? userId;
   dynamic id;
 
-  OrderModel({this.status, this.total, this.cartList, this.userId, this.id});
+  OrderModel(
+      {this.status,
+      this.total,
+      this.cartList,
+      this.userId,
+      this.clientPhoneNumber,
+      this.clientPhoto,
+      this.id,
+      this.clientLocation,
+      this.clientName});
 
   factory OrderModel.fromDocumentSnapShot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
       OrderModel(
-        status: json["status"],
-        id: json.id,
-        total: json["total"],
-        cartList: json["cartList"] == null
-            ? []
-            : List<CartList>.from(
-                json["cartList"]!.map((x) => CartList.from(x))),
-                userId: json['userId']
-      );
+          status: json["status"],
+          id: json.id,
+          clientPhoneNumber: json['clientPhoneNumber'],
+          clientLocation: json['clientLocation'],
+          clientName: json['clientName'],
+          total: json["total"],
+          cartList: json["cartList"] == null
+              ? []
+              : List<CartList>.from(
+                  json["cartList"]!.map((x) => CartList.from(x))),
+          userId: json['userId']);
 
   Map<String, dynamic> toJson() => {
         "status": status,
@@ -40,7 +55,10 @@ class OrderModel {
         "cartList": cartList == null
             ? []
             : List<dynamic>.from(cartList!.map((x) => x.toJson())),
-             "userId": userId
+        "userId": userId,
+        "clientName": clientName,
+        "clientLocation": clientLocation,
+        "clientPhoneNumber": clientPhoneNumber
       };
 }
 
@@ -51,34 +69,39 @@ class CartList {
   final num? foodPrice;
   final int? quantity;
   final String? status;
+  final String? clientName;
+  final String? clientLocation;
+  final String? resturantName;
   dynamic foodId;
   dynamic id;
-  
   final Timestamp? time;
 
   CartList(
       {this.foodName,
       this.id,
-      
+      this.clientLocation,
+      this.clientName,
       this.foodDescription,
       this.foodImage,
       this.foodPrice,
       this.quantity,
+      this.resturantName,
       this.status,
       this.time,
       this.foodId});
 
   factory CartList.from(Map<String, dynamic> json) => CartList(
-        foodName: json["foodName"],
-        foodDescription: json["foodDescription"],
-        foodImage: json["foodImage"],
-        foodPrice: json["foodPrice"],
-        quantity: json['quantity'],
-        status: json['status'],
-        foodId: json['foodId'],
-        time: json['time'],
-        
-      );
+      foodName: json["foodName"],
+      foodDescription: json["foodDescription"],
+      foodImage: json["foodImage"],
+      foodPrice: json["foodPrice"],
+      quantity: json['quantity'],
+      status: json['status'],
+      foodId: json['foodId'],
+      time: json['time'],
+      resturantName: json['resturantName'],
+      clientLocation: json['clientLocation'],
+      clientName: json['clientName']);
 
   Map<String, dynamic> toJson() => {
         "foodName": foodName,
@@ -90,6 +113,8 @@ class CartList {
         "foodId": foodId,
         "id": id,
         "time": time,
-       
+        "clientName": clientName,
+        "clientLocation": clientLocation,
+        "resturantName": resturantName,
       };
 }

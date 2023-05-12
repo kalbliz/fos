@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
 import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
@@ -43,6 +40,10 @@ class OrderServices extends GetxService {
       "status": status,
       "userId": authService.userID,
       "total": total,
+      "clientName": authService.userName,
+      "clientLocation": authService.userAddress,
+      "clientPhoto":authService.userPhoto,
+      "clientPhoneNumber":authService.userPhoneNumber,
       "cartList": [
         for (var element in foodMenus)
           {
@@ -53,6 +54,9 @@ class OrderServices extends GetxService {
             "status": status,
             "foodId": element.id,
             "time": DateTime.now(),
+            "clientName": element.clientName,
+            "clientLocation": element.clientLocation,
+            "resturantName": element.resturantName
           }
       ]
     }).catchError((onError) {

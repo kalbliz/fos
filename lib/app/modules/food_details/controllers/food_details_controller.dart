@@ -36,6 +36,7 @@ class FoodDetailsController extends GetxController {
         foodServices.foodMenus.indexWhere((element) => element.id == id));
     await cartServices
         .addCartDetailToDb(
+     
       foodMenus: foodMenus,
       quantity: quantity.value,
       status: status.value,

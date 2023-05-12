@@ -182,8 +182,9 @@ class GeneralDialog {
                   fontFamily: "Nunito", color: AppDarkColors.AppPrimaryBlack),
             ),
             onPressed: () {
-              Get.offAllNamed(Routes.NAV);
-              NavController().tabIndex.value = 0;
+              // Get.offAllNamed(Routes.NAV);
+              // NavController().tabIndex.value = 0;
+              Get.back();
             },
           ),
           // CupertinoDialogAction(

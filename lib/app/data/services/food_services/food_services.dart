@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
+import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/models/resturants/getResturantsResponseModel.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,7 @@ class FoodServices extends GetxService {
   final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
   final List<UserModel> resturantsList = [];
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
+  final RxList<OrderModel> resturantOrdersList = <OrderModel>[].obs;
   @override
   void onReady() {
     // TODO: implement onReady
@@ -77,10 +80,10 @@ class FoodServices extends GetxService {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore
         .collection('foodMenus')
-        .where('sellerName', isEqualTo: resturantName)
+        .where('resturantName', isEqualTo: resturantName)
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
+      // debugPrint(response.docs.toString());
       var responseData =
           response.docs.map((e) => FoodMenus.fromDocumentSnapshot(e)).toList();
       foodFromResturant.value = responseData;
@@ -104,6 +107,25 @@ class FoodServices extends GetxService {
         return Comparable.compare(
             a.userName!.toLowerCase(), b.userName!.toLowerCase());
       }));
+    });
+  }
+
+  Future getResturantOrders({required String resturantName}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .where('cartList.resturantName', isEqualTo: '${resturantName}')
+        .get()
+        .then((response) async {
+      debugPrint(response.docs.toString());
+
+      var responseData =
+          response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      for (var element in responseData) {
+        resturantOrdersList.add(element);
+      }
+    }).catchError((onError) {
+      throw onError;
     });
   }
 }
