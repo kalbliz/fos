@@ -42,8 +42,10 @@ class OrderServices extends GetxService {
       "total": total,
       "clientName": authService.userName,
       "clientLocation": authService.userAddress,
-      "clientPhoto":authService.userPhoto,
-      "clientPhoneNumber":authService.userPhoneNumber,
+      "clientPhoto": authService.userPhoto,
+      "clientPhoneNumber": authService.userPhoneNumber,
+      "resturantId": foodMenus.elementAt(0).resturantId,
+      "resturantName": foodMenus.elementAt(0).resturantName,
       "cartList": [
         for (var element in foodMenus)
           {

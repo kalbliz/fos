@@ -11,6 +11,7 @@ class CartModel {
       this.status,
       this.clientName,
       this.resturantName,
+      this.resturantId,
       this.clientLocation,
       this.time,
       this.foodId});
@@ -21,6 +22,7 @@ class CartModel {
   final String? clientName;
   final String? clientLocation;
   final String? resturantName;
+  final String? resturantId;
   final num? foodPrice;
   final int? quantity;
   final String? status;
@@ -41,6 +43,7 @@ class CartModel {
           time: json["time"],
           clientLocation: json["clientLocation"],
           resturantName: json['resturantName'],
+          resturantId: json['resturantId'],
           clientName: json["clientName"],
           id: json.id);
 
@@ -56,6 +59,7 @@ class CartModel {
         "time": time,
         "clientName": clientName,
         "clientLocation": clientLocation,
-        "resturantName":resturantName,
+        "resturantName": resturantName,
+        "resturantId": resturantId,
       };
 }

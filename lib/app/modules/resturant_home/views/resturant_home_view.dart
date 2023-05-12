@@ -44,26 +44,105 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                                 shrinkWrap: true,
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
-                                  // return Card(
-                                  //   child: ListTile(
-                                  //     leading: CircleAvatar(
-                                  //       backgroundImage:
-                                  //           CachedNetworkImageProvider(
-                                  //         controller
-                                  //             .foodService.resturantOrdersList
-                                  //             .elementAt(index)
-                                  //             .clientName,
-                                  //       ),
-                                  //       onBackgroundImageError: (_, __) {
-                                  //         Icon(
-                                  //           Icons.info,
-                                  //           color: AppDarkColors.AppTextAsh,
-                                  //           size: sizeFit(false, 22, context),
-                                  //         );
-                                  //       },
-                                  //     ),
-                                  //   ),
-                                  // );
+                                  return Card(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: sizeFit(true, 8, context),
+                                          vertical: sizeFit(false, 8, context)),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Order ID: #${controller.foodService.resturantOrdersList.elementAt(index).id}',
+                                                    style: AppTextStyles
+                                                        .Fourteen600TextBlack,
+                                                  ),
+                                                  Text(
+                                                    controller.foodService
+                                                        .resturantOrdersList
+                                                        .elementAt(index)
+                                                        .cartList!
+                                                        .elementAt(0)
+                                                        .time!
+                                                        .toDate()
+                                                        .toIso8601String(),
+                                                    style: AppTextStyles
+                                                        .Fourteen500TextAsh,
+                                                  ),
+                                                ],
+                                              ),
+                                              CircleAvatar(
+                                                radius:
+                                                    sizeFit(false, 20, context),
+                                                onBackgroundImageError:
+                                                    (_, __) {
+                                                  const Icon(Icons.info);
+                                                  debugPrint(__.toString());
+                                                },
+                                                backgroundImage:
+                                                    CachedNetworkImageProvider(
+                                                        controller.foodService
+                                                            .resturantOrdersList
+                                                            .elementAt(index)
+                                                            .clientPhoto!),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: sizeFit(false, 10, context),
+                                          ),
+                                          ListView.separated(
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) {
+                                                return Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: sizeFit(
+                                                          false, 20, context),
+                                                      onBackgroundImageError:
+                                                          (_, __) {
+                                                        const Icon(Icons.info);
+                                                        debugPrint(
+                                                            __.toString());
+                                                      },
+                                                      backgroundImage:
+                                                          CachedNetworkImageProvider(
+                                                              controller
+                                                                  .foodService
+                                                                  .resturantOrdersList
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .cartList!
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .foodImage!),
+                                                    )
+                                                  ],
+                                                );
+                                              },
+                                              separatorBuilder:
+                                                  (context, index) {
+                                                return const Divider(
+                                                  color:
+                                                      AppDarkColors.AppTextAsh,
+                                                );
+                                              },
+                                              itemCount: controller.foodService
+                                                  .resturantOrdersList
+                                                  .elementAt(index)
+                                                  .cartList!
+                                                  .length)
+                                        ],
+                                      ),
+                                    ),
+                                  );
                                 },
                                 itemCount: controller
                                     .foodService.resturantOrdersList.length,
@@ -75,12 +154,6 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                                 },
                               );
                       }),
-                      AuthButton(
-                        title: 'Refresh Order',
-                        onTap: () {
-                          controller.getresturantOrders();
-                        },
-                      )
                     ],
                   ),
                 ));

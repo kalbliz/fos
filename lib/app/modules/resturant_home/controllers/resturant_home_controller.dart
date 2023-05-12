@@ -3,11 +3,13 @@ import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ResturantHomeController extends GetxController {
   //TODO: Implement ResturantHomeController
 
   final foodService = Get.find<FoodServices>();
+
   final authService = Get.find<AuthService>();
   final pageViewState = ViewState.idle.obs;
   final count = 0.obs;
@@ -47,5 +49,11 @@ class ResturantHomeController extends GetxController {
       ErrorDialog(message: onError.toString());
     });
     pageViewState.value = ViewState.idle;
+  }
+
+  String parseTimeStamp(int value) {
+    var date = DateTime.fromMillisecondsSinceEpoch(value * 1000);
+    var d12 = DateFormat('MM-dd-yyyy, hh:mm a').format(date);
+    return d12;
   }
 }

@@ -19,29 +19,37 @@ class OrderModel {
   String? clientPhoto;
   String? clientLocation;
   String? clientPhoneNumber;
+  String? resturantName;
+  String? resturantId;
   List<CartList>? cartList;
   final String? userId;
   dynamic id;
 
-  OrderModel(
-      {this.status,
-      this.total,
-      this.cartList,
-      this.userId,
-      this.clientPhoneNumber,
-      this.clientPhoto,
-      this.id,
-      this.clientLocation,
-      this.clientName});
+  OrderModel({
+    this.status,
+    this.total,
+    this.cartList,
+    this.userId,
+    this.clientPhoneNumber,
+    this.resturantId,
+    this.resturantName,
+    this.clientPhoto,
+    this.id,
+    this.clientLocation,
+    this.clientName,
+  });
 
   factory OrderModel.fromDocumentSnapShot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
       OrderModel(
           status: json["status"],
-          id: json.id,
+          id: json.id.substring(16),
           clientPhoneNumber: json['clientPhoneNumber'],
+          clientPhoto: json['clientPhoto'],
           clientLocation: json['clientLocation'],
           clientName: json['clientName'],
+          resturantId: json['resturantId'],
+          resturantName: json['resturantName'],
           total: json["total"],
           cartList: json["cartList"] == null
               ? []
@@ -58,7 +66,10 @@ class OrderModel {
         "userId": userId,
         "clientName": clientName,
         "clientLocation": clientLocation,
-        "clientPhoneNumber": clientPhoneNumber
+        "clientPhoneNumber": clientPhoneNumber,
+        "resturantName": resturantName,
+        "resturantId": resturantId,
+        "clientPhoto": clientPhoto
       };
 }
 

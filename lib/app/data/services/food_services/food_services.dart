@@ -114,7 +114,7 @@ class FoodServices extends GetxService {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore
         .collection('orders')
-        .where('cartList.resturantName', isEqualTo: '${resturantName}')
+        .where('resturantName', isEqualTo: resturantName)
         .get()
         .then((response) async {
       debugPrint(response.docs.toString());
