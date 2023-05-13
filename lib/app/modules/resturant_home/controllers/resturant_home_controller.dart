@@ -21,7 +21,8 @@ class ResturantHomeController extends GetxController
     super.onInit();
     getFood();
     getresturantOrders();
-   tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
+
   }
 
   @override

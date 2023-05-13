@@ -14,7 +14,7 @@ class CompletedOrdersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return controller.foodService.completedOrdersList.isEmpty
-          ? Text('No Completed Orders')
+          ? Center(child: Text('No Completed Orders'))
           : ListView.separated(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
