@@ -20,10 +20,12 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.AppGrey,
         appBar: AppBar(
           title: Text('Welcome ${controller.authService.userName.capitalize}'),
           elevation: 0,
           centerTitle: true,
+          backgroundColor: AppColors.AppGrey,
         ),
         body: Obx(() {
           return controller.pageViewState.value == ViewState.busy

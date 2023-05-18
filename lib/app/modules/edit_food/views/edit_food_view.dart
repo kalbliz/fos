@@ -17,8 +17,10 @@ class EditFoodView extends GetView<EditFoodController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.AppGrey,
         appBar: AppBar(
-          title: Text('CreateFoodView'),
+          backgroundColor: AppColors.AppGrey,
+          title: Text('Edit Food'),
           centerTitle: true,
         ),
         body: Obx(() {
@@ -108,18 +110,22 @@ class EditFoodView extends GetView<EditFoodController> {
                         ),
                       ),
                     ),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: AuthButton(
-                          title: 'Upload Food',
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            if (controller.foodFormKey.currentState!
-                                .validate()) {
-                              controller.uploadFoodDetails();
-                            }
-                          },
-                        ))
+                    Padding(
+                      padding:
+                          EdgeInsets.only(bottom: sizeFit(false, 10, context)),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AuthButton(
+                            title: 'Upload Food',
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              if (controller.foodFormKey.currentState!
+                                  .validate()) {
+                                controller.uploadFoodDetails();
+                              }
+                            },
+                          )),
+                    )
                   ],
                 );
         }));

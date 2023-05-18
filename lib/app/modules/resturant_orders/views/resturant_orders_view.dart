@@ -15,9 +15,9 @@ class ResturantOrdersView extends GetView<ResturantOrdersController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.AppAsh,
+        backgroundColor: AppColors.AppGrey,
         appBar: AppBar(
-          backgroundColor: AppColors.AppAsh,
+          backgroundColor: AppColors.AppGrey,
           title: Text(
             'Our Menu',
             style: TextStyle(color: AppColors.AppBackgroundRed),

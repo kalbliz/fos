@@ -19,7 +19,7 @@ class PendingOrderView extends StatelessWidget {
           : ListView.separated(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, int orderIndex) {
                 return Card(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -34,12 +34,12 @@ class PendingOrderView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Order ID: #${controller.foodService.pendingOrdersList.elementAt(index).id}',
+                                  'Order ID: #${controller.foodService.pendingOrdersList.elementAt(orderIndex).id}',
                                   style: AppTextStyles.Fourteen600TextBlack,
                                 ),
                                 Text(
                                   controller.foodService.pendingOrdersList
-                                      .elementAt(index)
+                                      .elementAt(orderIndex)
                                       .cartList!
                                       .elementAt(0)
                                       .time!
@@ -57,7 +57,7 @@ class PendingOrderView extends StatelessWidget {
                               },
                               backgroundImage: CachedNetworkImageProvider(
                                   controller.foodService.pendingOrdersList
-                                      .elementAt(index)
+                                      .elementAt(orderIndex)
                                       .clientPhoto!),
                             )
                           ],
@@ -84,7 +84,7 @@ class PendingOrderView extends StatelessWidget {
                                       backgroundImage:
                                           CachedNetworkImageProvider(controller
                                               .foodService.pendingOrdersList
-                                              .elementAt(index)
+                                              .elementAt(orderIndex)
                                               .cartList!
                                               .elementAt(index)
                                               .foodImage!),
@@ -98,7 +98,7 @@ class PendingOrderView extends StatelessWidget {
                                           Text(
                                             controller
                                                 .foodService.pendingOrdersList
-                                                .elementAt(index)
+                                                .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
                                                 .foodName!,
@@ -108,7 +108,7 @@ class PendingOrderView extends StatelessWidget {
                                           Text(
                                             controller
                                                 .foodService.pendingOrdersList
-                                                .elementAt(index)
+                                                .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
                                                 .foodDescription!,
@@ -121,13 +121,13 @@ class PendingOrderView extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'NGN${controller.foodService.pendingOrdersList.elementAt(index).cartList!.elementAt(index).foodPrice!}',
+                                                'NGN${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
                                               ),
                                               Text(
-                                                'Qty: ${controller.foodService.pendingOrdersList.elementAt(index).cartList!.elementAt(index).quantity}',
+                                                'Qty: ${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
@@ -148,7 +148,7 @@ class PendingOrderView extends StatelessWidget {
                               },
                               itemCount: controller
                                   .foodService.pendingOrdersList
-                                  .elementAt(index)
+                                  .elementAt(orderIndex)
                                   .cartList!
                                   .length),
                         ),
@@ -157,7 +157,7 @@ class PendingOrderView extends StatelessWidget {
                         ),
                         Offstage(
                           offstage: controller.foodService.pendingOrdersList
-                                  .elementAt(index)
+                                  .elementAt(orderIndex)
                                   .status ==
                               'success',
                           child: Row(
@@ -167,11 +167,11 @@ class PendingOrderView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'X${controller.foodService.pendingOrdersList.elementAt(index).cartList!.length} items',
+                                    'X${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.length} items',
                                     style: AppTextStyles.Fourteen400TextAsh,
                                   ),
                                   Text(
-                                    'NGN ${controller.foodService.pendingOrdersList.elementAt(index).total}',
+                                    'NGN ${controller.foodService.pendingOrdersList.elementAt(orderIndex).total}',
                                     style: AppTextStyles.Fourteen600TextBlack,
                                   ),
                                 ],

@@ -16,8 +16,10 @@ class CreateFoodView extends GetView<CreateFoodController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.AppGrey,
         appBar: AppBar(
-          title: Text('CreateFoodView'),
+          backgroundColor: AppColors.AppGrey,
+          title: Text('Create Food'),
           centerTitle: true,
         ),
         body: Obx(() {
@@ -28,7 +30,8 @@ class CreateFoodView extends GetView<CreateFoodController> {
                     SingleChildScrollView(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: sizeFit(true, 16, context)),
+                            horizontal: sizeFit(true, 16, context),
+                            vertical: sizeFit(false, 8, context)),
                         child: Form(
                           key: controller.foodFormKey,
                           child: Column(
@@ -100,19 +103,23 @@ class CreateFoodView extends GetView<CreateFoodController> {
                         ),
                       ),
                     ),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: AuthButton(
-                          title: 'Upload Food',
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            if (controller.foodFormKey.currentState!
-                                    .validate() &&
-                                controller.file.value != '') {
-                              controller.uploadFoodDetails();
-                            }
-                          },
-                        ))
+                    Padding(
+                      padding:
+                          EdgeInsets.only(bottom: sizeFit(false, 10, context)),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AuthButton(
+                            title: 'Upload Food',
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              if (controller.foodFormKey.currentState!
+                                      .validate() &&
+                                  controller.file.value != '') {
+                                controller.uploadFoodDetails();
+                              }
+                            },
+                          )),
+                    )
                   ],
                 );
         }));

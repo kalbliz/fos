@@ -18,7 +18,7 @@ class CompletedOrdersView extends StatelessWidget {
           : ListView.separated(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, int orderIndex) {
                 return Card(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -33,12 +33,12 @@ class CompletedOrdersView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Order ID: #${controller.foodService.completedOrdersList.elementAt(index).id}',
+                                  'Order ID: #${controller.foodService.completedOrdersList.elementAt(orderIndex).id}',
                                   style: AppTextStyles.Fourteen600TextBlack,
                                 ),
                                 Text(
                                   controller.foodService.completedOrdersList
-                                      .elementAt(index)
+                                      .elementAt(orderIndex)
                                       .cartList!
                                       .elementAt(0)
                                       .time!
@@ -56,7 +56,7 @@ class CompletedOrdersView extends StatelessWidget {
                               },
                               backgroundImage: CachedNetworkImageProvider(
                                   controller.foodService.completedOrdersList
-                                      .elementAt(index)
+                                      .elementAt(orderIndex)
                                       .clientPhoto!),
                             )
                           ],
@@ -83,7 +83,7 @@ class CompletedOrdersView extends StatelessWidget {
                                       backgroundImage:
                                           CachedNetworkImageProvider(controller
                                               .foodService.completedOrdersList
-                                              .elementAt(index)
+                                              .elementAt(orderIndex)
                                               .cartList!
                                               .elementAt(index)
                                               .foodImage!),
@@ -97,7 +97,7 @@ class CompletedOrdersView extends StatelessWidget {
                                           Text(
                                             controller
                                                 .foodService.completedOrdersList
-                                                .elementAt(index)
+                                                .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
                                                 .foodName!,
@@ -107,7 +107,7 @@ class CompletedOrdersView extends StatelessWidget {
                                           Text(
                                             controller
                                                 .foodService.completedOrdersList
-                                                .elementAt(index)
+                                                .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
                                                 .foodDescription!,
@@ -120,13 +120,13 @@ class CompletedOrdersView extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'NGN${controller.foodService.completedOrdersList.elementAt(index).cartList!.elementAt(index).foodPrice!}',
+                                                'NGN${controller.foodService.completedOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
                                               ),
                                               Text(
-                                                'Qty: ${controller.foodService.completedOrdersList.elementAt(index).cartList!.elementAt(index).quantity}',
+                                                'Qty: ${controller.foodService.completedOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
@@ -147,7 +147,7 @@ class CompletedOrdersView extends StatelessWidget {
                               },
                               itemCount: controller
                                   .foodService.completedOrdersList
-                                  .elementAt(index)
+                                  .elementAt(orderIndex)
                                   .cartList!
                                   .length),
                         ),
@@ -156,7 +156,7 @@ class CompletedOrdersView extends StatelessWidget {
                         ),
                         Offstage(
                           offstage: controller.foodService.completedOrdersList
-                                  .elementAt(index)
+                                  .elementAt(orderIndex)
                                   .status ==
                               'success',
                           child: Row(
@@ -166,11 +166,11 @@ class CompletedOrdersView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'X${controller.foodService.completedOrdersList.elementAt(index).cartList!.length} items',
+                                    'X${controller.foodService.completedOrdersList.elementAt(orderIndex).cartList!.length} items',
                                     style: AppTextStyles.Fourteen400TextAsh,
                                   ),
                                   Text(
-                                    'NGN ${controller.foodService.completedOrdersList.elementAt(index).total}',
+                                    'NGN ${controller.foodService.completedOrdersList.elementAt(orderIndex).total}',
                                     style: AppTextStyles.Fourteen600TextBlack,
                                   ),
                                 ],
