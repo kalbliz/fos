@@ -53,9 +53,15 @@ class LoginController extends GetxController {
         .then((response) async {
       // User currentUser;
       // currentUser = response.user!;
-      await readUserDetails(response.user!).then((value) {
-        Get.offAllNamed(Routes.NAV);
-      });
+      if (response.user == null) {
+        loginUser();
+      } else {
+        Future.delayed(Duration(seconds: 2), () async {
+          await readUserDetails(response.user!).then((value) {
+            Get.offAllNamed(Routes.NAV);
+          });
+        });
+      }
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;
       showDialog(

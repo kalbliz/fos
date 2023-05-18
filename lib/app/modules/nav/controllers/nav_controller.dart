@@ -14,24 +14,27 @@ import 'package:get/get.dart';
 class NavController extends GetxController {
   //TODO: Implement NavController
   final homeController = Get.find<HomeController>();
-  final authService = Get.find<AuthService>();
+  final AuthService authService = Get.find<AuthService>();
 
   final count = 0.obs;
   var tabIndex = 0.obs;
   var userPages = <Widget>[].obs;
   var resturantPages = <Widget>[].obs;
   var riderPages = <Widget>[].obs;
+  var userStatus = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
+    debugPrint(authService.userState);
+    userStatus.value = authService.userState;
     userPages.add(HomeView());
     userPages.add(SearchView());
     userPages.add(OrdersView());
     userPages.add(AccountsView());
     resturantPages.add(ResturantHomeView());
     resturantPages.add(CreateFoodView());
-     resturantPages.add(ResturantOrdersView());
+    resturantPages.add(ResturantOrdersView());
     resturantPages.add(ResturantProfileView());
   }
 
