@@ -12,6 +12,8 @@ import 'package:fos/app/modules/check-out/bindings/check_out_binding.dart';
 import 'package:fos/app/modules/check-out/views/check_out_view.dart';
 import 'package:fos/app/modules/create_food/bindings/create_food_binding.dart';
 import 'package:fos/app/modules/create_food/views/create_food_view.dart';
+import 'package:fos/app/modules/edit_food/bindings/edit_food_binding.dart';
+import 'package:fos/app/modules/edit_food/views/edit_food_view.dart';
 import 'package:fos/app/modules/food_details/bindings/food_details_binding.dart';
 import 'package:fos/app/modules/food_details/views/food_details_view.dart';
 import 'package:fos/app/modules/home/bindings/home_binding.dart';
@@ -139,6 +141,11 @@ class AppPages {
       name: _Paths.RESTURANT_PROFILE,
       page: () => ResturantProfileView(),
       binding: ResturantProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_FOOD,
+      page: () => EditFoodView(),
+      binding: EditFoodBinding(),
     ),
   ];
 }

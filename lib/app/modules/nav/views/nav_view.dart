@@ -97,7 +97,7 @@ class NavView extends GetView<NavController> {
               ? NavigationBar(
                   labelBehavior:
                       NavigationDestinationLabelBehavior.onlyShowSelected,
-                  backgroundColor: AppDarkColors.AppPrimaryWhite,
+                  backgroundColor: AppColors.AppAsh,
                   height: sizeFit(false, 70, context),
                   surfaceTintColor: AppDarkColors.AppAsh,
                   elevation: 0,

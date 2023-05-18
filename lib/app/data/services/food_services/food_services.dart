@@ -25,14 +25,14 @@ class FoodServices extends GetxService {
     super.onReady();
   }
 
-  Future saveFoodData({
-    required String foodName,
-    required String foodDescription,
-    required String foodImage,
-    required num foodPrice,
-    required String resturantName,
-    required String resturantAddress,
-  }) async {
+  Future saveFoodData(
+      {required String foodName,
+      required String foodDescription,
+      required String foodImage,
+      required num foodPrice,
+      required String resturantName,
+      required String resturantAddress,
+      required String resturantId}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('foodMenus').doc().set({
       'foodName': foodName,
@@ -40,11 +40,35 @@ class FoodServices extends GetxService {
       'foodImage': foodImage,
       'foodPrice': foodPrice,
       'resturantName': resturantName,
-      'resturantAddress': resturantAddress
+      'resturantAddress': resturantAddress,
+      'resturantId': resturantId
     }).then((value) async {
       getFoodMenus();
     });
   }
+    Future updateFoodData(
+      {required String foodName,
+      required String foodDescription,
+      required String foodImage,
+      required String foodId,
+      required num foodPrice,
+      required String resturantName,
+      required String resturantAddress,
+      required String resturantId}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('foodMenus').doc(foodId).update({
+      'foodName': foodName,
+      'foodDescription': foodDescription,
+      'foodImage': foodImage,
+      'foodPrice': foodPrice,
+      'resturantName': resturantName,
+      'resturantAddress': resturantAddress,
+      'resturantId': resturantId
+    }).then((value) async {
+      getFoodMenus();
+    });
+  }
+
 
   Future getFoodMenus() async {
     firebaseFireStore = FirebaseFirestore.instance;
@@ -63,6 +87,9 @@ class FoodServices extends GetxService {
         return Comparable.compare(
             a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
       }));
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      throw onError;
     });
   }
 
@@ -89,6 +116,9 @@ class FoodServices extends GetxService {
       var responseData =
           response.docs.map((e) => FoodMenus.fromDocumentSnapshot(e)).toList();
       foodFromResturant.value = responseData;
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      throw onError;
     });
   }
 
@@ -109,7 +139,10 @@ class FoodServices extends GetxService {
         return Comparable.compare(
             a.userName!.toLowerCase(), b.userName!.toLowerCase());
       }));
+    }).catchError((onError) {
+      throw onError;
     });
+    ;
   }
 
   Future getResturantOrders({required String resturantName}) async {
