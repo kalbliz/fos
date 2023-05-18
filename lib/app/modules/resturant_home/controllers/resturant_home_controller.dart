@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
@@ -21,8 +22,7 @@ class ResturantHomeController extends GetxController
     super.onInit();
     getFood();
     getresturantOrders();
-    tabController = TabController(length: 2, vsync: this);
-
+    tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -47,9 +47,45 @@ class ResturantHomeController extends GetxController
 
   Future getresturantOrders() async {
     pageViewState.value = ViewState.busy;
+    // await foodService
+    //     .getResturantOrders(resturantName: authService.userName)
+    //     .then((value) {})
+    //     .catchError((onError) {
+    //   ErrorDialog(message: onError.toString());
+    // });
     await foodService
-        .getResturantOrders(resturantName: authService.userName)
+        .getAllOrders(resturantName: authService.userName)
         .then((value) {})
+        .catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+    await foodService
+        .getCancelledOrders(resturantName: authService.userName)
+        .then((value) {})
+        .catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+    await foodService
+        .getCompletedOrders(resturantName: authService.userName)
+        .then((value) {})
+        .catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+    await foodService
+        .getPendingOrders(resturantName: authService.userName)
+        .then((value) {})
+        .catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+    pageViewState.value = ViewState.idle;
+  }
+
+  Future updateOrderStatus(
+      {required OrderModel orderModel, required String status}) async {
+    pageViewState.value = ViewState.busy;
+    await foodService
+        .updateOrderState(orderModel: orderModel, status: status)
+        .then((value) => getresturantOrders())
         .catchError((onError) {
       ErrorDialog(message: onError.toString());
     });

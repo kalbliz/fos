@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fos/app/modules/resturant_home/widgets/all_orders_view.dart';
+import 'package:fos/app/modules/resturant_home/widgets/cancelled_orders_view%20copy%202.dart';
 import 'package:fos/app/modules/resturant_home/widgets/completed_orders_view.dart';
 import 'package:fos/app/modules/resturant_home/widgets/pending_orders_view.dart';
 import 'package:fos/app/utilities/text_style/fourteens.dart';
@@ -40,7 +42,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TabBar(
-                          isScrollable: false,
+                          isScrollable: true,
                           controller: controller.tabController,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorColor: AppDarkColors.AppPrimaryPink,
@@ -49,6 +51,31 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             controller.currentTabIndex.value = index;
                           },
                           tabs: [
+                            Tab(
+                              child: Row(children: [
+                                const Fourteen500AppBlackNun(
+                                    text: 'All Orders'),
+                                SizedBox(
+                                  width: sizeFit(true, 4, context),
+                                ),
+                                Container(
+                                  height: sizeFit(false, 20, context),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromRGBO(217, 217, 217, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Obx(() {
+                                      return Ten500AppBlack(
+                                        text:
+                                            '${controller.foodService.allOrdersList.length}',
+                                      );
+                                    }),
+                                  ),
+                                )
+                              ]),
+                            ),
                             Tab(
                               child: Row(children: [
                                 const Fourteen500AppBlackNun(text: 'Pending'),
@@ -95,13 +122,39 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                                 )
                               ]),
                             ),
+                            Tab(
+                              child: Row(children: [
+                                const Fourteen500AppBlackNun(text: 'Cancelled'),
+                                SizedBox(
+                                  width: sizeFit(true, 4, context),
+                                ),
+                                Container(
+                                  height: sizeFit(false, 20, context),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromRGBO(217, 217, 217, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Obx(() {
+                                      return Ten500AppBlack(
+                                        text:
+                                            '${controller.foodService.cancelledOrdersList.length}',
+                                      );
+                                    }),
+                                  ),
+                                )
+                              ]),
+                            ),
                           ]),
                       Expanded(
                         child: TabBarView(
                             controller: controller.tabController,
                             children: [
+                              AllOrderView(),
                               PendingOrderView(),
-                              CompletedOrdersView()
+                              CompletedOrdersView(),
+                              CancelledOrderView()
                             ]),
                       )
                     ],

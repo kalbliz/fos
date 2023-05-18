@@ -7,15 +7,14 @@ import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:get/get.dart';
 
-class PendingOrderView extends StatelessWidget {
+class AllOrderView extends StatelessWidget {
+  AllOrderView({super.key});
   final controller = Get.find<ResturantHomeController>();
-  PendingOrderView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return controller.foodService.pendingOrdersList.isEmpty
-          ? Center(child: Text('No Pending Orders'))
+      return controller.foodService.allOrdersList.isEmpty
+          ? Center(child: Text('No Completed Orders'))
           : ListView.separated(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
@@ -33,12 +32,21 @@ class PendingOrderView extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Order ID: #${controller.foodService.pendingOrdersList.elementAt(orderIndex).id}',
-                                  style: AppTextStyles.Fourteen600TextBlack,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Order ID: # ',
+                                      style: AppTextStyles.Fourteen600TextBlack,
+                                    ),
+                                    Text(
+                                      '${controller.foodService.allOrdersList.elementAt(orderIndex).id}'
+                                          .substring(16),
+                                      style: AppTextStyles.Fourteen600TextBlack,
+                                    ),
+                                  ],
                                 ),
                                 Text(
-                                  controller.foodService.pendingOrdersList
+                                  controller.foodService.allOrdersList
                                       .elementAt(orderIndex)
                                       .cartList!
                                       .elementAt(0)
@@ -56,7 +64,7 @@ class PendingOrderView extends StatelessWidget {
                                 debugPrint(__.toString());
                               },
                               backgroundImage: CachedNetworkImageProvider(
-                                  controller.foodService.pendingOrdersList
+                                  controller.foodService.allOrdersList
                                       .elementAt(orderIndex)
                                       .clientPhoto!),
                             )
@@ -83,7 +91,7 @@ class PendingOrderView extends StatelessWidget {
                                       },
                                       backgroundImage:
                                           CachedNetworkImageProvider(controller
-                                              .foodService.pendingOrdersList
+                                              .foodService.allOrdersList
                                               .elementAt(orderIndex)
                                               .cartList!
                                               .elementAt(index)
@@ -96,8 +104,7 @@ class PendingOrderView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            controller
-                                                .foodService.pendingOrdersList
+                                            controller.foodService.allOrdersList
                                                 .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
@@ -106,8 +113,7 @@ class PendingOrderView extends StatelessWidget {
                                                 .Fourteen600TextBlack,
                                           ),
                                           Text(
-                                            controller
-                                                .foodService.pendingOrdersList
+                                            controller.foodService.allOrdersList
                                                 .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
@@ -121,13 +127,13 @@ class PendingOrderView extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'NGN${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
+                                                'NGN${controller.foodService.allOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
                                               ),
                                               Text(
-                                                'Qty: ${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
+                                                'Qty: ${controller.foodService.allOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
@@ -146,8 +152,7 @@ class PendingOrderView extends StatelessWidget {
                                   indent: sizeFit(true, 65, context),
                                 );
                               },
-                              itemCount: controller
-                                  .foodService.pendingOrdersList
+                              itemCount: controller.foodService.allOrdersList
                                   .elementAt(orderIndex)
                                   .cartList!
                                   .length),
@@ -156,7 +161,7 @@ class PendingOrderView extends StatelessWidget {
                           color: AppDarkColors.AppAsh,
                         ),
                         Offstage(
-                          offstage: controller.foodService.pendingOrdersList
+                          offstage: controller.foodService.allOrdersList
                                   .elementAt(orderIndex)
                                   .status ==
                               'success',
@@ -167,11 +172,11 @@ class PendingOrderView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'X${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.length} items',
+                                    'X${controller.foodService.allOrdersList.elementAt(orderIndex).cartList!.length} items',
                                     style: AppTextStyles.Fourteen400TextAsh,
                                   ),
                                   Text(
-                                    'NGN ${controller.foodService.pendingOrdersList.elementAt(orderIndex).total}',
+                                    'NGN ${controller.foodService.allOrdersList.elementAt(orderIndex).total}',
                                     style: AppTextStyles.Fourteen600TextBlack,
                                   ),
                                 ],
@@ -211,7 +216,7 @@ class PendingOrderView extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: controller.foodService.pendingOrdersList.length,
+              itemCount: controller.foodService.allOrdersList.length,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: sizeFit(false, 16, context),

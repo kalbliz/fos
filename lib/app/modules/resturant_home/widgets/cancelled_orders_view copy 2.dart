@@ -7,15 +7,14 @@ import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:get/get.dart';
 
-class PendingOrderView extends StatelessWidget {
+class CancelledOrderView extends StatelessWidget {
+  CancelledOrderView({super.key});
   final controller = Get.find<ResturantHomeController>();
-  PendingOrderView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return controller.foodService.pendingOrdersList.isEmpty
-          ? Center(child: Text('No Pending Orders'))
+      return controller.foodService.cancelledOrdersList.isEmpty
+          ? Center(child: Text('No Completed Orders'))
           : ListView.separated(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
@@ -34,11 +33,11 @@ class PendingOrderView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Order ID: #${controller.foodService.pendingOrdersList.elementAt(orderIndex).id}',
+                                  'Order ID: #${controller.foodService.cancelledOrdersList.elementAt(orderIndex).id}',
                                   style: AppTextStyles.Fourteen600TextBlack,
                                 ),
                                 Text(
-                                  controller.foodService.pendingOrdersList
+                                  controller.foodService.cancelledOrdersList
                                       .elementAt(orderIndex)
                                       .cartList!
                                       .elementAt(0)
@@ -56,7 +55,7 @@ class PendingOrderView extends StatelessWidget {
                                 debugPrint(__.toString());
                               },
                               backgroundImage: CachedNetworkImageProvider(
-                                  controller.foodService.pendingOrdersList
+                                  controller.foodService.cancelledOrdersList
                                       .elementAt(orderIndex)
                                       .clientPhoto!),
                             )
@@ -83,7 +82,7 @@ class PendingOrderView extends StatelessWidget {
                                       },
                                       backgroundImage:
                                           CachedNetworkImageProvider(controller
-                                              .foodService.pendingOrdersList
+                                              .foodService.cancelledOrdersList
                                               .elementAt(orderIndex)
                                               .cartList!
                                               .elementAt(index)
@@ -97,7 +96,7 @@ class PendingOrderView extends StatelessWidget {
                                         children: [
                                           Text(
                                             controller
-                                                .foodService.pendingOrdersList
+                                                .foodService.cancelledOrdersList
                                                 .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
@@ -107,7 +106,7 @@ class PendingOrderView extends StatelessWidget {
                                           ),
                                           Text(
                                             controller
-                                                .foodService.pendingOrdersList
+                                                .foodService.cancelledOrdersList
                                                 .elementAt(orderIndex)
                                                 .cartList!
                                                 .elementAt(index)
@@ -121,13 +120,13 @@ class PendingOrderView extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'NGN${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
+                                                'NGN${controller.foodService.cancelledOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
                                               ),
                                               Text(
-                                                'Qty: ${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
+                                                'Qty: ${controller.foodService.cancelledOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
                                                 overflow: TextOverflow.ellipsis,
                                                 style: AppTextStyles
                                                     .Fourteen600TextBlack,
@@ -147,7 +146,7 @@ class PendingOrderView extends StatelessWidget {
                                 );
                               },
                               itemCount: controller
-                                  .foodService.pendingOrdersList
+                                  .foodService.cancelledOrdersList
                                   .elementAt(orderIndex)
                                   .cartList!
                                   .length),
@@ -156,7 +155,7 @@ class PendingOrderView extends StatelessWidget {
                           color: AppDarkColors.AppAsh,
                         ),
                         Offstage(
-                          offstage: controller.foodService.pendingOrdersList
+                          offstage: controller.foodService.cancelledOrdersList
                                   .elementAt(orderIndex)
                                   .status ==
                               'success',
@@ -167,11 +166,11 @@ class PendingOrderView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'X${controller.foodService.pendingOrdersList.elementAt(orderIndex).cartList!.length} items',
+                                    'X${controller.foodService.cancelledOrdersList.elementAt(orderIndex).cartList!.length} items',
                                     style: AppTextStyles.Fourteen400TextAsh,
                                   ),
                                   Text(
-                                    'NGN ${controller.foodService.pendingOrdersList.elementAt(orderIndex).total}',
+                                    'NGN ${controller.foodService.cancelledOrdersList.elementAt(orderIndex).total}',
                                     style: AppTextStyles.Fourteen600TextBlack,
                                   ),
                                 ],
@@ -180,26 +179,14 @@ class PendingOrderView extends StatelessWidget {
                                 children: [
                                   ActionButton(
                                     action: 'accept',
-                                    onTap: () {
-                                      controller.updateOrderStatus(
-                                          orderModel: controller
-                                              .foodService.pendingOrdersList
-                                              .elementAt(orderIndex),
-                                          status: 'success');
-                                    },
+                                    onTap: () {},
                                   ),
                                   SizedBox(
                                     width: sizeFit(true, 16, context),
                                   ),
                                   ActionButton(
                                     action: 'cancel',
-                                    onTap: () {
-                                      controller.updateOrderStatus(
-                                          orderModel: controller
-                                              .foodService.pendingOrdersList
-                                              .elementAt(orderIndex),
-                                          status: 'cancelled');
-                                    },
+                                    onTap: () {},
                                   ),
                                 ],
                               )
@@ -211,7 +198,7 @@ class PendingOrderView extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: controller.foodService.pendingOrdersList.length,
+              itemCount: controller.foodService.cancelledOrdersList.length,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: sizeFit(false, 16, context),

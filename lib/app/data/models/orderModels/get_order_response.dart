@@ -43,7 +43,7 @@ class OrderModel {
           DocumentSnapshot<Map<String, dynamic>> json) =>
       OrderModel(
           status: json["status"],
-          id: json.id.substring(16),
+          id: json.id,
           clientPhoneNumber: json['clientPhoneNumber'],
           clientPhoto: json['clientPhoto'],
           clientLocation: json['clientLocation'],

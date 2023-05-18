@@ -17,7 +17,10 @@ class FoodServices extends GetxService {
   final List<UserModel> resturantsList = [];
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
   final RxList<OrderModel> resturantOrdersList = <OrderModel>[].obs;
+  final RxList<OrderModel> allOrdersList = <OrderModel>[].obs;
+
   final RxList<OrderModel> pendingOrdersList = <OrderModel>[].obs;
+  final RxList<OrderModel> cancelledOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> completedOrdersList = <OrderModel>[].obs;
   @override
   void onReady() {
@@ -46,7 +49,8 @@ class FoodServices extends GetxService {
       getFoodMenus();
     });
   }
-    Future updateFoodData(
+
+  Future updateFoodData(
       {required String foodName,
       required String foodDescription,
       required String foodImage,
@@ -68,7 +72,6 @@ class FoodServices extends GetxService {
       getFoodMenus();
     });
   }
-
 
   Future getFoodMenus() async {
     firebaseFireStore = FirebaseFirestore.instance;
@@ -145,7 +148,96 @@ class FoodServices extends GetxService {
     ;
   }
 
-  Future getResturantOrders({required String resturantName}) async {
+  // Future getResturantOrders({required String resturantName}) async {
+  //   firebaseFireStore = FirebaseFirestore.instance;
+  //   await firebaseFireStore
+  //       .collection('orders')
+  //       .where('resturantName', isEqualTo: resturantName)
+  //       .get()
+  //       .then((response) async {
+  //     debugPrint(response.docs.toString());
+
+  //     var responseData =
+  //         response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+  //     for (var element in responseData) {
+  //       resturantOrdersList.add(element);
+  //       element.status == 'success'
+  //           ? completedOrdersList.add(element)
+  //           : pendingOrdersList.add(element);
+  //     }
+  //   }).catchError((onError) {
+  //     throw onError;
+  //   });
+  // }
+  Future updateOrderState(
+      {required OrderModel orderModel, required String status}) async {
+    debugPrint(orderModel.id);
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .doc(orderModel.id)
+        .update({'status': status})
+        .then((response) async {})
+        .catchError((onError) {
+          throw onError;
+        });
+  }
+
+  Future getPendingOrders({required String resturantName}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .where('resturantName', isEqualTo: resturantName)
+        .where('status', isEqualTo: 'pending')
+        .get()
+        .then((response) async {
+      debugPrint(response.docs.toString());
+
+      var responseData =
+          response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      pendingOrdersList.value = responseData;
+    }).catchError((onError) {
+      throw onError;
+    });
+  }
+
+  Future getCompletedOrders({required String resturantName}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .where('resturantName', isEqualTo: resturantName)
+        .where('status', isEqualTo: 'success')
+        .get()
+        .then((response) async {
+      debugPrint(response.docs.toString());
+
+      var responseData =
+          response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      completedOrdersList.value = responseData;
+    }).catchError((onError) {
+      throw onError;
+    });
+  }
+
+  Future getCancelledOrders({required String resturantName}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .where('resturantName', isEqualTo: resturantName)
+        .where('status', isEqualTo: 'cancelled')
+        .get()
+        .then((response) async {
+      debugPrint(response.docs.toString());
+
+      var responseData =
+          response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      cancelledOrdersList.value = responseData;
+    }).catchError((onError) {
+      throw onError;
+    });
+  }
+
+  Future getAllOrders({required String resturantName}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore
         .collection('orders')
@@ -156,12 +248,7 @@ class FoodServices extends GetxService {
 
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
-      for (var element in responseData) {
-        resturantOrdersList.add(element);
-        element.status == 'success'
-            ? completedOrdersList.add(element)
-            : pendingOrdersList.add(element);
-      }
+      allOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;
     });
