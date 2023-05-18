@@ -88,8 +88,9 @@ class OrdersView extends GetView<OrdersController> {
                                       trailing: Text(
                                         controller.orderServices.orderList
                                             .elementAt(index)
-                                            .status!
-                                            ,
+                                            .total!
+                                            .floor()
+                                            .toString(),
                                         style:
                                             AppTextStyles.Fourteen400TextPink,
                                       ),
