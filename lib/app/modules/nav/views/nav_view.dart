@@ -136,7 +136,7 @@ class NavView extends GetView<NavController> {
                           ),
                         )),
                     const NavigationDestination(
-                        label: 'Orders',
+                        label: 'Menu',
                         selectedIcon: SizedBox(
                           child: Icon(
                             CupertinoIcons.list_bullet,
