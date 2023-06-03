@@ -28,17 +28,6 @@ class NavBinding extends Bindings {
     Get.lazyPut<AccountsController>(
       () => AccountsController(),
     );
-    Get.lazyPut<CreateFoodController>(
-      () => CreateFoodController(),
-    );
-    Get.lazyPut<ResturantHomeController>(
-      () => ResturantHomeController(),
-    );
-    Get.lazyPut<ResturantOrdersController>(
-      () => ResturantOrdersController(),
-    );
-    Get.lazyPut<ResturantProfileController>(
-      () => ResturantProfileController(),
-    );
+
   }
 }

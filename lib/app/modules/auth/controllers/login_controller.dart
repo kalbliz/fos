@@ -51,16 +51,12 @@ class LoginController extends GetxController {
             email: emailEditingController.value.text.trim(),
             password: passwordEditingController.value.text.trim())
         .then((response) async {
-      // User currentUser;
-      // currentUser = response.user!;
-      if (response.user == null) {
-        loginUser();
+      await readUserDetails(response.user!);
+      debugPrint(authService.box.read('userState'));
+      if (authService.box.read('userState') == 'user') {
+        Get.offAllNamed(Routes.NAV);
       } else {
-        Future.delayed(Duration(seconds: 2), () async {
-          await readUserDetails(response.user!).then((value) {
-            Get.offAllNamed(Routes.NAV);
-          });
-        });
+        Get.offAllNamed(Routes.RESTURANT_NAV);
       }
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;
@@ -81,7 +77,8 @@ class LoginController extends GetxController {
         .collection('allUsers')
         .doc(currentUser.uid)
         .get()
-        .then((response) async {
+        .then((response) {
+      authService.box.write('userState', response.data()!['userState']);
       authService.userID = currentUser.uid;
       authService.userEmail = response.data()!['userEmail'];
       authService.userName = response.data()!['userName'];

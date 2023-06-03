@@ -19,6 +19,8 @@ import 'package:fos/app/utilities/text_style/styles.dart';
 import '../controllers/resturant_home_controller.dart';
 
 class ResturantHomeView extends GetView<ResturantHomeController> {
+  const ResturantHomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
         ),
         body: Obx(() {
           return controller.pageViewState.value == ViewState.busy
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator.adaptive(),
                 )
               : SafeArea(

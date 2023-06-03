@@ -54,5 +54,5 @@
 -keep class android.support.v7.widget.** { *; }
 
 # Keep any custom models or serializers (replace com.example.yourapp with your app's package name)
--keep class com.example.yourapp.models.** { *; }
+-keep class com.tobias.fos.models.** { *; }
 -keep class com.example.yourapp.serializers.** { *; }
