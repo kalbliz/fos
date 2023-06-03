@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fos/app/modules/nav/controllers/nav_controller.dart';
+import 'package:fos/app/modules/user/nav/controllers/nav_controller.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:get/get.dart';
