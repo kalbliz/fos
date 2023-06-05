@@ -22,7 +22,7 @@ class CompletedOrdersView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int orderIndex) {
                 return SingleOrderWidget(
-                     orderList: controller.foodService.completedOrdersList,
+                     orderList: 'completed',
                   orderIndex: orderIndex,
                 );
               },

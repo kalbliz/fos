@@ -35,7 +35,9 @@ class ResturantOrderDetailView extends GetView<ResturantOrderDetailController> {
                       padding: EdgeInsets.symmetric(
                           horizontal: sizeFit(true, 4, context),
                           vertical: sizeFit(false, 4, context)),
-                      decoration: BoxDecoration(color: AppColors.AppAsh),
+                      decoration: BoxDecoration(
+                        
+                        color: AppColors.AppAsh),
                     )
                   ],
                 )

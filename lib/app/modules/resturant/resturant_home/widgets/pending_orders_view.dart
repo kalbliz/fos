@@ -22,7 +22,7 @@ class PendingOrderView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int orderIndex) {
                 return SingleOrderWidget(
-                     orderList: controller.foodService.pendingOrdersList,
+                     orderList: 'pending',
                   orderIndex: orderIndex,
                 );
               },

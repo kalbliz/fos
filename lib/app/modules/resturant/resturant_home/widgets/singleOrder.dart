@@ -19,13 +19,13 @@ class SingleOrderWidget extends StatelessWidget {
   }) : super(key: key);
   final controller = Get.find<ResturantHomeController>();
   final int orderIndex;
-  final List<OrderModel> orderList;
+  final String orderList;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Get.toNamed(Routes.RESTURANT_ORDER_DETAIL, arguments: [
-          {'orderList': '$orderList'}
+          {'orderList': orderList}
         ]);
       },
       child: Card(

@@ -9,6 +9,7 @@ class ResturantOrderDetailController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
+    debugPrint(argument);
     super.onInit();
   }
 
