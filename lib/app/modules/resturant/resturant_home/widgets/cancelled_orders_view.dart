@@ -8,15 +8,14 @@ import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
 import 'package:get/get.dart';
 
-class PendingOrderView extends StatelessWidget {
+class CancelledOrderView extends StatelessWidget {
+  CancelledOrderView({super.key});
   final controller = Get.find<ResturantHomeController>();
-  PendingOrderView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return controller.foodService.pendingOrdersList.isEmpty
-          ? Center(child: Text('No Pending Orders'))
+      return controller.foodService.cancelledOrdersList.isEmpty
+          ? Center(child: Text('No Completed Orders'))
           : ListView.separated(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
@@ -25,7 +24,7 @@ class PendingOrderView extends StatelessWidget {
                   orderIndex: orderIndex,
                 );
               },
-              itemCount: controller.foodService.pendingOrdersList.length,
+              itemCount: controller.foodService.cancelledOrdersList.length,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: sizeFit(false, 16, context),

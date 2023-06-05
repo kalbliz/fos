@@ -2,7 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/all_orders_view.dart';
-import 'package:fos/app/modules/resturant/resturant_home/widgets/cancelled_orders_view%20copy%202.dart';
+import 'package:fos/app/modules/resturant/resturant_home/widgets/cancelled_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/completed_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/pending_orders_view.dart';
 import 'package:fos/app/utilities/text_style/fourteens.dart';
@@ -55,7 +55,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                           tabs: [
                             Tab(
                               child: Row(children: [
-                                const Fourteen500AppBlackNun(
+                                const Fourteen400AppBackgroundWhiteNun(
                                     text: 'All Orders'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
@@ -80,7 +80,8 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen500AppBlackNun(text: 'Pending'),
+                                const Fourteen400AppBackgroundWhiteNun(
+                                    text: 'Pending'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
@@ -104,7 +105,8 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen500AppBlackNun(text: 'Completed'),
+                                const Fourteen400AppBackgroundWhiteNun(
+                                    text: 'Completed'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
@@ -126,7 +128,8 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen500AppBlackNun(text: 'Cancelled'),
+                                const Fourteen400AppBackgroundWhiteNun(
+                                    text: 'Cancelled'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
