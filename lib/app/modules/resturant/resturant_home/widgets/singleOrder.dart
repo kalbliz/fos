@@ -1,25 +1,32 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/modules/resturant/resturant_home/controllers/resturant_home_controller.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
-import 'package:get/get.dart';
 
 class SingleOrderWidget extends StatelessWidget {
   SingleOrderWidget({
     Key? key,
     required this.orderIndex,
+    required this.orderList,
   }) : super(key: key);
   final controller = Get.find<ResturantHomeController>();
   final int orderIndex;
+  final List<OrderModel> orderList;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.RESTURANT_ORDER_DETAIL);
+        Get.toNamed(Routes.RESTURANT_ORDER_DETAIL, arguments: [
+          {'orderList': '$orderList'}
+        ]);
       },
       child: Card(
         child: Padding(

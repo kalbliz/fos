@@ -18,10 +18,10 @@ class FoodServices extends GetxService {
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
   final RxList<OrderModel> resturantOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> allOrdersList = <OrderModel>[].obs;
-
   final RxList<OrderModel> pendingOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> cancelledOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> completedOrdersList = <OrderModel>[].obs;
+  
   @override
   void onReady() {
     // TODO: implement onReady
