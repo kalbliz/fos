@@ -5,6 +5,7 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/orders/order_service.dart';
+import 'package:fos/app/data/services/rider/rider_service.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -22,6 +23,7 @@ void main() async {
   await Get.putAsync<FoodServices>(() async => FoodServices());
   await Get.putAsync<OrderServices>(() async => OrderServices());
   await Get.putAsync<CartServices>(() async => CartServices());
+   await Get.putAsync<RiderServices>(() async => RiderServices());
 
   await Firebase.initializeApp(
       options: const FirebaseOptions(

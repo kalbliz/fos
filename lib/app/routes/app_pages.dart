@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:fos/app/modules/resturant/create_rider/bindings/create_rider_binding.dart';
+import 'package:fos/app/modules/resturant/create_rider/views/create_rider_view.dart';
 import 'package:fos/app/modules/global/auth/bindings/auth_binding.dart';
 import 'package:fos/app/modules/global/auth/views/auth_view.dart';
 import 'package:fos/app/modules/global/auth/views/login_view.dart';
@@ -16,12 +18,16 @@ import 'package:fos/app/modules/resturant/resturant_home/bindings/resturant_home
 import 'package:fos/app/modules/resturant/resturant_home/views/resturant_home_view.dart';
 import 'package:fos/app/modules/resturant/resturant_nav/bindings/resturant_nav_binding.dart';
 import 'package:fos/app/modules/resturant/resturant_nav/views/resturant_nav_view.dart';
+import 'package:fos/app/modules/resturant/resturant_order_detail/bindings/resturant_order_detail_binding.dart';
+import 'package:fos/app/modules/resturant/resturant_order_detail/views/resturant_order_detail_view.dart';
 import 'package:fos/app/modules/resturant/resturant_orders/bindings/resturant_orders_binding.dart';
 import 'package:fos/app/modules/resturant/resturant_orders/views/resturant_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_profile/bindings/resturant_profile_binding.dart';
 import 'package:fos/app/modules/resturant/resturant_profile/views/resturant_profile_view.dart';
-import 'package:fos/app/modules/resturant/resturant_order_detail/bindings/resturant_order_detail_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_order_detail/views/resturant_order_detail_view.dart';
+import 'package:fos/app/modules/resturant/rider/bindings/rider_binding.dart';
+import 'package:fos/app/modules/resturant/rider/views/rider_view.dart';
+import 'package:fos/app/modules/resturant/rider_details/bindings/rider_details_binding.dart';
+import 'package:fos/app/modules/resturant/rider_details/views/rider_details_view.dart';
 import 'package:fos/app/modules/user/accounts/bindings/accounts_binding.dart';
 import 'package:fos/app/modules/user/accounts/views/accounts_view.dart';
 import 'package:fos/app/modules/user/cart/bindings/cart_binding.dart';
@@ -48,7 +54,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.RIDER;
 
   static final routes = [
     GetPage(
@@ -160,6 +166,21 @@ class AppPages {
       name: _Paths.RESTURANT_ORDER_DETAIL,
       page: () => ResturantOrderDetailView(),
       binding: ResturantOrderDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER,
+      page: () => RiderView(),
+      binding: RiderBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_DETAILS,
+      page: () => RiderDetailsView(),
+      binding: RiderDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_RIDER,
+      page: () => CreateRiderView(),
+      binding: CreateRiderBinding(),
     ),
   ];
 }

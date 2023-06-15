@@ -26,6 +26,9 @@ abstract class Routes {
   static const EDIT_FOOD = _Paths.EDIT_FOOD;
   static const RESTURANT_NAV = _Paths.RESTURANT_NAV;
   static const RESTURANT_ORDER_DETAIL = _Paths.RESTURANT_ORDER_DETAIL;
+  static const RIDER = _Paths.RIDER;
+  static const RIDER_DETAILS = _Paths.RIDER_DETAILS;
+  static const CREATE_RIDER = _Paths.CREATE_RIDER;
 }
 
 abstract class _Paths {
@@ -51,4 +54,7 @@ abstract class _Paths {
   static const EDIT_FOOD = '/edit-food';
   static const RESTURANT_NAV = '/resturant-nav';
   static const RESTURANT_ORDER_DETAIL = '/resturant-order-detail';
+  static const RIDER = '/rider';
+  static const RIDER_DETAILS = '/rider-details';
+  static const CREATE_RIDER = '/create-rider';
 }

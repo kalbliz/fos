@@ -33,11 +33,21 @@ class ResturantOrderDetailView extends GetView<ResturantOrderDetailController> {
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: sizeFit(true, 4, context),
-                          vertical: sizeFit(false, 4, context)),
+                          horizontal: sizeFit(true, 6, context),
+                          vertical: sizeFit(false, 2, context)),
                       decoration: BoxDecoration(
-                        
-                        color: AppColors.AppAsh),
+                          borderRadius: BorderRadius.circular(4),
+                          color: controller.argument == 'all'
+                              ? AppColors.AppAsh
+                              : controller.argument == 'completed'
+                                  ? AppColors.AppAsh
+                                  : controller.argument == 'pending'
+                                      ? AppColors.AppAsh
+                                      : AppColors.AppAsh),
+                      child: Text(
+                        'PENDING',
+                        style: TextStyle(fontSize: sizeFit(false, 12, context)),
+                      ),
                     )
                   ],
                 )
