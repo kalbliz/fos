@@ -142,6 +142,51 @@ class ResturantOrderDetailView extends GetView<ResturantOrderDetailController> {
                 ),
                 Divider(),
                 const Sixteen500AppBlackMont(
+                  text: 'Rider',
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Fourteen400AppAsh(text: 'Assigned Rider'),
+                        Fourteen500AppBlackNun(
+                            text: controller.foodService.ordersListInUse
+                                    .elementAt(controller.indexInUse)
+                                    .rider!
+                                    .name ??
+                                'NOT ASSIGNED')
+                      ],
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 8, context),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Fourteen400AppAsh(text: 'Rider Phone Number'),
+                        Fourteen500AppBlackNun(
+                            text: controller.foodService.ordersListInUse
+                                    .elementAt(controller.indexInUse)
+                                    .rider!
+                                    .phone ??
+                                'NOT ASSIGNED')
+                      ],
+                    ),
+                    SizedBox(
+                      height: sizeFit(false, 8, context),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: sizeFit(false, 16, context),
+                ),
+                Divider(),
+                const Sixteen500AppBlackMont(
                   text: 'Cart List',
                 ),
                 SizedBox(

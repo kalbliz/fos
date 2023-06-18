@@ -185,6 +185,7 @@ class FoodServices extends GetxService {
           throw onError;
         });
   }
+
   Future updateOrderRider(
       {required OrderModel orderModel, required RiderData rider}) async {
     debugPrint(orderModel.id);
@@ -192,12 +193,25 @@ class FoodServices extends GetxService {
     await firebaseFireStore
         .collection('orders')
         .doc(orderModel.id)
-        .update({'rider': rider})
+        .update({
+          'rider': {
+            "name": rider.name,
+            "email": rider.email,
+            "phone": rider.phone,
+            "address": rider.address,
+            "photo": rider.photo,
+            "active": rider.active,
+            "currentLocation": rider.currentLocation,
+            "createdAt": rider.createdAt,
+            "updatedAt": rider.updatedAt
+          }
+        })
         .then((response) async {})
         .catchError((onError) {
           throw onError;
         });
   }
+
   Future getPendingOrders({required String resturantName}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore

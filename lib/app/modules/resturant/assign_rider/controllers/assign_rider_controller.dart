@@ -48,7 +48,8 @@ class AssignRiderController extends GetxController {
   ]);
 
   final addNewRiderViewState = ViewState.idle.obs;
-  late GeneralDialog _dialog;
+  final GeneralDialog _dialog = GeneralDialog();
+  late RiderData riderData;
   @override
   void onInit() {
     super.onInit();
@@ -65,13 +66,25 @@ class AssignRiderController extends GetxController {
   }
 
   void increment() => count.value++;
-  Future assignRider() async {
+  Future assignRider({required int index}) async {
+    addNewRiderViewState.value = ViewState.busy;
+    riderData = RiderData(
+      name: riderServices.riders.elementAt(index).name,
+      id: riderServices.riders.elementAt(index).id,
+      phone: riderServices.riders.elementAt(index).phone,
+      photo: riderServices.riders.elementAt(index).photo,
+      email: riderServices.riders.elementAt(index).email,
+      active: riderServices.riders.elementAt(index).active,
+      address: riderServices.riders.elementAt(index).address,
+      createdAt: riderServices.riders.elementAt(index).createdAt,
+      currentLocation: riderServices.riders.elementAt(index).currentLocation,
+      updatedAt: riderServices.riders.elementAt(index).updatedAt,
+    );
     await foodService
         .updateOrderRider(
             orderModel:
                 foodService.ordersListInUse.elementAt(foodService.index),
-            rider: riderServices.riders
-                .elementAt(riderServices.selectedRiderIndex))
+            rider: riderData)
         .then((value) {
       Get.until((route) => route.settings.name == Routes.RESTURANT_NAV);
       Get.find<ResturantHomeController>().getresturantOrders();
@@ -82,5 +95,6 @@ class AssignRiderController extends GetxController {
       print(onError);
       _dialog.errorMessage(onError.toString());
     });
+    addNewRiderViewState.value = ViewState.idle;
   }
 }

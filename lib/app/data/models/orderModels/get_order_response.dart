@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fos/app/data/models/rider/rider_response.dart';
 
 OrderModel OrderModelFromJson(String str) =>
     OrderModel.fromDocumentSnapShot(json.decode(str));
@@ -15,7 +16,7 @@ String OrderModelToJson(OrderModel data) => json.encode(data.toJson());
 class OrderModel {
   String? status;
   int? total;
-  String? rider;
+  RiderData? rider;
   String? clientName;
   String? clientPhoto;
   String? clientLocation;
@@ -46,7 +47,8 @@ class OrderModel {
       OrderModel(
           status: json["status"],
           id: json.id,
-          rider: json['rider'],
+          rider:
+              json['rider'] != null ? RiderData.fromJson(json['rider']) : null,
           clientPhoneNumber: json['clientPhoneNumber'],
           clientPhoto: json['clientPhoto'],
           clientLocation: json['clientLocation'],
@@ -73,7 +75,7 @@ class OrderModel {
         "resturantName": resturantName,
         "resturantId": resturantId,
         "clientPhoto": clientPhoto,
-        "rider":rider
+        "rider": rider
       };
 }
 

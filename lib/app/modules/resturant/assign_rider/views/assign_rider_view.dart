@@ -44,8 +44,10 @@ class AssignRiderView extends GetView<AssignRiderController> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      // controller.riderIndex.value = index;
-                                      // Get.toNamed(Routes.RIDER_NOTE);
+                                      controller.riderServices
+                                          .selectedRiderIndex = index;
+
+                                      controller.assignRider(index: index);
                                     },
                                     child: Row(
                                       children: [

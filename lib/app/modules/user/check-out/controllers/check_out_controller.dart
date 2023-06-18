@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/core/flutterwave.dart';
 import 'package:flutterwave_standard/models/requests/customer.dart';
 import 'package:flutterwave_standard/models/requests/customizations.dart';
+import 'package:fos/app/data/models/rider/rider_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
 import 'package:fos/app/data/services/orders/order_service.dart';
@@ -81,8 +82,9 @@ class CheckOutController extends GetxController {
         }
         await Get.find<OrderServices>().addOrderDetailToDb2(
             foodMenus: cartService.cartList,
-            status: 'success',
-            total: total.value);
+            status: 'pending',
+            total: total.value,
+            rider: RiderData());
         await Get.find<OrderServices>().getOrderList();
         await Get.find<CartServices>().deleteCartDetailsFromDb();
         await calculateTotal();

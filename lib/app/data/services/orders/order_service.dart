@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/models/orderModels/get_order_response.dart';
+import 'package:fos/app/data/models/rider/rider_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,7 @@ class OrderServices extends GetxService {
   Future addOrderDetailToDb2(
       {required List<CartModel> foodMenus,
       required String status,
+      required RiderData rider,
       required num total}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     final ordersCollection = firebaseFireStore.collection('orders').doc();
@@ -59,8 +61,19 @@ class OrderServices extends GetxService {
             "clientName": element.clientName,
             "clientLocation": element.clientLocation,
             "resturantName": element.resturantName
-          }
-      ]
+          },
+      ],
+      "rider": {
+        "name": rider.name,
+        "email": rider.email,
+        "phone": rider.phone,
+        "address": rider.address,
+        "photo": rider.photo,
+        "active": rider.active,
+        "currentLocation": rider.currentLocation,
+        "createdAt": rider.createdAt,
+        "updatedAt": rider.updatedAt
+      }
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(
