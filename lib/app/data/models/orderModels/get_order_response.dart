@@ -15,6 +15,7 @@ String OrderModelToJson(OrderModel data) => json.encode(data.toJson());
 class OrderModel {
   String? status;
   int? total;
+  String? rider;
   String? clientName;
   String? clientPhoto;
   String? clientLocation;
@@ -29,6 +30,7 @@ class OrderModel {
     this.status,
     this.total,
     this.cartList,
+    this.rider,
     this.userId,
     this.clientPhoneNumber,
     this.resturantId,
@@ -44,6 +46,7 @@ class OrderModel {
       OrderModel(
           status: json["status"],
           id: json.id,
+          rider: json['rider'],
           clientPhoneNumber: json['clientPhoneNumber'],
           clientPhoto: json['clientPhoto'],
           clientLocation: json['clientLocation'],
@@ -69,7 +72,8 @@ class OrderModel {
         "clientPhoneNumber": clientPhoneNumber,
         "resturantName": resturantName,
         "resturantId": resturantId,
-        "clientPhoto": clientPhoto
+        "clientPhoto": clientPhoto,
+        "rider":rider
       };
 }
 

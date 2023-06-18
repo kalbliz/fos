@@ -1,4 +1,3 @@
-
 class RiderData {
   RiderData({
     this.id,
@@ -27,7 +26,7 @@ class RiderData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-  num? id;
+  String? id;
   String? name;
   String? photo;
   String? email;
@@ -55,6 +54,7 @@ class RiderData {
     return map;
   }
 }
+
 class CurrentLocation {
   CurrentLocation({
     this.longitude,

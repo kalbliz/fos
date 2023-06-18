@@ -6,6 +6,7 @@ import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
 import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/models/resturants/getResturantsResponseModel.dart';
+import 'package:fos/app/data/models/rider/rider_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,9 @@ class FoodServices extends GetxService {
   final RxList<OrderModel> pendingOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> cancelledOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> completedOrdersList = <OrderModel>[].obs;
-  
+  late RxList<OrderModel> ordersListInUse;
+  late int index;
+
   @override
   void onReady() {
     // TODO: implement onReady
@@ -182,7 +185,19 @@ class FoodServices extends GetxService {
           throw onError;
         });
   }
-
+  Future updateOrderRider(
+      {required OrderModel orderModel, required RiderData rider}) async {
+    debugPrint(orderModel.id);
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .doc(orderModel.id)
+        .update({'rider': rider})
+        .then((response) async {})
+        .catchError((onError) {
+          throw onError;
+        });
+  }
   Future getPendingOrders({required String resturantName}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore

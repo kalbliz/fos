@@ -19,16 +19,21 @@ class SingleOrderWidget extends StatelessWidget {
   }) : super(key: key);
   final controller = Get.find<ResturantHomeController>();
   final int orderIndex;
-  final String orderList;
+  final List<OrderModel> orderList;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.RESTURANT_ORDER_DETAIL, arguments: [
-          {'orderList': orderList}
-        ]);
+        controller.foodService.ordersListInUse =
+            controller.foodService.allOrdersList;
+        controller.foodService.index = orderIndex;
+        Get.toNamed(
+          Routes.RESTURANT_ORDER_DETAIL,
+        );
       },
       child: Card(
+        color: AppColors.AppBackgroundWhite,
+        elevation: 2,
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: sizeFit(true, 8, context),
@@ -87,6 +92,7 @@ class SingleOrderWidget extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: sizeFit(true, 8, context)),
                 child: ListView.separated(
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

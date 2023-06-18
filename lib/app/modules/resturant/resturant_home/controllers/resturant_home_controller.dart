@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
+import 'package:fos/app/data/services/rider/rider_service.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class ResturantHomeController extends GetxController
   //TODO: Implement ResturantHomeController
 
   final foodService = Get.find<FoodServices>();
+  final riderServices = Get.find<RiderServices>();
   final currentTabIndex = 0.obs;
   late TabController tabController;
   final authService = Get.find<AuthService>();
@@ -22,6 +24,7 @@ class ResturantHomeController extends GetxController
     super.onInit();
     getFood();
     getresturantOrders();
+    riderServices.getAllRiders();
     tabController = TabController(length: 4, vsync: this);
   }
 

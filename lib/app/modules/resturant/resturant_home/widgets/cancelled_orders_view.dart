@@ -21,7 +21,7 @@ class CancelledOrderView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int orderIndex) {
                 return SingleOrderWidget(
-                  orderList:'completed',
+                  orderList: controller.foodService.cancelledOrdersList,
                   orderIndex: orderIndex,
                 );
               },

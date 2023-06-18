@@ -5,11 +5,10 @@ import 'package:get/get.dart';
 class ResturantOrderDetailController extends GetxController {
   //TODO: Implement ResturantOrderDetailController
   final foodService = Get.find<FoodServices>();
-  final argument = Get.arguments[0]['orderList'];
+  final indexInUse = Get.find<FoodServices>().index;
   final count = 0.obs;
   @override
   void onInit() {
-    debugPrint(argument);
     super.onInit();
   }
 

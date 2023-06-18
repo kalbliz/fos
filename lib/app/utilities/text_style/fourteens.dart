@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
@@ -18,6 +17,23 @@ class Fourteen400AppGreyMont extends StatelessWidget {
             color: AppColors.AppGrey,
             fontSize: sizeFit(false, 14, context),
             fontWeight: FontWeight.w400));
+  }
+}
+
+class Sixteen500AppBlackMont extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Sixteen500AppBlackMont({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.montserrat(
+            color: AppColors.AppBlack,
+            fontSize: sizeFit(false, 16, context),
+            fontWeight: FontWeight.w500));
   }
 }
 
@@ -268,6 +284,40 @@ class Fourteen500AppMildBlueMont extends StatelessWidget {
   }
 }
 
+class Sixteen500AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Sixteen500AppBlack({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.montserrat(
+            color: AppColors.AppMildBlue,
+            fontSize: sizeFit(false, 16, context),
+            fontWeight: FontWeight.w500));
+  }
+}
+
+class Eighteen600AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Eighteen600AppBlack({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.montserrat(
+            color: AppColors.AppBlack,
+            fontSize: sizeFit(false, 18, context),
+            fontWeight: FontWeight.w500));
+  }
+}
+
 class Fourteen400AppAsh extends StatelessWidget {
   final String text;
   final TextAlign? alignment;
@@ -295,7 +345,7 @@ class Fourteen400AppAsh extends StatelessWidget {
           fontFamily: 'Nunito',
           color: AppColors.AppAsh,
           fontSize: sizeFit(false, 14, context),
-          fontWeight: FontWeight.w500),
+          fontWeight: FontWeight.w400),
     );
   }
 }

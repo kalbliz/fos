@@ -35,3 +35,40 @@ class NormalImageLoaderWidget extends StatelessWidget {
     );
   }
 }
+
+class ImageLoaderWidget extends StatelessWidget {
+  const ImageLoaderWidget({
+    Key? key,
+    required this.imageUrl,
+    required this.radius,
+  }) : super(key: key);
+
+  final String imageUrl;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      imageBuilder: (context, imageProvider) => CircleAvatar(
+        backgroundImage: imageProvider,
+        radius: radius,
+      ),
+      placeholder: (context, url) => Shimmer.fromColors(
+        baseColor: AppColors.AppShimmerBaseColor,
+        highlightColor: AppColors.AppShimmerHighlightColor,
+        child: Image.asset(
+          'assets/images/home/avatar.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+      errorWidget: (context, url, error) => const Center(
+        child: Icon(
+          Icons.error,
+          color: AppColors.AppGrey,
+        ),
+      ),
+      fit: BoxFit.cover,
+    );
+  }
+}

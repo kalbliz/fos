@@ -29,6 +29,7 @@ abstract class Routes {
   static const RIDER = _Paths.RIDER;
   static const RIDER_DETAILS = _Paths.RIDER_DETAILS;
   static const CREATE_RIDER = _Paths.CREATE_RIDER;
+  static const ASSIGN_RIDER = _Paths.ASSIGN_RIDER;
 }
 
 abstract class _Paths {
@@ -57,4 +58,5 @@ abstract class _Paths {
   static const RIDER = '/rider';
   static const RIDER_DETAILS = '/rider-details';
   static const CREATE_RIDER = '/create-rider';
+  static const ASSIGN_RIDER = '/assign-rider';
 }

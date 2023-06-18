@@ -1,60 +1,62 @@
 import 'package:get/get.dart';
 
-import 'package:fos/app/modules/resturant/create_rider/bindings/create_rider_binding.dart';
-import 'package:fos/app/modules/resturant/create_rider/views/create_rider_view.dart';
-import 'package:fos/app/modules/global/auth/bindings/auth_binding.dart';
-import 'package:fos/app/modules/global/auth/views/auth_view.dart';
-import 'package:fos/app/modules/global/auth/views/login_view.dart';
-import 'package:fos/app/modules/global/auth/views/sign_up_view.dart';
-import 'package:fos/app/modules/global/onboard/bindings/onboard_binding.dart';
-import 'package:fos/app/modules/global/onboard/views/onboard_view.dart';
-import 'package:fos/app/modules/resturant/create_food/bindings/create_food_binding.dart';
-import 'package:fos/app/modules/resturant/create_food/views/create_food_view.dart';
-import 'package:fos/app/modules/resturant/edit_food/bindings/edit_food_binding.dart';
-import 'package:fos/app/modules/resturant/edit_food/views/edit_food_view.dart';
-import 'package:fos/app/modules/resturant/resturant_details/bindings/resturant_details_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_details/views/resturant_details_view.dart';
-import 'package:fos/app/modules/resturant/resturant_home/bindings/resturant_home_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_home/views/resturant_home_view.dart';
-import 'package:fos/app/modules/resturant/resturant_nav/bindings/resturant_nav_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_nav/views/resturant_nav_view.dart';
-import 'package:fos/app/modules/resturant/resturant_order_detail/bindings/resturant_order_detail_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_order_detail/views/resturant_order_detail_view.dart';
-import 'package:fos/app/modules/resturant/resturant_orders/bindings/resturant_orders_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_orders/views/resturant_orders_view.dart';
-import 'package:fos/app/modules/resturant/resturant_profile/bindings/resturant_profile_binding.dart';
-import 'package:fos/app/modules/resturant/resturant_profile/views/resturant_profile_view.dart';
-import 'package:fos/app/modules/resturant/rider/bindings/rider_binding.dart';
-import 'package:fos/app/modules/resturant/rider/views/rider_view.dart';
-import 'package:fos/app/modules/resturant/rider_details/bindings/rider_details_binding.dart';
-import 'package:fos/app/modules/resturant/rider_details/views/rider_details_view.dart';
-import 'package:fos/app/modules/user/accounts/bindings/accounts_binding.dart';
-import 'package:fos/app/modules/user/accounts/views/accounts_view.dart';
-import 'package:fos/app/modules/user/cart/bindings/cart_binding.dart';
-import 'package:fos/app/modules/user/cart/views/cart_view.dart';
-import 'package:fos/app/modules/user/check-out/bindings/check_out_binding.dart';
-import 'package:fos/app/modules/user/check-out/views/check_out_view.dart';
-import 'package:fos/app/modules/user/food_details/bindings/food_details_binding.dart';
-import 'package:fos/app/modules/user/food_details/views/food_details_view.dart';
-import 'package:fos/app/modules/user/home/bindings/home_binding.dart';
-import 'package:fos/app/modules/user/home/views/home_view.dart';
-import 'package:fos/app/modules/user/nav/bindings/nav_binding.dart';
-import 'package:fos/app/modules/user/nav/views/nav_view.dart';
-import 'package:fos/app/modules/user/order_details/bindings/cart_binding.dart';
-import 'package:fos/app/modules/user/order_details/views/order_details_view.dart';
-import 'package:fos/app/modules/user/orders/bindings/orders_binding.dart';
-import 'package:fos/app/modules/user/orders/views/orders_view.dart';
-import 'package:fos/app/modules/user/resturant_list/bindings/resturant_list_binding.dart';
-import 'package:fos/app/modules/user/resturant_list/views/resturant_list_view.dart';
-import 'package:fos/app/modules/user/search/bindings/search_binding.dart';
-import 'package:fos/app/modules/user/search/views/search_view.dart';
+import '../modules/resturant/assign_rider/bindings/assign_rider_binding.dart';
+import '../modules/resturant/assign_rider/views/assign_rider_view.dart';
+import '../modules/global/auth/bindings/auth_binding.dart';
+import '../modules/global/auth/views/auth_view.dart';
+import '../modules/global/auth/views/login_view.dart';
+import '../modules/global/auth/views/sign_up_view.dart';
+import '../modules/global/onboard/bindings/onboard_binding.dart';
+import '../modules/global/onboard/views/onboard_view.dart';
+import '../modules/resturant/create_food/bindings/create_food_binding.dart';
+import '../modules/resturant/create_food/views/create_food_view.dart';
+import '../modules/resturant/create_rider/bindings/create_rider_binding.dart';
+import '../modules/resturant/create_rider/views/create_rider_view.dart';
+import '../modules/resturant/edit_food/bindings/edit_food_binding.dart';
+import '../modules/resturant/edit_food/views/edit_food_view.dart';
+import '../modules/resturant/resturant_details/bindings/resturant_details_binding.dart';
+import '../modules/resturant/resturant_details/views/resturant_details_view.dart';
+import '../modules/resturant/resturant_home/bindings/resturant_home_binding.dart';
+import '../modules/resturant/resturant_home/views/resturant_home_view.dart';
+import '../modules/resturant/resturant_nav/bindings/resturant_nav_binding.dart';
+import '../modules/resturant/resturant_nav/views/resturant_nav_view.dart';
+import '../modules/resturant/resturant_order_detail/bindings/resturant_order_detail_binding.dart';
+import '../modules/resturant/resturant_order_detail/views/resturant_order_detail_view.dart';
+import '../modules/resturant/resturant_orders/bindings/resturant_orders_binding.dart';
+import '../modules/resturant/resturant_orders/views/resturant_orders_view.dart';
+import '../modules/resturant/resturant_profile/bindings/resturant_profile_binding.dart';
+import '../modules/resturant/resturant_profile/views/resturant_profile_view.dart';
+import '../modules/resturant/rider/bindings/rider_binding.dart';
+import '../modules/resturant/rider/views/rider_view.dart';
+import '../modules/resturant/rider_details/bindings/rider_details_binding.dart';
+import '../modules/resturant/rider_details/views/rider_details_view.dart';
+import '../modules/user/accounts/bindings/accounts_binding.dart';
+import '../modules/user/accounts/views/accounts_view.dart';
+import '../modules/user/cart/bindings/cart_binding.dart';
+import '../modules/user/cart/views/cart_view.dart';
+import '../modules/user/check-out/bindings/check_out_binding.dart';
+import '../modules/user/check-out/views/check_out_view.dart';
+import '../modules/user/food_details/bindings/food_details_binding.dart';
+import '../modules/user/food_details/views/food_details_view.dart';
+import '../modules/user/home/bindings/home_binding.dart';
+import '../modules/user/home/views/home_view.dart';
+import '../modules/user/nav/bindings/nav_binding.dart';
+import '../modules/user/nav/views/nav_view.dart';
+import '../modules/user/order_details/bindings/cart_binding.dart';
+import '../modules/user/order_details/views/order_details_view.dart';
+import '../modules/user/orders/bindings/orders_binding.dart';
+import '../modules/user/orders/views/orders_view.dart';
+import '../modules/user/resturant_list/bindings/resturant_list_binding.dart';
+import '../modules/user/resturant_list/views/resturant_list_view.dart';
+import '../modules/user/search/bindings/search_binding.dart';
+import '../modules/user/search/views/search_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.RIDER;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -181,6 +183,11 @@ class AppPages {
       name: _Paths.CREATE_RIDER,
       page: () => CreateRiderView(),
       binding: CreateRiderBinding(),
+    ),
+    GetPage(
+      name: _Paths.ASSIGN_RIDER,
+      page: () => const AssignRiderView(),
+      binding: AssignRiderBinding(),
     ),
   ];
 }

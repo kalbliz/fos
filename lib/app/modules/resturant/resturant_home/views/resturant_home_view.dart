@@ -24,12 +24,12 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.AppGrey,
+        backgroundColor: AppColors.AppBackgroundWhite,
         appBar: AppBar(
           title: Text('Welcome ${controller.authService.userName.capitalize}'),
           elevation: 0,
           centerTitle: true,
-          backgroundColor: AppColors.AppGrey,
+          backgroundColor: AppColors.AppBackgroundWhite,
         ),
         body: Obx(() {
           return controller.pageViewState.value == ViewState.busy
@@ -55,7 +55,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                           tabs: [
                             Tab(
                               child: Row(children: [
-                                const Fourteen400AppBackgroundWhiteNun(
+                                const Fourteen400AppBlackNun(
                                     text: 'All Orders'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
@@ -80,8 +80,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen400AppBackgroundWhiteNun(
-                                    text: 'Pending'),
+                                const Fourteen400AppBlackNun(text: 'Pending'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
@@ -105,8 +104,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen400AppBackgroundWhiteNun(
-                                    text: 'Completed'),
+                                const Fourteen400AppBlackNun(text: 'Completed'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
@@ -128,8 +126,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen400AppBackgroundWhiteNun(
-                                    text: 'Cancelled'),
+                                const Fourteen400AppBlackNun(text: 'Cancelled'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
