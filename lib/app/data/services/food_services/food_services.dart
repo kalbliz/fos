@@ -220,8 +220,6 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'pending')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
-
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       pendingOrdersList.value = responseData;
@@ -238,8 +236,6 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'success')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
-
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       completedOrdersList.value = responseData;
@@ -256,8 +252,6 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'cancelled')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
-
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       cancelledOrdersList.value = responseData;
@@ -273,11 +267,9 @@ class FoodServices extends GetxService {
         .where('resturantName', isEqualTo: resturantName)
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
-
-      var responseData =
+          
+      allOrdersList.value =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
-      allOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;
     });

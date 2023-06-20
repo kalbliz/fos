@@ -50,16 +50,12 @@ class ResturantHomeController extends GetxController
 
   Future getresturantOrders() async {
     pageViewState.value = ViewState.busy;
-    // await foodService
-    //     .getResturantOrders(resturantName: authService.userName)
-    //     .then((value) {})
-    //     .catchError((onError) {
-    //   ErrorDialog(message: onError.toString());
-    // });
+ 
     await foodService
         .getAllOrders(resturantName: authService.userName)
-        .then((value) {})
-        .catchError((onError) {
+        .then((value) {
+    
+    }).catchError((onError) {
       ErrorDialog(message: onError.toString());
     });
     await foodService

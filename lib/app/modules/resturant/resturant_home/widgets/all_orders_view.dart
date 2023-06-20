@@ -18,7 +18,7 @@ class AllOrderView extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int orderIndex) {
                 return SingleOrderWidget(
-                  orderList: controller.foodService.allOrdersList ,
+                  orderList: controller.foodService.allOrdersList,
                   orderIndex: orderIndex,
                 );
               },
