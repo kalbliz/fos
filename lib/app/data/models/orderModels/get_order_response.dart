@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fos/app/data/models/rider/rider_response.dart';
 
 OrderModel OrderModelFromJson(String str) =>
@@ -24,23 +25,22 @@ class OrderModel {
   String? resturantId;
   List<CartList>? cartList;
   final String? userId;
-  final Timestamp? createdAt;
   dynamic id;
 
-  OrderModel(
-      {this.status,
-      this.total,
-      this.cartList,
-      this.rider,
-      this.userId,
-      this.clientPhoneNumber,
-      this.resturantId,
-      this.resturantName,
-      this.clientPhoto,
-      this.id,
-      this.clientLocation,
-      this.clientName,
-      this.createdAt});
+  OrderModel({
+    this.status,
+    this.total,
+    this.cartList,
+    this.rider,
+    this.userId,
+    this.clientPhoneNumber,
+    this.resturantId,
+    this.resturantName,
+    this.clientPhoto,
+    this.id,
+    this.clientLocation,
+    this.clientName,
+  });
 
   factory OrderModel.fromDocumentSnapShot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
@@ -55,7 +55,6 @@ class OrderModel {
           clientName: json['clientName'],
           resturantId: json['resturantId'],
           resturantName: json['resturantName'],
-          createdAt: json['createdAt'],
           total: json["total"],
           cartList: json["cartList"] == null
               ? []
@@ -65,7 +64,6 @@ class OrderModel {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "createdAt": createdAt,
         "total": total,
         "cartList": cartList == null
             ? []

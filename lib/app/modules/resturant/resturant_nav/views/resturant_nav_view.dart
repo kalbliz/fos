@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:fos/app/modules/resturant/resturant_home/controllers/resturant_home_controller.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
@@ -48,9 +47,7 @@ class ResturantNavView extends GetView<ResturantNavController> {
                 final state = controller.fabKey.currentState;
                 if (state != null) {
                   state.toggle();
-                  // Get.toNamed(Routes.CREATE_RIDER);
-                  Get.find<ResturantHomeController>().getresturantOrders();
-               
+                  Get.toNamed(Routes.CREATE_RIDER);
                 }
               },
             ),
@@ -98,7 +95,7 @@ class ResturantNavView extends GetView<ResturantNavController> {
                         color: AppDarkColors.AppAsh,
                       ),
                     )),
-                NavigationDestination(
+             NavigationDestination(
                     label: 'Menu',
                     selectedIcon: SizedBox(
                       child: Icon(

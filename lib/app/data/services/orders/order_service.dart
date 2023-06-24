@@ -48,7 +48,6 @@ class OrderServices extends GetxService {
       "clientPhoneNumber": authService.userPhoneNumber,
       "resturantId": foodMenus.elementAt(0).resturantId,
       "resturantName": foodMenus.elementAt(0).resturantName,
-      "createdAt" : DateTime.now(),
       "cartList": [
         for (var element in foodMenus)
           {
