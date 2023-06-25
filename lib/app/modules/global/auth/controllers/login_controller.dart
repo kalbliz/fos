@@ -55,8 +55,9 @@ class LoginController extends GetxController {
       debugPrint(authService.box.read('userState'));
       if (authService.box.read('userState') == 'user') {
         Get.offAllNamed(Routes.NAV);
+      } else if (authService.box.read('userState') == 'resturant') {
       } else {
-        Get.offAllNamed(Routes.RESTURANT_NAV);
+        Get.offAllNamed(Routes.RIDER_NAV);
       }
     }).catchError((onError) {
       pageViewState.value = ViewState.idle;

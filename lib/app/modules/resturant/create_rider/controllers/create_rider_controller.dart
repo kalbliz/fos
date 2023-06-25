@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fos/app/data/models/rider/rider_response.dart';
@@ -18,7 +19,6 @@ class CreateRiderController extends GetxController {
   //TODO: Implement CreateRiderController
   final foodService = Get.find<FoodServices>();
   final riderServices = Get.find<RiderServices>();
-  final indexInUse = Get.find<FoodServices>().index;
 
   final ImageUploadService imageUploadService = Get.find<ImageUploadService>();
   final _authService = Get.find<AuthService>();
@@ -93,9 +93,48 @@ class CreateRiderController extends GetxController {
     pageState.value = ViewState.busy;
     await uploadImage();
     debugPrint(foodImageUrl);
-    await saveRider();
+    await authenticateAndSignUp();
 
     pageState.value = ViewState.idle;
+  }
+
+  Future authenticateAndSignUp() async {
+    User? currentUser;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailEditingController.value.text, password: 'password')
+        .then((auth) {
+      currentUser = auth.user;
+    }).catchError((error) {
+      showDialog(
+          context: Get.context!,
+          builder: (builder) {
+            return ErrorDialog(
+              message: error.message.toString(),
+            );
+          });
+    });
+    if (currentUser != null) {
+      await saveDatatToFirestore(currentUser!)
+          .then((value) async => await saveRider().then((value) {}));
+    }
+  }
+
+  Future saveDatatToFirestore(User currentUser) async {
+    FirebaseFirestore.instance.collection("allUsers").doc(currentUser.uid).set({
+      'userID': currentUser.uid,
+      'userEmail': currentUser.email,
+      'userName': nameEditingController.value.text.trim(),
+      'userPhoto': foodImageUrl,
+      'userPhoneNumber': phoneEditingController.value.text.trim(),
+      'userAddress': addressEditingController.value.text.trim(),
+      'status': 'approved',
+      'userState': "rider",
+      'earnings': 0.0,
+      'lat': 0,
+      'lng': 0
+    });
   }
 
   Future saveRider() async {
@@ -108,6 +147,7 @@ class CreateRiderController extends GetxController {
       address: addressEditingController.value.text,
       createdAt: DateTime.now().toIso8601String(),
     );
+
     await riderServices.saveRider(riderData).then((value) async {
       await riderServices.getAllRiders();
       Get.back();

@@ -1,13 +1,17 @@
+import 'package:fos/app/modules/rider/rider_profile/bindings/rider_profile_binding.dart';
+import 'package:fos/app/modules/rider/rider_profile/views/rider_profile_view.dart';
+import 'package:fos/app/modules/rider/rider_support/bindings/rider_support_binding.dart';
+import 'package:fos/app/modules/rider/rider_support/views/rider_support_view.dart';
 import 'package:get/get.dart';
 
-import '../modules/resturant/assign_rider/bindings/assign_rider_binding.dart';
-import '../modules/resturant/assign_rider/views/assign_rider_view.dart';
 import '../modules/global/auth/bindings/auth_binding.dart';
 import '../modules/global/auth/views/auth_view.dart';
 import '../modules/global/auth/views/login_view.dart';
 import '../modules/global/auth/views/sign_up_view.dart';
 import '../modules/global/onboard/bindings/onboard_binding.dart';
 import '../modules/global/onboard/views/onboard_view.dart';
+import '../modules/resturant/assign_rider/bindings/assign_rider_binding.dart';
+import '../modules/resturant/assign_rider/views/assign_rider_view.dart';
 import '../modules/resturant/create_food/bindings/create_food_binding.dart';
 import '../modules/resturant/create_food/views/create_food_view.dart';
 import '../modules/resturant/create_rider/bindings/create_rider_binding.dart';
@@ -30,6 +34,13 @@ import '../modules/resturant/rider/bindings/rider_binding.dart';
 import '../modules/resturant/rider/views/rider_view.dart';
 import '../modules/resturant/rider_details/bindings/rider_details_binding.dart';
 import '../modules/resturant/rider_details/views/rider_details_view.dart';
+import '../modules/rider/rider_history/bindings/rider_history_binding.dart';
+import '../modules/rider/rider_history/views/rider_history_view.dart';
+import '../modules/rider/rider_home/bindings/rider_home_binding.dart';
+import '../modules/rider/rider_home/views/rider_home_view.dart';
+import '../modules/rider/rider_nav/bindings/rider_nav_binding.dart';
+import '../modules/rider/rider_nav/views/rider_nav_view.dart';
+
 import '../modules/user/accounts/bindings/accounts_binding.dart';
 import '../modules/user/accounts/views/accounts_view.dart';
 import '../modules/user/cart/bindings/cart_binding.dart';
@@ -188,6 +199,31 @@ class AppPages {
       name: _Paths.ASSIGN_RIDER,
       page: () => const AssignRiderView(),
       binding: AssignRiderBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_NAV,
+      page: () => const RiderNavView(),
+      binding: RiderNavBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_HOME,
+      page: () => const RiderHomeView(),
+      binding: RiderHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_HISTORY,
+      page: () => const RiderHistoryView(),
+      binding: RiderHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_SUPPORT,
+      page: () => const RiderSupportView(),
+      binding: RiderSupportBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_PROFILE,
+      page: () => const RiderProfileView(),
+      binding: RiderProfileBinding(),
     ),
   ];
 }

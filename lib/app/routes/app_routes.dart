@@ -30,6 +30,11 @@ abstract class Routes {
   static const RIDER_DETAILS = _Paths.RIDER_DETAILS;
   static const CREATE_RIDER = _Paths.CREATE_RIDER;
   static const ASSIGN_RIDER = _Paths.ASSIGN_RIDER;
+  static const RIDER_NAV = _Paths.RIDER_NAV;
+  static const RIDER_HOME = _Paths.RIDER_HOME;
+  static const RIDER_HISTORY = _Paths.RIDER_HISTORY;
+  static const RIDER_SUPPORT = _Paths.RIDER_SUPPORT;
+  static const RIDER_PROFILE = _Paths.RIDER_PROFILE;
 }
 
 abstract class _Paths {
@@ -59,4 +64,9 @@ abstract class _Paths {
   static const RIDER_DETAILS = '/rider-details';
   static const CREATE_RIDER = '/create-rider';
   static const ASSIGN_RIDER = '/assign-rider';
+  static const RIDER_NAV = '/rider-nav';
+  static const RIDER_HOME = '/rider-home';
+  static const RIDER_HISTORY = '/rider-history';
+  static const RIDER_SUPPORT = '/rider-support';
+  static const RIDER_PROFILE = '/rider-profile';
 }

@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 class ResturantHomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   //TODO: Implement ResturantHomeController
-
+  DateFormat formattedDate = DateFormat('yyyy-MM-dd – kk:mm');
   final foodService = Get.find<FoodServices>();
   final riderServices = Get.find<RiderServices>();
   final currentTabIndex = 0.obs;

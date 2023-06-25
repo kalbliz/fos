@@ -224,6 +224,8 @@ class FoodServices extends GetxService {
 
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      responseData.sort(
+          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
       pendingOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;
@@ -242,6 +244,8 @@ class FoodServices extends GetxService {
 
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      responseData.sort(
+          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
       completedOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;
@@ -260,6 +264,8 @@ class FoodServices extends GetxService {
 
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      responseData.sort(
+          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
       cancelledOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;
@@ -274,9 +280,10 @@ class FoodServices extends GetxService {
         .get()
         .then((response) async {
       debugPrint(response.docs.toString());
-
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      responseData.sort(
+          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
       allOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;

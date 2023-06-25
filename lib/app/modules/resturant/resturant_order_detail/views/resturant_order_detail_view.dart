@@ -14,40 +14,45 @@ class ResturantOrderDetailView extends GetView<ResturantOrderDetailController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Order Details'),
-          centerTitle: true,
-          actions: [
-            PopupMenuButton(
-              onSelected: (result) {
-                Get.toNamed(Routes.ASSIGN_RIDER);
-              },
-              icon: Icon(
-                Icons.more_vert,
-                color: AppColors.AppBlack,
-                size: sizeFit(false, 22, context),
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: EdgeInsets.zero,
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem<int>(
-                    value: 0,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Sixteen500AppBlack(text: 'Assign rider'),
-                        Fourteen400AppGreyNun(
-                            text: 'Assign this order to a rider')
-                      ],
-                    ),
-                  ),
-                ];
-              },
-            ),
-          ],
-        ),
+            title: const Text('Order Details'),
+            centerTitle: true,
+            actions: [
+              controller.foodService.ordersListInUse
+                          .elementAt(controller.indexInUse)
+                          .rider
+                          ?.name ==
+                      null
+                  ? PopupMenuButton(
+                      onSelected: (result) {
+                        Get.toNamed(Routes.ASSIGN_RIDER);
+                      },
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: AppColors.AppBlack,
+                        size: sizeFit(false, 22, context),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem<int>(
+                            value: 0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Sixteen500AppBlack(text: 'Assign rider'),
+                                Fourteen400AppGreyNun(
+                                    text: 'Assign this order to a rider')
+                              ],
+                            ),
+                          ),
+                        ];
+                      },
+                    )
+                  : SizedBox(),
+            ]),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Padding(

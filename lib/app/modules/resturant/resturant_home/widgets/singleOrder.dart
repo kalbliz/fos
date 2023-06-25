@@ -60,13 +60,13 @@ class SingleOrderWidget extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        controller.foodService.allOrdersList
+                        controller.formattedDate.format(controller
+                            .foodService.allOrdersList
                             .elementAt(orderIndex)
                             .cartList!
                             .elementAt(0)
                             .time!
-                            .toDate()
-                            .toIso8601String(),
+                            .toDate()),
                         style: AppTextStyles.Fourteen500TextAsh,
                       ),
                     ],
