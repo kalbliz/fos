@@ -10,7 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RiderHomeController extends GetxController {
   //TODO: Implement RiderHomeController
-    final isShimmerLoading = false.obs;
+  final isShimmerLoading = false.obs;
   final visibility = true.obs;
   final switchStatus = false.obs;
   final switch1Status = false.obs;
@@ -21,8 +21,8 @@ class RiderHomeController extends GetxController {
   final deliveryRequestsViewState = ViewState.idle.obs;
   final getDirectionViewState = ViewState.idle.obs;
   final requestsViewState = ViewState.idle.obs;
- late Uint8List markerIcon;
-RxSet<Marker> markers = <Marker>{}.obs;
+  late Uint8List markerIcon;
+  RxSet<Marker> markers = <Marker>{}.obs;
   final Completer<GoogleMapController> mapCompleter =
       Completer<GoogleMapController>();
 
@@ -100,25 +100,8 @@ RxSet<Marker> markers = <Marker>{}.obs;
       markers.clear();
       markers.add(riderMarker);
     }
-    // mapController = controller;
-    // if (GeoLocatorService.position != null) {
-    //   await setDriverMarker();
-    //   update();
-    // }
-    // position = LatLng(GeoLocatorService.position?.latitude ?? 0.0,
-    //     GeoLocatorService.position?.longitude ?? 0.0);
-    // Future.delayed(Duration(seconds: 1), () async {
-    //   GoogleMapController controller = await mapCompleter.future;
-    //   controller.animateCamera(
-    //     CameraUpdate.newCameraPosition(
-    //       CameraPosition(
-    //         target: position,
-    //         zoom: 14.0,
-    //       ),
-    //     ),
-    //   );
-    // });
   }
+
   final count = 0.obs;
   @override
   void onInit() {
