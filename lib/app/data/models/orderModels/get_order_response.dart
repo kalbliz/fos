@@ -25,6 +25,7 @@ class OrderModel {
   String? resturantId;
   List<CartList>? cartList;
   final String? userId;
+  String? paymentStatus;
   dynamic id;
 
   OrderModel({
@@ -38,6 +39,7 @@ class OrderModel {
     this.resturantName,
     this.clientPhoto,
     this.id,
+    this.paymentStatus,
     this.clientLocation,
     this.clientName,
   });
@@ -47,6 +49,7 @@ class OrderModel {
       OrderModel(
           status: json["status"],
           id: json.id,
+          paymentStatus: json['paymentStatus'],
           rider:
               json['rider'] != null ? RiderData.fromJson(json['rider']) : null,
           clientPhoneNumber: json['clientPhoneNumber'],
@@ -75,7 +78,8 @@ class OrderModel {
         "resturantName": resturantName,
         "resturantId": resturantId,
         "clientPhoto": clientPhoto,
-        "rider": rider
+        "rider": rider,
+        "paymentStatus": paymentStatus
       };
 }
 

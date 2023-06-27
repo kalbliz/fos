@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fos/app/data/services/auth_services/auth_services.dart';
+import 'package:fos/app/data/services/rider/rider_service.dart';
+import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/helpers/d.dart';
 import 'package:geolocator/geolocator.dart';
@@ -33,7 +36,8 @@ class RiderHomeController extends GetxController {
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
-
+  final riderServices = Get.find<RiderServices>();
+  final authServices = Get.find<AuthService>();
   Future<Position?> _determinePosition() async {
     bool? serviceEnabled;
     Position? position;
@@ -65,7 +69,8 @@ class RiderHomeController extends GetxController {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     try {
-      position = await Geolocator.getCurrentPosition();
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.bestForNavigation);
     } catch (e) {
       position = null;
     }
@@ -106,6 +111,7 @@ class RiderHomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getRiderRequests();
   }
 
   @override
@@ -118,5 +124,16 @@ class RiderHomeController extends GetxController {
     super.onClose();
   }
 
+  Future getRiderRequests() async {
+    deliveryRequestsViewState.value = ViewState.busy;
+    await riderServices
+        .getRiderOrders(riderName: authServices.userName)
+        .catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+    deliveryRequestsViewState.value = ViewState.idle;
+  }
+
   void increment() => count.value++;
+  void setSelectedRequestIndex(int index) {}
 }

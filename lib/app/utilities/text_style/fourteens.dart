@@ -349,3 +349,208 @@ class Fourteen400AppAsh extends StatelessWidget {
     );
   }
 }
+
+
+class Twelve500AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve500AppBlack(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppBlack,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w500));
+  }
+}
+
+class Twelve400AppAsh extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve400AppAsh(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppAsh,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w400));
+  }
+}
+
+class Twelve600AppAsh extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve600AppAsh(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppAsh,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w600));
+  }
+}
+
+class Twelve400AppWhite extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve400AppWhite(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppBackgroundWhite,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w400));
+  }
+}
+
+class Twelve400AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve400AppBlack(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppBlack,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w400));
+  }
+}
+
+class Twelve600AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve600AppBlack(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppBlack,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w600));
+  }
+}
+
+class Twelve400AppRed extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Twelve400AppRed(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppColors.AppRedText,
+            fontSize: sizeFit(false, 12, context),
+            fontWeight: FontWeight.w400));
+  }
+}
+
