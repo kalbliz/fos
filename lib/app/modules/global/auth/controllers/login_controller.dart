@@ -56,6 +56,7 @@ class LoginController extends GetxController {
       if (authService.box.read('userState') == 'user') {
         Get.offAllNamed(Routes.NAV);
       } else if (authService.box.read('userState') == 'resturant') {
+        Get.offAllNamed(Routes.RESTURANT_NAV);
       } else {
         Get.offAllNamed(Routes.RIDER_NAV);
       }
