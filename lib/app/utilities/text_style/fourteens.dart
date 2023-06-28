@@ -268,6 +268,43 @@ class Sixteen400AppBlack extends StatelessWidget {
     );
   }
 }
+class Sixteen400AppRed extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Sixteen400AppRed({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: alignment ?? TextAlign.left,
+      style: TextStyle(
+          fontFamily: 'Nunito',
+          color: AppColors.AppRed,
+          fontSize: sizeFit(false, 16, context),
+          fontWeight: FontWeight.w400),
+    );
+  }
+}
+class Eighteen500AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Eighteen500AppBlack({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: alignment ?? TextAlign.left,
+      style: GoogleFonts.nunito(
+          color: AppColors.AppBlack,
+          fontSize: sizeFit(false, 18, context),
+          fontWeight: FontWeight.w500),
+    );
+  }
+}
 
 class Fourteen500AppRed extends StatelessWidget {
   final String text;

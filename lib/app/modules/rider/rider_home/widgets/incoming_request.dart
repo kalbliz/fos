@@ -127,20 +127,20 @@ class IncomingDeliveryRequest extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     controller.setSelectedRequestIndex(index);
-                    showDialog(
-                        barrierDismissible: true,
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            insetPadding: EdgeInsets.symmetric(
-                              horizontal: sizeFit(true, 16, context),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: AcceptForm(),
-                          );
-                        });
+                    // showDialog(
+                    //     barrierDismissible: true,
+                    //     context: context,
+                    //     builder: (context) {
+                    //       return Dialog(
+                    //         insetPadding: EdgeInsets.symmetric(
+                    //           horizontal: sizeFit(true, 16, context),
+                    //         ),
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(8),
+                    //         ),
+                    //         child: AcceptForm(),
+                    //       );
+                    //     });
                   },
                   child: Container(
                     height: sizeFit(false, 48, context),

@@ -1,7 +1,7 @@
-import 'package:fos/app/modules/rider/rider_profile/bindings/rider_profile_binding.dart';
-import 'package:fos/app/modules/rider/rider_profile/views/rider_profile_view.dart';
-import 'package:fos/app/modules/rider/rider_support/bindings/rider_support_binding.dart';
-import 'package:fos/app/modules/rider/rider_support/views/rider_support_view.dart';
+import 'package:fos/app/modules/rider/rider_personal_details/bindings/rider_personal_details_binding.dart';
+import 'package:fos/app/modules/rider/rider_personal_details/views/rider_personal_details_view.dart';
+import 'package:fos/app/modules/rider/rider_settings/bindings/rider_settings_binding.dart';
+import 'package:fos/app/modules/rider/rider_settings/views/rider_settings_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/global/auth/bindings/auth_binding.dart';
@@ -40,6 +40,10 @@ import '../modules/rider/rider_home/bindings/rider_home_binding.dart';
 import '../modules/rider/rider_home/views/rider_home_view.dart';
 import '../modules/rider/rider_nav/bindings/rider_nav_binding.dart';
 import '../modules/rider/rider_nav/views/rider_nav_view.dart';
+import '../modules/rider/rider_profile/bindings/rider_profile_binding.dart';
+import '../modules/rider/rider_profile/views/rider_profile_view.dart';
+import '../modules/rider/rider_support/bindings/rider_support_binding.dart';
+import '../modules/rider/rider_support/views/rider_support_view.dart';
 
 import '../modules/user/accounts/bindings/accounts_binding.dart';
 import '../modules/user/accounts/views/accounts_view.dart';
@@ -224,6 +228,16 @@ class AppPages {
       name: _Paths.RIDER_PROFILE,
       page: () => const RiderProfileView(),
       binding: RiderProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_PERSONAL_DETAILS,
+      page: () => const RiderPersonalDetailsView(),
+      binding: RiderPersonalDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIDER_SETTINGS,
+      page: () => const RiderSettingsView(),
+      binding: RiderSettingsBinding(),
     ),
   ];
 }

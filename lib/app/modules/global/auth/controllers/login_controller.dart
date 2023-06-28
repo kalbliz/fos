@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
+import 'package:fos/app/data/services/rider/rider_service.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
@@ -27,6 +28,7 @@ class LoginController extends GetxController {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final AuthService authService = Get.find<AuthService>();
+   final RiderServices riderServices = Get.find<RiderServices>();
   final pageViewState = ViewState.idle.obs;
   final count = 0.obs;
   @override
@@ -58,6 +60,7 @@ class LoginController extends GetxController {
       } else if (authService.box.read('userState') == 'resturant') {
         Get.offAllNamed(Routes.RESTURANT_NAV);
       } else {
+
         Get.offAllNamed(Routes.RIDER_NAV);
       }
     }).catchError((onError) {

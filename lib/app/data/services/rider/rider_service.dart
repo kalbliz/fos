@@ -11,6 +11,7 @@ class RiderServices extends GetxService {
   late List<RiderData> riders = [];
   late List<OrderModel> riderOrders = [];
   late FirebaseFirestore firebaseFireStore;
+
   Future addRiderToUsers(RiderData riderData, User currentUser) async {
     try {
       final CollectionReference ridersCollection =

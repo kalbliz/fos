@@ -12,7 +12,7 @@ class RiderData {
     this.updatedAt,
   });
 
-  RiderData.fromJson(dynamic json) {
+  RiderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     photo = json['photo'];

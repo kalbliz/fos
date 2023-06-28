@@ -139,14 +139,16 @@ class CreateRiderController extends GetxController {
 
   Future saveRider() async {
     riderData = RiderData(
-      name: nameEditingController.value.text,
-      photo: foodImageUrl,
-      email: emailEditingController.value.text,
-      phone: phoneEditingController.value.text,
-      active: 1,
-      address: addressEditingController.value.text,
-      createdAt: DateTime.now().toIso8601String(),
-    );
+        name: nameEditingController.value.text,
+        photo: foodImageUrl,
+        email: emailEditingController.value.text,
+        phone: phoneEditingController.value.text,
+        active: 1,
+        address: addressEditingController.value.text,
+        createdAt: DateTime.now().toIso8601String(),
+        currentLocation: CurrentLocation(
+          
+        ));
 
     await riderServices.saveRider(riderData).then((value) async {
       await riderServices.getAllRiders();
