@@ -230,6 +230,61 @@ class Fourteen500AppWhite extends StatelessWidget {
             fontWeight: FontWeight.w500));
   }
 }
+class Twenty600AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Twenty600AppBlack({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: alignment ?? TextAlign.left,
+      style: GoogleFonts.nunito(
+          color: AppColors.AppBlack,
+          fontSize: sizeFit(false, 20, context),
+          fontWeight: FontWeight.w500),
+    );
+  }
+}
+
+class Sixteen400AppBlack extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Sixteen400AppBlack({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: alignment ?? TextAlign.left,
+      style: TextStyle(
+          fontFamily: 'Nunito',
+          color: AppColors.AppBlackTwo,
+          fontSize: sizeFit(false, 16, context),
+          fontWeight: FontWeight.w400),
+    );
+  }
+}
+
+class Fourteen500AppRed extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+
+  const Fourteen500AppRed({Key? key, required this.text, this.alignment})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.montserrat(
+            color: AppColors.AppRed,
+            fontSize: sizeFit(false, 14, context),
+            fontWeight: FontWeight.w500));
+  }
+}
 
 class Fourteen500AppBlueNun extends StatelessWidget {
   final String text;
@@ -349,7 +404,6 @@ class Fourteen400AppAsh extends StatelessWidget {
     );
   }
 }
-
 
 class Twelve500AppBlack extends StatelessWidget {
   final String text;
@@ -553,4 +607,3 @@ class Twelve400AppRed extends StatelessWidget {
             fontWeight: FontWeight.w400));
   }
 }
-

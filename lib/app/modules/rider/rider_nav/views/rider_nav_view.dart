@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
@@ -47,16 +48,15 @@ class RiderNavView extends GetView<RiderNavController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                            child: Image.asset(
-                          scale: 4,
-                          'assets/images/nav/delivery_active.png',
-                          fit: BoxFit.cover,
-                        )),
+                        Icon(
+                          CupertinoIcons.location_fill,
+                          size: sizeFit(false, 28, context),
+                          color: AppDarkColors.AppPrimaryPink,
+                        ),
                         SizedBox(
                           height: sizeFit(false, 4, context),
                         ),
-                        const Ten500AppBrightBlue(text: 'Delivery')
+                        const Ten500AppPrimaryPink(text: 'Delivery')
                       ],
                     ),
                   ),
@@ -68,12 +68,10 @@ class RiderNavView extends GetView<RiderNavController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          child: Image.asset(
-                            scale: 4,
-                            'assets/images/nav/delivery_inactive.png',
-                            fit: BoxFit.fitHeight,
-                          ),
+                        Icon(
+                          CupertinoIcons.location_fill,
+                          size: sizeFit(false, 28, context),
+                          color: AppDarkColors.AppPrimaryBlack,
                         ),
                         SizedBox(
                           height: sizeFit(false, 4, context),
@@ -92,15 +90,15 @@ class RiderNavView extends GetView<RiderNavController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        scale: 4,
-                        'assets/images/nav/support_active.png',
-                        fit: BoxFit.contain,
+                      Icon(
+                        CupertinoIcons.question_circle,
+                        size: sizeFit(false, 28, context),
+                        color: AppDarkColors.AppPrimaryPink,
                       ),
                       SizedBox(
                         height: sizeFit(false, 4, context),
                       ),
-                      const Ten500AppBrightBlue(text: 'Support')
+                      const Ten500AppPrimaryPink(text: 'Support')
                     ],
                   ),
                 ),
@@ -110,10 +108,10 @@ class RiderNavView extends GetView<RiderNavController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        scale: 4,
-                        'assets/images/nav/support_inactive.png',
-                        fit: BoxFit.fitHeight,
+                      Icon(
+                        CupertinoIcons.question_circle,
+                        size: sizeFit(false, 28, context),
+                        color: AppDarkColors.AppPrimaryBlack,
                       ),
                       SizedBox(
                         height: sizeFit(false, 4, context),
@@ -131,15 +129,15 @@ class RiderNavView extends GetView<RiderNavController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          scale: 4,
-                          'assets/images/nav/history_active.png',
-                          fit: BoxFit.contain,
+                        Icon(
+                          CupertinoIcons.doc_text,
+                          size: sizeFit(false, 28, context),
+                          color: AppDarkColors.AppPrimaryPink,
                         ),
                         SizedBox(
                           height: sizeFit(false, 4, context),
                         ),
-                        const Ten500AppBrightBlue(text: 'History')
+                        const Ten500AppPrimaryPink(text: 'History')
                       ],
                     ),
                   ),
@@ -149,10 +147,10 @@ class RiderNavView extends GetView<RiderNavController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          scale: 4,
-                          'assets/images/nav/history_inactive.png',
-                          fit: BoxFit.contain,
+                        Icon(
+                          CupertinoIcons.doc_text,
+                          size: sizeFit(false, 28, context),
+                          color: AppDarkColors.AppPrimaryBlack,
                         ),
                         SizedBox(
                           height: sizeFit(false, 4, context),
@@ -170,15 +168,15 @@ class RiderNavView extends GetView<RiderNavController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          scale: 4,
-                          'assets/images/nav/rider_active.png',
-                          fit: BoxFit.fitHeight,
+                        Icon(
+                          CupertinoIcons.person_alt_circle,
+                          size: sizeFit(false, 28, context),
+                          color: AppDarkColors.AppPrimaryPink,
                         ),
                         SizedBox(
                           height: sizeFit(false, 4, context),
                         ),
-                        const Ten500AppBrightBlue(text: 'Account')
+                        const Ten500AppPrimaryPink(text: 'Account')
                       ],
                     ),
                   ),
@@ -190,10 +188,10 @@ class RiderNavView extends GetView<RiderNavController> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          scale: 4,
-                          'assets/images/nav/rider_inactive.png',
-                          fit: BoxFit.fitHeight,
+                        Icon(
+                          CupertinoIcons.person_alt_circle,
+                          size: sizeFit(false, 28, context),
+                          color: AppDarkColors.AppPrimaryBlack,
                         ),
                         SizedBox(
                           height: sizeFit(false, 4, context),

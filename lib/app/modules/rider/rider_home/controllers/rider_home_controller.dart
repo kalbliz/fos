@@ -98,7 +98,7 @@ class RiderHomeController extends GetxController {
         anchor: const Offset(0.5, 1.0),
         zIndex: 4.0,
         markerId: const MarkerId(''),
-        icon: BitmapDescriptor.fromBytes(markerIcon),
+        icon: BitmapDescriptor.defaultMarker,
         position: LatLng(position.latitude, position.longitude),
         // infoWindow: const InfoWindow(title: 'fullname'),
       );

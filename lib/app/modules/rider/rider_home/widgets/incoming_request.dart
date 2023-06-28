@@ -147,7 +147,7 @@ class IncomingDeliveryRequest extends StatelessWidget {
                     width: sizeFit(true, 140, context),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: AppColors.AppBackgroundBlue),
+                        color: AppColors.AppBlack),
                     child: const Center(
                       child: Fourteen500AppWhite(text: 'Accept'),
                     ),
@@ -175,10 +175,11 @@ class IncomingDeliveryRequest extends StatelessWidget {
                     height: sizeFit(false, 48, context),
                     width: sizeFit(true, 140, context),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: AppColors.AppRed),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: AppColors.AppRed),
+                    ),
                     child: const Center(
-                      child: Fourteen500AppWhite(text: 'Decline'),
+                      child: Fourteen500AppRed(text: 'Decline'),
                     ),
                   ),
                 ),

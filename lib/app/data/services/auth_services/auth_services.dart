@@ -13,7 +13,8 @@ class AuthService extends GetxService {
   String status = '';
    String userState = '';
   double earnings = 0;
-
+  String supportPhoneNumber = '+234 814 227 6406';
+  String supportWhatsApp = '+234 814 227 6406';
   @override
   void onInit() {
     // TODO: implement onInit

@@ -81,7 +81,7 @@ class LoginController extends GetxController {
         .get()
         .then((response) {
       authService.box.write('userState', response.data()!['userState']);
-      authService.userID = currentUser.uid;
+      authService.userID = currentUser.uid;   
       authService.userEmail = response.data()!['userEmail'];
       authService.userName = response.data()!['userName'];
       authService.userPhoto = response.data()!['userPhoto'];

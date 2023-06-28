@@ -90,6 +90,34 @@ class Ten500AppBrightBlue extends StatelessWidget {
             fontWeight: FontWeight.w500));
   }
 }
+class Ten500AppPrimaryPink extends StatelessWidget {
+  final String text;
+  final TextAlign? alignment;
+  final TextDecoration? decoration;
+  final Color? decorationColor;
+  final TextDecorationStyle? decorationStyle;
+
+  const Ten500AppPrimaryPink(
+      {Key? key,
+      required this.text,
+      this.alignment,
+      this.decoration,
+      this.decorationColor,
+      this.decorationStyle})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: alignment ?? TextAlign.left,
+        style: GoogleFonts.nunito(
+            decoration: decoration,
+            decorationColor: decorationColor,
+            decorationStyle: decorationStyle,
+            color: AppDarkColors.AppPrimaryPink,
+            fontSize: sizeFit(false, 10, context),
+            fontWeight: FontWeight.w500));
+  }
+}
 
 class Ten500AppBlack extends StatelessWidget {
   final String text;
@@ -119,6 +147,7 @@ class Ten500AppBlack extends StatelessWidget {
             fontWeight: FontWeight.w400));
   }
 }
+
 
 class Ten600AppYellow extends StatelessWidget {
   final String text;
