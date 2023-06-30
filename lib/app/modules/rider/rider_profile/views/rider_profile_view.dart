@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fos/app/modules/rider/rider_history/controllers/rider_history_controller.dart';
+import 'package:fos/app/modules/rider/rider_home/controllers/rider_home_controller.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/loader/image_loader.dart';
@@ -20,7 +22,7 @@ class RiderProfileView extends GetView<RiderProfileController> {
         leadingWidth: sizeFit(true, 75, context),
         title: InkWell(
             onTap: () {
-              controller.getRiderDetails();
+              Get.find<RiderHomeController>().getRiderRequests();
             },
             child: const Eighteen500AppBlack(text: 'Profile')),
         centerTitle: true,
@@ -55,6 +57,12 @@ class RiderProfileView extends GetView<RiderProfileController> {
                           ),
                           Fourteen400AppGreyMont(
                               text: controller.riderDetails.phone!),
+                          SizedBox(
+                            height: sizeFit(false, 8, context),
+                          ),
+                          Fourteen400AppGreyMont(
+                              text: controller.riderServices.riderOrders.length
+                                  .toString()),
                           SizedBox(
                             height: sizeFit(false, 50, context),
                           ),

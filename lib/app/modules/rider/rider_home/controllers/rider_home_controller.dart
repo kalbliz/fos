@@ -110,8 +110,8 @@ class RiderHomeController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
-    super.onInit();
     getRiderRequests();
+    super.onInit();
   }
 
   @override
@@ -126,11 +126,13 @@ class RiderHomeController extends GetxController {
 
   Future getRiderRequests() async {
     deliveryRequestsViewState.value = ViewState.busy;
+    debugPrint('making request for orders');
     await riderServices
         .getRiderOrders(riderName: authServices.userName)
         .catchError((onError) {
       ErrorDialog(message: onError.toString());
     });
+    debugPrint(' request for orders ended');
     deliveryRequestsViewState.value = ViewState.idle;
   }
 

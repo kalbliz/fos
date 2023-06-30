@@ -44,7 +44,11 @@ class RiderHomeView extends GetView<RiderHomeController> {
                               vertical: 8,
                             ),
                             child: controller.riderServices.riderOrders.isEmpty
-                                ? SizedBox()
+                                ? SizedBox(
+                                    child: Container(
+                                      color: AppColors.AppAsh,
+                                    ),
+                                  )
                                 : ListView.separated(
                                     shrinkWrap: true,
                                     physics: const ClampingScrollPhysics(),
