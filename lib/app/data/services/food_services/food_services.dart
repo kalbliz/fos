@@ -201,7 +201,6 @@ class FoodServices extends GetxService {
             "address": rider.address,
             "photo": rider.photo,
             "active": rider.active,
-            "currentLocation": rider.currentLocation,
             "createdAt": rider.createdAt,
             "updatedAt": rider.updatedAt
           }
@@ -276,10 +275,11 @@ class FoodServices extends GetxService {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore
         .collection('orders')
-      .where('resturantName', isEqualTo: resturantName)
+        .where('resturantName', isEqualTo: resturantName)
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
+      print(response.docs.first.data().keys);
+
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       responseData.sort(

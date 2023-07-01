@@ -49,7 +49,7 @@ class AssignRiderController extends GetxController {
 
   final addNewRiderViewState = ViewState.idle.obs;
   final GeneralDialog _dialog = GeneralDialog();
-  late RiderData riderData;
+
   @override
   void onInit() {
     super.onInit();
@@ -68,7 +68,7 @@ class AssignRiderController extends GetxController {
   void increment() => count.value++;
   Future assignRider({required int index}) async {
     addNewRiderViewState.value = ViewState.busy;
-    riderData = RiderData(
+    RiderData riderData = RiderData(
       name: riderServices.riders.elementAt(index).name,
       id: riderServices.riders.elementAt(index).id,
       phone: riderServices.riders.elementAt(index).phone,
@@ -77,7 +77,7 @@ class AssignRiderController extends GetxController {
       active: riderServices.riders.elementAt(index).active,
       address: riderServices.riders.elementAt(index).address,
       createdAt: riderServices.riders.elementAt(index).createdAt,
-      currentLocation: riderServices.riders.elementAt(index).currentLocation,
+   
       updatedAt: riderServices.riders.elementAt(index).updatedAt,
     );
     await foodService

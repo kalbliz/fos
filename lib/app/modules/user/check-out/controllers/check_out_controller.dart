@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/core/flutterwave.dart';
 import 'package:flutterwave_standard/models/requests/customer.dart';
 import 'package:flutterwave_standard/models/requests/customizations.dart';
+import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/models/rider/rider_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/cart_services/cart_service.dart';
@@ -81,10 +82,20 @@ class CheckOutController extends GetxController {
           }
         }
         await Get.find<OrderServices>().addOrderDetailToDb2(
-            foodMenus: cartService.cartList,
-            status: 'pending',
-            total: total.value,
-            rider: RiderData());
+          order: OrderModel(
+              status: 'pending',
+              paymentStatus: response.status == "completed" ? "PAID" : "UNPAID",
+              total: total.value.toInt(),
+              resturantId: cartService.cartList.elementAt(0).id,
+              resturantName: cartService.cartList.elementAt(0).resturantName,
+              clientLocation: authService.userAddress,
+              clientName: authService.userName,
+              clientPhoneNumber: authService.userPhoneNumber,
+              clientPhoto: authService.userPhoto,
+              userId: authService.userID,
+              rider: RiderData(),
+              createdAt: DateTime.now().toIso8601String()),
+        );
         await Get.find<OrderServices>().getOrderList();
         await Get.find<CartServices>().deleteCartDetailsFromDb();
         await calculateTotal();

@@ -72,7 +72,7 @@ class CartServices extends GetxService {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('cart').get().then((response) async {
       var responseData =
-          response.docs.map((e) => CartModel.fromDocumentSnapshot(e)).toList();
+          response.docs.map((e) => CartModel.from(e.data())).toList();
 
       cartList.clear();
       for (var element in responseData) {

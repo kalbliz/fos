@@ -28,7 +28,7 @@ class OrderDetailsWidget extends StatelessWidget {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const Fourteen400AppGreyMont(text: 'Resturant'),
-          Fourteen400AppBlackNun(text: '${selectedDeliveryItem.restaurantName}'),
+          Fourteen400AppBlackNun(text: '${selectedDeliveryItem.resturantName}'),
         ]),
         SizedBox(
           height: sizeFit(false, 8, context),

@@ -7,7 +7,7 @@ class RiderData {
     this.phone,
     this.active,
     this.address,
-    this.currentLocation,
+
     this.createdAt,
     this.updatedAt,
   });
@@ -20,9 +20,7 @@ class RiderData {
     phone = json['phone'];
     active = json['active'];
     address = json['address'];
-    currentLocation = json['current_location'] != null
-        ? CurrentLocation.fromJson(json['current_location'])
-        : null;
+  
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -33,7 +31,7 @@ class RiderData {
   String? phone;
   num? active;
   String? address;
-  CurrentLocation? currentLocation;
+ 
   String? createdAt;
   String? updatedAt;
 
@@ -46,9 +44,7 @@ class RiderData {
     map['phone'] = phone;
     map['active'] = active;
     map['address'] = address;
-    if (currentLocation != null) {
-      map['current_location'] = currentLocation?.toJson();
-    }
+  
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
     return map;

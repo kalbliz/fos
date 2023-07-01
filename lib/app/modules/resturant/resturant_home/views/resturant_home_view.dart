@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fos/app/data/services/orders/order_service.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/all_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/cancelled_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/completed_orders_view.dart';
@@ -26,7 +27,12 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
     return Scaffold(
         backgroundColor: AppColors.AppBackgroundWhite,
         appBar: AppBar(
-          title: Text('Welcome ${controller.authService.userName.capitalize}'),
+          title: InkWell(
+              onTap: () {
+                controller.getresturantOrders();
+              },
+              child: Text(
+                  'Welcome ${controller.authService.userName.capitalize}')),
           elevation: 0,
           centerTitle: true,
           backgroundColor: AppColors.AppBackgroundWhite,

@@ -4,6 +4,7 @@ import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/models/rider/rider_response.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
+import 'package:fos/app/data/services/cart_services/cart_service.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:get/get.dart';
 
@@ -30,32 +31,38 @@ class OrderServices extends GetxService {
     });
   }
 
-  Future addOrderDetailToDb2(
-      {required List<CartModel> foodMenus,
-      required String status,
-      required RiderData rider,
-      required num total}) async {
+  Future addOrderDetailToDb2({required OrderModel order}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     final ordersCollection = firebaseFireStore.collection('orders').doc();
 
     await ordersCollection.set({
-      "status": status,
-      "userId": authService.userID,
-      "total": total,
-      "clientName": authService.userName,
-      "clientLocation": authService.userAddress,
-      "clientPhoto": authService.userPhoto,
-      "clientPhoneNumber": authService.userPhoneNumber,
-      "resturantId": foodMenus.elementAt(0).resturantId,
-      "resturantName": foodMenus.elementAt(0).resturantName,
+      "status": order.status,
+      "total": order.total,
+      "rider": {
+        "name": order.rider?.name,
+        "email": order.rider?.email,
+        "phone": order.rider?.phone,
+        "address": order.rider?.address,
+        "photo": order.rider?.photo,
+        "active": order.rider?.active,
+       
+        "createdAt": order.rider?.createdAt,
+        "updatedAt": order.rider?.updatedAt
+      },
+      "clientName": order.clientName,
+      "clientPhoto": order.clientPhoto,
+      "clientLocation": order.clientLocation,
+      "clientPhoneNumber": order.clientPhoneNumber,
+      "resturantName": order.resturantName,
+      "resturantId": order.resturantId,
       "cartList": [
-        for (var element in foodMenus)
+        for (var element in Get.find<CartServices>().cartList)
           {
             "foodDescription": element.foodDescription,
             "foodImage": element.foodImage,
             "foodName": element.foodName,
             "foodPrice": element.foodPrice,
-            "status": status,
+            "status": element.status,
             "foodId": element.id,
             "time": DateTime.now(),
             "clientName": element.clientName,
@@ -63,17 +70,9 @@ class OrderServices extends GetxService {
             "resturantName": element.resturantName
           },
       ],
-      "rider": {
-        "name": rider.name,
-        "email": rider.email,
-        "phone": rider.phone,
-        "address": rider.address,
-        "photo": rider.photo,
-        "active": rider.active,
-        "currentLocation": rider.currentLocation,
-        "createdAt": rider.createdAt,
-        "updatedAt": rider.updatedAt
-      }
+      "userId": order.userId,
+      "paymentStatus": order.paymentStatus,
+      "createdAt": order.createdAt,
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(

@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fos/app/data/models/cart/get_cart_model.dart';
 import 'package:fos/app/data/models/rider/rider_response.dart';
 
 OrderModel OrderModelFromJson(String str) =>
@@ -23,47 +24,39 @@ class OrderModel {
   String? clientPhoneNumber;
   String? resturantName;
   String? resturantId;
-  List<CartList>? cartList;
+  List<CartModel>? cartList;
   final String? userId;
   String? paymentStatus;
   dynamic id;
+  String? createdAt;
 
-  OrderModel({
-    this.status,
-    this.total,
-    this.cartList,
-    this.rider,
-    this.userId,
-    this.clientPhoneNumber,
-    this.resturantId,
-    this.resturantName,
-    this.clientPhoto,
-    this.id,
-    this.paymentStatus,
-    this.clientLocation,
-    this.clientName,
-  });
+  OrderModel(
+      {
+      this.createdAt,
+      this.resturantId,this.total,this.clientName,this.resturantName,this.clientPhoto,this.userId,this.clientLocation,this.rider,this.cartList,this.clientPhoneNumber,this.status,this.id,this.paymentStatus
+      });
 
   factory OrderModel.fromDocumentSnapShot(
-          DocumentSnapshot<Map<String, dynamic>> json) =>
-      OrderModel(
-          status: json["status"],
-          id: json.id,
-          paymentStatus: json['paymentStatus'],
-          rider:
-              json['rider'] != null ? RiderData.fromJson(json['rider']) : null,
-          clientPhoneNumber: json['clientPhoneNumber'],
-          clientPhoto: json['clientPhoto'],
-          clientLocation: json['clientLocation'],
-          clientName: json['clientName'],
-          resturantId: json['resturantId'],
-          resturantName: json['resturantName'],
-          total: json["total"],
-          cartList: json["cartList"] == null
-              ? []
-              : List<CartList>.from(
-                  json["cartList"]!.map((x) => CartList.from(x))),
-          userId: json['userId']);
+      DocumentSnapshot<Map<String, dynamic>> json) {
+    return OrderModel(
+        status: json["status"],
+        id: json.id,
+        paymentStatus: json['paymentStatus'],
+        rider: json['rider'] != null ? RiderData.fromJson(json['rider']) : null,
+        clientPhoneNumber: json['clientPhoneNumber'],
+        clientPhoto: json['clientPhoto'],
+        clientLocation: json['clientLocation'],
+        clientName: json['clientName'],
+        resturantId: json['resturantId'],
+        resturantName: json['resturantName'],
+        total: json["total"],
+        cartList: json["cartList"] == null
+            ? []
+            : List<CartModel>.from(
+                json["cartList"]!.map((x) => CartModel.from(x))),
+        userId: json['userId'],
+        createdAt: json['createdAt']);
+  }
 
   Map<String, dynamic> toJson() => {
         "status": status,
@@ -79,7 +72,8 @@ class OrderModel {
         "resturantId": resturantId,
         "clientPhoto": clientPhoto,
         "rider": rider,
-        "paymentStatus": paymentStatus
+        "paymentStatus": paymentStatus,
+        "createdAt": createdAt
       };
 }
 

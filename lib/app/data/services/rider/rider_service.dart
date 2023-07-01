@@ -41,7 +41,10 @@ class RiderServices extends GetxService {
     firebaseFireStore = FirebaseFirestore.instance;
     debugPrint(riderName);
     await firebaseFireStore.collection('orders').get().then((response) async {
-      debugPrint(response.docs.toString());
+      for (var element in response.docs) {
+        print(element.data());
+      }
+
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
 
