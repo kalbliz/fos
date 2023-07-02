@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fos/app/modules/rider/rider_home/controllers/rider_home_controller.dart';
 import 'package:fos/app/modules/rider/rider_home/widgets/accept_form.dart';
+import 'package:fos/app/modules/rider/rider_home/widgets/get_direction_bottomsheet.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/fourteens.dart';
@@ -127,20 +128,36 @@ class IncomingDeliveryRequest extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     controller.setSelectedRequestIndex(index);
-                    // showDialog(
-                    //     barrierDismissible: true,
-                    //     context: context,
-                    //     builder: (context) {
-                    //       return Dialog(
-                    //         insetPadding: EdgeInsets.symmetric(
-                    //           horizontal: sizeFit(true, 16, context),
-                    //         ),
-                    //         shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(8),
-                    //         ),
-                    //         child: AcceptForm(),
-                    //       );
-                    //     });
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        isDismissible: true,
+                        barrierColor:
+                            AppColors.AppBackgroundWhite.withOpacity(0.9),
+                        context: Get.context!,
+                        builder: (context) {
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              GetDirectionBottomSheet(),
+                              Positioned(
+                                top: sizeFit(false, -50, Get.context!),
+                                width: sizeFit(true, 370, Get.context!),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.back();
+                                      },
+                                      child: const BackButton(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        });
                   },
                   child: Container(
                     height: sizeFit(false, 48, context),

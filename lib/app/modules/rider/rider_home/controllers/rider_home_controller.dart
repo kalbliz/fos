@@ -1,12 +1,18 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
+import 'package:fos/app/data/services/orders/order_service.dart';
 import 'package:fos/app/data/services/rider/rider_service.dart';
+import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/helpers/d.dart';
+import 'package:fos/app/utilities/helpers/launcher_functions.dart';
+import 'package:fos/app/utilities/responsive/size_fit.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -137,5 +143,86 @@ class RiderHomeController extends GetxController {
   }
 
   void increment() => count.value++;
-  void setSelectedRequestIndex(int index) {}
+  void setSelectedRequestIndex(int index) {
+    Get.find<RiderServices>().selectedOrderIndex = index;
+  }
+
+  Future<List<Location>> getCordinates({required String address}) async {
+    List<Location> cordinate = await locationFromAddress(address);
+    return cordinate;
+  }
+
+  Future getDeliveryDirection() async {
+    getDirectionViewState.value = ViewState.busy;
+    await getCordinates(
+            address: Get.find<RiderServices>()
+                .riderOrders
+                .elementAt(Get.find<RiderServices>().selectedOrderIndex)
+                .clientLocation!)
+        .then((cordinates) {
+      showCupertinoDialog(
+        context: Get.context!,
+        builder: (context) => CupertinoAlertDialog(
+          title: Text(
+            'Open Destination In Map',
+            style: TextStyle(
+              color: AppColors.AppBlack,
+              fontFamily: "Nunito",
+              fontSize: sizeFit(false, 16, context),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          content: SizedBox(
+            height: sizeFit(false, 250, context),
+            child: Center(
+              child: SingleChildScrollView(
+                child: CupertinoListTile(
+                  onTap: () {
+                    Get.back();
+                    openMap(
+                      latitude: cordinates.first.latitude.toDouble(),
+                      longitude: cordinates.first.longitude.toDouble(),
+                    );
+                  },
+                  leading: const Icon(
+                    Icons.north_east_rounded,
+                    size: 16,
+                    color: AppColors.AppBlack,
+                  ),
+                  leadingToTitle: 0,
+                  padding: EdgeInsets.zero,
+                  title: Text(
+                    'Open client location with google navigator',
+                    style: TextStyle(
+                      color: AppColors.AppBlack,
+                      fontFamily: "Nunito",
+                      fontSize: sizeFit(false, 13, context),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              onPressed: () => Get.back(),
+              child: Text(
+                'CANCEL',
+                style: TextStyle(
+                  color: AppColors.AppBlack,
+                  fontFamily: "Nunito",
+                  fontSize: sizeFit(false, 16, context),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }).catchError((onError) {
+      throw onError;
+    });
+    getDirectionViewState.value = ViewState.idle;
+  }
 }

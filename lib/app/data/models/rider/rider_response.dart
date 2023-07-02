@@ -1,16 +1,15 @@
 class RiderData {
-  RiderData({
-    this.id,
-    this.name,
-    this.photo,
-    this.email,
-    this.phone,
-    this.active,
-    this.address,
-
-    this.createdAt,
-    this.updatedAt,
-  });
+  RiderData(
+      {this.id,
+      this.name,
+      this.photo,
+      this.email,
+      this.phone,
+      this.active,
+      this.address,
+      this.createdAt,
+      this.updatedAt,
+      this.creator});
 
   RiderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -20,7 +19,7 @@ class RiderData {
     phone = json['phone'];
     active = json['active'];
     address = json['address'];
-  
+    creator = json['creator'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -31,7 +30,7 @@ class RiderData {
   String? phone;
   num? active;
   String? address;
- 
+  String? creator;
   String? createdAt;
   String? updatedAt;
 
@@ -44,7 +43,7 @@ class RiderData {
     map['phone'] = phone;
     map['active'] = active;
     map['address'] = address;
-  
+    map['creator'] = creator;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
     return map;

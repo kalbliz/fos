@@ -12,7 +12,7 @@ class OrderServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final RxList<OrderModel> orderList = <OrderModel>[].obs;
-
+int selectedOrderIndex = 0;
   Future addOrderDetailToDb(
       {required CartModel cart, required String status}) async {
     firebaseFireStore = FirebaseFirestore.instance;

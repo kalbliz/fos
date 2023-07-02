@@ -15,6 +15,7 @@ class CreateRider {
   String? phone;
   String? address;
   String? photo;
+  String? creator;
 
   CreateRider({
     this.name,
@@ -22,6 +23,7 @@ class CreateRider {
     this.phone,
     this.address,
     this.photo,
+    this.creator
   });
 
   factory CreateRider.fromJson(Map<String, dynamic> json) => CreateRider(
@@ -29,6 +31,7 @@ class CreateRider {
         email: json["email"],
         phone: json["phone"],
         address: json["address"],
+        creator: json['creator'],
         photo: json["photo"],
       );
 
@@ -38,5 +41,6 @@ class CreateRider {
         "phone": phone,
         "address": address,
         "photo": photo,
+        "creator":creator
       };
 }
