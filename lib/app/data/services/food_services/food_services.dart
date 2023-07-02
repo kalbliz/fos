@@ -240,14 +240,13 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'completed')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
-
+      debugPrint("Completed${response.docs}");
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
-      responseData.sort(
-          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
       completedOrdersList.value = responseData;
+      debugPrint("Completed List${completedOrdersList.value}");
     }).catchError((onError) {
+      print(onError);
       throw onError;
     });
   }

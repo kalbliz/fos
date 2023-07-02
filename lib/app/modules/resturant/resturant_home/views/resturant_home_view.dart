@@ -6,6 +6,7 @@ import 'package:fos/app/modules/resturant/resturant_home/widgets/all_orders_view
 import 'package:fos/app/modules/resturant/resturant_home/widgets/cancelled_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/completed_orders_view.dart';
 import 'package:fos/app/modules/resturant/resturant_home/widgets/pending_orders_view.dart';
+import 'package:fos/app/modules/resturant/resturant_home/widgets/transitOrdersView.dart';
 import 'package:fos/app/utilities/text_style/fourteens.dart';
 import 'package:fos/app/utilities/text_style/tens.dart';
 import 'package:get/get.dart';
@@ -124,7 +125,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                                     child: Obx(() {
                                       return Ten500AppBlack(
                                           text:
-                                              '${controller.foodService.completedOrdersList.length}');
+                                              '${controller.foodService.completedOrdersList.value.length}');
                                     }),
                                   ),
                                 )
@@ -184,6 +185,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                               AllOrderView(),
                               PendingOrderView(),
                               CompletedOrdersView(),
+                               TransitOrdersView(),
                               CancelledOrderView()
                             ]),
                       )
