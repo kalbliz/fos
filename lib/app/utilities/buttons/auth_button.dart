@@ -106,3 +106,71 @@ class ActionButton extends StatelessWidget {
     );
   }
 }
+
+class ConfirmDeliveryButton extends StatelessWidget {
+  final Widget? leading;
+  final bool? isIdle;
+  final void Function() onTap;
+  const ConfirmDeliveryButton({
+    Key? key,
+    this.leading,
+    required this.onTap,
+    this.isIdle = true,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: sizeFit(false, 46, context),
+        width: sizeFit(true, 343, context),
+        decoration: BoxDecoration(
+          color: AppColors.AppRed,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Offstage(
+                offstage: isIdle!,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: sizeFit(false, 15, context),
+                      width: sizeFit(false, 15, context),
+                      child: const CircularProgressIndicator(
+                        backgroundColor: AppColors.AppCircularProgressLightBlue,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 2,
+                      ),
+                    ),
+                    SizedBox(
+                      width: sizeFit(true, 18, context),
+                    ),
+                  ],
+                ),
+              ),
+              leading ?? const SizedBox(),
+              leading != null
+                  ? SizedBox(
+                      width: sizeFit(true, 8, context),
+                    )
+                  : const SizedBox(),
+              Text(
+                'Confirm delivery',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.AppBackgroundWhite,
+                  fontSize: sizeFit(false, 16, context),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

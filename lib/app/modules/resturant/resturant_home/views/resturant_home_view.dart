@@ -132,6 +132,28 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
+                                const Fourteen400AppBlackNun(text: 'In Transit'),
+                                SizedBox(
+                                  width: sizeFit(true, 4, context),
+                                ),
+                                Container(
+                                  height: sizeFit(false, 20, context),
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromRGBO(217, 217, 217, 1)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Obx(() {
+                                      return Ten500AppBlack(
+                                          text:
+                                              '${controller.foodService.transitOrdersList.length}');
+                                    }),
+                                  ),
+                                )
+                              ]),
+                            ),
+                            Tab(
+                              child: Row(children: [
                                 const Fourteen400AppBlackNun(text: 'Cancelled'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),

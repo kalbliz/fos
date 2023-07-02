@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fos/app/modules/rider/rider_home/controllers/rider_home_controller.dart';
-import 'package:fos/app/modules/rider/rider_home/widgets/accept_form.dart';
 import 'package:fos/app/modules/rider/rider_home/widgets/get_direction_bottomsheet.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
@@ -127,6 +126,7 @@ class IncomingDeliveryRequest extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
+                    controller.riderServices.isRiderInTransit.value = true;
                     controller.setSelectedRequestIndex(index);
                     showModalBottomSheet(
                         isScrollControlled: true,
@@ -173,6 +173,7 @@ class IncomingDeliveryRequest extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     controller.setSelectedRequestIndex(index);
+                    controller.rejectOrder();
                     showDialog(
                         barrierDismissible: true,
                         context: context,

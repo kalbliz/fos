@@ -25,7 +25,7 @@ class ResturantHomeController extends GetxController
     getFood();
     getresturantOrders();
     riderServices.getAllRiders();
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -70,6 +70,12 @@ class ResturantHomeController extends GetxController
     });
     await foodService
         .getCompletedOrders(resturantName: authService.userName)
+        .then((value) {})
+        .catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+    await foodService
+        .getTransitOrders(resturantName: authService.userName)
         .then((value) {})
         .catchError((onError) {
       ErrorDialog(message: onError.toString());

@@ -8,10 +8,11 @@ import 'package:get/get.dart';
 
 class RiderServices extends GetxService {
   int selectedRiderIndex = 0;
+  final isRiderInTransit = false.obs;
   late List<RiderData> riders = [];
   late List<OrderModel> riderOrders = [];
   late FirebaseFirestore firebaseFireStore;
-int selectedOrderIndex = 0;
+  int selectedOrderIndex = 0;
   Future addRiderToUsers(RiderData riderData, User currentUser) async {
     try {
       final CollectionReference ridersCollection =
@@ -41,13 +42,9 @@ int selectedOrderIndex = 0;
     firebaseFireStore = FirebaseFirestore.instance;
     debugPrint(riderName);
     await firebaseFireStore.collection('orders').get().then((response) async {
-      for (var element in response.docs) {
-        print(element.data());
-      }
-
+      riderOrders.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
-
       for (var element in responseData) {
         if (element.rider!.name == riderName) {
           riderOrders.add(element);
@@ -56,6 +53,45 @@ int selectedOrderIndex = 0;
     }).catchError((onError) {
       throw onError;
     });
+  }
+
+  Future updateRiderOrders(
+      {required String orderId, required String status}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+
+    await firebaseFireStore
+        .collection('orders')
+        .doc(orderId)
+        .update({"status": status})
+        .then((value) {})
+        .catchError((onError) {
+          throw onError;
+        });
+  }
+
+  Future rejectOrder({required String orderId, required String status}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+
+    await firebaseFireStore
+        .collection('orders')
+        .doc(orderId)
+        .update({
+          "status": status,
+          'rider': {
+            "name": null,
+            "email": null,
+            "phone": null,
+            "address": null,
+            "photo": null,
+            "active": null,
+            "createdAt": null,
+            "updatedAt": null
+          }
+        })
+        .then((value) {})
+        .catchError((onError) {
+          throw onError;
+        });
   }
 
   Future saveRider(RiderData riderData) async {

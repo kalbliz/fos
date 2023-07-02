@@ -137,7 +137,7 @@ class GetDirectionBottomSheet extends StatelessWidget {
                         ViewState.idle) {
                       Get.find<RiderHomeController>().getDeliveryDirection();
                     }
-                    // Get.toNamed(Routes.DELIVERY_SUCCESS);
+                
                   },
                 )),
             SizedBox(

@@ -1,8 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fos/app/utilities/dialogues/general_dialog.dart';
+import 'package:fos/app/utilities/helpers/open_googel_map.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/orders/order_service.dart';
 import 'package:fos/app/data/services/rider/rider_service.dart';
@@ -12,10 +20,6 @@ import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/helpers/d.dart';
 import 'package:fos/app/utilities/helpers/launcher_functions.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RiderHomeController extends GetxController {
   //TODO: Implement RiderHomeController
@@ -30,6 +34,7 @@ class RiderHomeController extends GetxController {
   final deliveryRequestsViewState = ViewState.idle.obs;
   final getDirectionViewState = ViewState.idle.obs;
   final requestsViewState = ViewState.idle.obs;
+  final confirmDeliveryViewState = ViewState.idle.obs;
   late Uint8List markerIcon;
   RxSet<Marker> markers = <Marker>{}.obs;
   final Completer<GoogleMapController> mapCompleter =
@@ -147,6 +152,41 @@ class RiderHomeController extends GetxController {
     Get.find<RiderServices>().selectedOrderIndex = index;
   }
 
+  Future rejectOrder() async {
+    deliveryRequestsViewState.value = ViewState.busy;
+    await riderServices
+        .rejectOrder(
+            orderId: riderServices.riderOrders
+                .elementAt(riderServices.selectedOrderIndex)
+                .id,
+            status: 'cancelled')
+        .then((value) async {
+      await riderServices.getRiderOrders(riderName: authServices.userName);
+      GeneralDialog().successCupertinoMessage('Delivery Rejected');
+    }).catchError((onError) {
+      throw onError;
+    });
+    deliveryRequestsViewState.value = ViewState.idle;
+  }
+
+  Future confirmDelivery() async {
+    confirmDeliveryViewState.value = ViewState.busy;
+    await riderServices
+        .updateRiderOrders(
+            orderId: riderServices.riderOrders
+                .elementAt(riderServices.selectedOrderIndex)
+                .id,
+            status: 'completed')
+        .then((value) async {
+      riderServices.isRiderInTransit.value = false;
+      await riderServices.getRiderOrders(riderName: authServices.userName);
+      GeneralDialog().successCupertinoMessage('Delivery Successful');
+    }).catchError((onError) {
+      throw onError;
+    });
+    confirmDeliveryViewState.value = ViewState.idle;
+  }
+
   Future<List<Location>> getCordinates({required String address}) async {
     List<Location> cordinate = await locationFromAddress(address);
     return cordinate;
@@ -154,6 +194,7 @@ class RiderHomeController extends GetxController {
 
   Future getDeliveryDirection() async {
     getDirectionViewState.value = ViewState.busy;
+    riderServices.isRiderInTransit.value = false;
     await getCordinates(
             address: Get.find<RiderServices>()
                 .riderOrders
@@ -162,62 +203,8 @@ class RiderHomeController extends GetxController {
         .then((cordinates) {
       showCupertinoDialog(
         context: Get.context!,
-        builder: (context) => CupertinoAlertDialog(
-          title: Text(
-            'Open Destination In Map',
-            style: TextStyle(
-              color: AppColors.AppBlack,
-              fontFamily: "Nunito",
-              fontSize: sizeFit(false, 16, context),
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          content: SizedBox(
-            height: sizeFit(false, 250, context),
-            child: Center(
-              child: SingleChildScrollView(
-                child: CupertinoListTile(
-                  onTap: () {
-                    Get.back();
-                    openMap(
-                      latitude: cordinates.first.latitude.toDouble(),
-                      longitude: cordinates.first.longitude.toDouble(),
-                    );
-                  },
-                  leading: const Icon(
-                    Icons.north_east_rounded,
-                    size: 16,
-                    color: AppColors.AppBlack,
-                  ),
-                  leadingToTitle: 0,
-                  padding: EdgeInsets.zero,
-                  title: Text(
-                    'Open client location with google navigator',
-                    style: TextStyle(
-                      color: AppColors.AppBlack,
-                      fontFamily: "Nunito",
-                      fontSize: sizeFit(false, 13, context),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              onPressed: () => Get.back(),
-              child: Text(
-                'CANCEL',
-                style: TextStyle(
-                  color: AppColors.AppBlack,
-                  fontFamily: "Nunito",
-                  fontSize: sizeFit(false, 16, context),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
+        builder: (context) => OpenDestinationWidget(
+          cordinates: cordinates,
         ),
       );
     }).catchError((onError) {

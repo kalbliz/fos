@@ -22,6 +22,7 @@ class FoodServices extends GetxService {
   final RxList<OrderModel> pendingOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> cancelledOrdersList = <OrderModel>[].obs;
   final RxList<OrderModel> completedOrdersList = <OrderModel>[].obs;
+  final RxList<OrderModel> transitOrdersList = <OrderModel>[].obs;
   late RxList<OrderModel> ordersListInUse;
   late int index;
 
@@ -236,7 +237,27 @@ class FoodServices extends GetxService {
     await firebaseFireStore
         .collection('orders')
         .where('resturantName', isEqualTo: resturantName)
-        .where('status', isEqualTo: 'success')
+        .where('status', isEqualTo: 'completed')
+        .get()
+        .then((response) async {
+      debugPrint(response.docs.toString());
+
+      var responseData =
+          response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      responseData.sort(
+          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
+      completedOrdersList.value = responseData;
+    }).catchError((onError) {
+      throw onError;
+    });
+  }
+
+  Future getTransitOrders({required String resturantName}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('orders')
+        .where('resturantName', isEqualTo: resturantName)
+        .where('status', isEqualTo: 'transit')
         .get()
         .then((response) async {
       debugPrint(response.docs.toString());
