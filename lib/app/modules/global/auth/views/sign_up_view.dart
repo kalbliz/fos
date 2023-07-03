@@ -180,20 +180,6 @@ class SignUpView extends GetView<SignUpController> {
                                     VisualDensity(horizontal: -4, vertical: -4),
                               );
                             }),
-                            Obx(() {
-                              return RadioListTile<UserState>(
-                                contentPadding: EdgeInsets.zero,
-                                dense: true,
-                                title: const Text('Rider'),
-                                value: UserState.rider,
-                                groupValue: controller.userState.value,
-                                onChanged: (UserState? value) {
-                                  controller.userState.value = value!;
-                                },
-                                visualDensity:
-                                    VisualDensity(horizontal: -4, vertical: -4),
-                              );
-                            })
                           ],
                         ),
                       ),
