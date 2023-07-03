@@ -28,77 +28,29 @@ class HomeView extends GetView<HomeController> {
           child: SizedBox(
             child: Column(
               children: [
-                controller.authService.userState == "resturant"
-                    ? Column(
-                        children: [
-                          ListTile(
-                            onTap: () {
-                              Get.offAndToNamed(Routes.CREATE_FOOD);
-                            },
-                            title: Icon(
-                              Icons.add,
-                              color: AppDarkColors.AppPrimaryWhite,
-                              size: sizeFit(false, 22, context),
-                            ),
-                            subtitle: Text(
-                              'Add Food',
-                              style: AppTextStyles.Sixteen400White,
-                            ),
-                          ),
-                          Divider(
-                            height: sizeFit(false, 0, context),
-                            color: AppDarkColors.AppPrimaryWhite,
-                            indent: sizeFit(true, 15, context),
-                            endIndent: sizeFit(true, 15, context),
-                          ),
-                        ],
-                      )
-                    : SizedBox(),
-                SizedBox(
-                  height: sizeFit(false, 10, context),
-                ),
-                controller.authService.userState != "user"
-                    ? SizedBox()
-                    : Column(
-                        children: [
-                          ListTile(
-                            onTap: () {
-                              Get.offAndToNamed(Routes.CHECK_OUT);
-                            },
-                            title: Icon(
-                              Icons.add,
-                              color: AppDarkColors.AppPrimaryWhite,
-                              size: sizeFit(false, 22, context),
-                            ),
-                            subtitle: Text(
-                              'Check Out',
-                              style: AppTextStyles.Sixteen400White,
-                            ),
-                          ),
-                          Divider(
-                            height: sizeFit(false, 0, context),
-                            color: AppDarkColors.AppPrimaryWhite,
-                            indent: sizeFit(true, 15, context),
-                            endIndent: sizeFit(true, 15, context),
-                          ),
-                        ],
+                Column(
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        Get.offAndToNamed(Routes.CHECK_OUT);
+                      },
+                      title: Icon(
+                        Icons.add,
+                        color: AppDarkColors.AppPrimaryWhite,
+                        size: sizeFit(false, 22, context),
                       ),
-                ListTile(
-                  onTap: () {
-                    controller.firebaseAuth.signOut().then((response) {
-                      Get.offAllNamed(Routes.LOGIN);
-                    });
-                    controller.getMenus();
-                  },
-                  title: Icon(
-                    Icons.logout,
-                    color: AppDarkColors.AppPrimaryWhite,
-                    size: sizeFit(false, 22, context),
-                  ),
-                  subtitle: Text(
-                    'Log Out',
-                    style: AppTextStyles.Sixteen400White,
-                  ),
+                      subtitle: Text(
+                        'Check Out',
+                        style: AppTextStyles.Sixteen400White,
+                      ),
+                    ),
+                    Divider(
+                      height: sizeFit(false, 0, context),
+                      color: AppDarkColors.AppPrimaryWhite,
+                      indent: sizeFit(true, 15, context),
+                      endIndent: sizeFit(true, 15, context),
+                    ),
+                  ],
                 ),
               ],
             ),

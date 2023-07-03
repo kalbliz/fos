@@ -20,7 +20,7 @@ class ResturantOrdersView extends GetView<ResturantOrdersController> {
           backgroundColor: AppColors.AppBackgroundWhite,
           title: Text(
             'Our Menu',
-            style: TextStyle(color: AppColors.AppBackgroundRed),
+            style: TextStyle(color: AppColors.AppBlack),
           ),
           centerTitle: true,
           elevation: 0,

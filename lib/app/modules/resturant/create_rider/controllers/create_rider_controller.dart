@@ -9,6 +9,7 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/rider/rider_service.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
+import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/dialogues/general_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
@@ -150,7 +151,7 @@ class CreateRiderController extends GetxController {
 
     await riderServices.saveRider(riderData).then((value) async {
       await riderServices.getAllRiders();
-      Get.back();
+      Get.until((route) => route.settings.name == Routes.RESTURANT_NAV);
       _dialog.successCupertinoMessage('you have successfully created rider');
     }).catchError((onError) {
       debugPrint(onError.toString());

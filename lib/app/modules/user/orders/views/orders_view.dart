@@ -68,6 +68,7 @@ class OrdersView extends GetView<OrdersController> {
                           : ListView.separated(
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
+                              physics: BouncingScrollPhysics(),
                               itemCount:
                                   controller.orderServices.orderList.length,
                               itemBuilder: (context, index) {

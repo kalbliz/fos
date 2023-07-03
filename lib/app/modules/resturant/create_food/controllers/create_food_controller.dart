@@ -8,6 +8,7 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
 import 'package:fos/app/modules/resturant/resturant_nav/controllers/resturant_nav_controller.dart';
+import 'package:fos/app/routes/app_pages.dart';
 
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/dialogues/general_dialog.dart';
@@ -102,11 +103,12 @@ class CreateFoodController extends GetxController {
             resturantName: foodMenu.resturantName!,
             resturantAddress: foodMenu.resturantAddress!)
         .then((value) {
+      Get.until((route) => route.settings.name == Routes.RESTURANT_NAV);
+
       foodServices.getFoodMenusFromResturant(
           resturantName: authService.userName);
       generalDialog
           .foodUploadSuccessCupertinoMessage('Your food has been saved ');
-      Get.find<ResturantNavController>().tabIndex.value = 0;
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(

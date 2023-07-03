@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/modules/rider/rider_history/widgets/shipment_details.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
@@ -16,7 +17,12 @@ class RiderHistoryView extends GetView<RiderHistoryController> {
     return Scaffold(
         backgroundColor: AppColors.AppBackgroundWhite,
         appBar: AppBar(
-          title: const Eighteen500AppBlack(text: 'History'),
+          title: InkWell(
+              onTap: () {
+                controller.riderServices.getRiderOrders(
+                    riderName: Get.find<AuthService>().userName);
+              },
+              child: const Eighteen500AppBlack(text: 'History')),
           centerTitle: true,
           elevation: 0,
           backgroundColor: AppColors.AppBackgroundWhite,
@@ -28,14 +34,15 @@ class RiderHistoryView extends GetView<RiderHistoryController> {
               horizontal: sizeFit(true, 16, context),
               vertical: sizeFit(false, 16, context),
             ),
-            child: Column(
-              children: [
-                controller.riderServices.riderHistory.isEmpty
-                    ? const Sixteen400AppBlack(text: 'No History Available')
-                    : ListView.separated(
+            child: controller.riderServices.riderHistory.value.isEmpty
+                ? const Sixteen400AppBlack(text: 'No History Available')
+                : Obx(() {
+                    return ListView.separated(
                         shrinkWrap: true,
-                        itemCount: controller.riderServices.riderHistory.length,
+                        itemCount:
+                            controller.riderServices.riderHistory.value.length,
                         controller: ScrollController(),
+                        physics: BouncingScrollPhysics(),
                         separatorBuilder: (context, index) {
                           return const Divider(
                             color: AppColors.AppLightGrey,
@@ -43,28 +50,31 @@ class RiderHistoryView extends GetView<RiderHistoryController> {
                         },
                         itemBuilder: (context, index) {
                           return ShipmentDetailsWidget(
-                            customer: controller.riderServices.riderHistory
+                            customer: controller
+                                .riderServices.riderHistory.value
                                 .elementAt(index)
                                 .clientName!,
-                            date: controller.riderServices.riderHistory
+                            date: controller.riderServices.riderHistory.value
                                 .elementAt(index)
                                 .createdAt!,
-                            orderid: controller.riderServices.riderHistory
+                            orderid: controller.riderServices.riderHistory.value
                                 .elementAt(index)
                                 .id!,
-                            paymentStatus: controller.riderServices.riderHistory
+                            paymentStatus: controller
+                                .riderServices.riderHistory.value
                                 .elementAt(index)
                                 .paymentStatus!,
-                            price: controller.riderServices.riderHistory
+                            price: controller.riderServices.riderHistory.value
                                 .elementAt(index)
                                 .total
                                 .toString(),
-                            noOfparcel: controller.riderServices.riderHistory
+                            noOfparcel: controller
+                                .riderServices.riderHistory.value
                                 .elementAt(index)
                                 .cartList!
                                 .length
                                 .toString(),
-                            status: controller.riderServices.riderHistory
+                            status: controller.riderServices.riderHistory.value
                                 .elementAt(index)
                                 .status!,
                             onTap: () {
@@ -78,9 +88,8 @@ class RiderHistoryView extends GetView<RiderHistoryController> {
                                 .elementAt(index)
                                 .resturantName!,
                           );
-                        }),
-              ],
-            ),
+                        });
+                  }),
           ),
         ));
   }

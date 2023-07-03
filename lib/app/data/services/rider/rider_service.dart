@@ -12,7 +12,7 @@ class RiderServices extends GetxService {
   final isRiderInTransit = false.obs;
   late List<RiderData> riders = [];
   late List<OrderModel> riderOrders = [];
-  late List<OrderModel> riderHistory = [];
+  late RxList<OrderModel> riderHistory = <OrderModel>[].obs;
   late FirebaseFirestore firebaseFireStore;
   int selectedOrderIndex = 0;
   Future addRiderToUsers(RiderData riderData, User currentUser) async {
@@ -45,13 +45,15 @@ class RiderServices extends GetxService {
     debugPrint(riderName);
     await firebaseFireStore.collection('orders').get().then((response) async {
       riderOrders.clear();
+      riderHistory.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       for (var element in responseData) {
+        if (element.rider!.name == riderName) {
+          riderHistory.value.add(element);
+        }
         if (element.rider!.name == riderName && element.status != "completed") {
           riderOrders.add(element);
-        } else if (element.rider!.name == riderName) {
-          riderHistory.add(element);
         }
       }
     }).catchError((onError) {

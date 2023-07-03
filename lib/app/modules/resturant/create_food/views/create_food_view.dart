@@ -16,9 +16,9 @@ class CreateFoodView extends GetView<CreateFoodController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.AppGrey,
+        backgroundColor: AppColors.AppBackgroundWhite,
         appBar: AppBar(
-          backgroundColor: AppColors.AppGrey,
+          backgroundColor: AppColors.AppBackgroundWhite,
           title: Text('Create Food'),
           centerTitle: true,
         ),
