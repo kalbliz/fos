@@ -37,6 +37,7 @@ abstract class Routes {
   static const RIDER_PROFILE = _Paths.RIDER_PROFILE;
   static const RIDER_PERSONAL_DETAILS = _Paths.RIDER_PERSONAL_DETAILS;
   static const RIDER_SETTINGS = _Paths.RIDER_SETTINGS;
+  static const SHIPMENT_DETAILS = _Paths.SHIPMENT_DETAILS;
 }
 
 abstract class _Paths {
@@ -73,4 +74,5 @@ abstract class _Paths {
   static const RIDER_PROFILE = '/rider-profile';
   static const RIDER_PERSONAL_DETAILS = '/rider-personal-details';
   static const RIDER_SETTINGS = '/rider-settings';
+  static const SHIPMENT_DETAILS = '/shipment-details';
 }

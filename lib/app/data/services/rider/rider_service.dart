@@ -8,9 +8,11 @@ import 'package:get/get.dart';
 
 class RiderServices extends GetxService {
   int selectedRiderIndex = 0;
+  int selectedHistoryIndex = 0;
   final isRiderInTransit = false.obs;
   late List<RiderData> riders = [];
   late List<OrderModel> riderOrders = [];
+  late List<OrderModel> riderHistory = [];
   late FirebaseFirestore firebaseFireStore;
   int selectedOrderIndex = 0;
   Future addRiderToUsers(RiderData riderData, User currentUser) async {
@@ -48,6 +50,8 @@ class RiderServices extends GetxService {
       for (var element in responseData) {
         if (element.rider!.name == riderName && element.status != "completed") {
           riderOrders.add(element);
+        } else if (element.rider!.name == riderName) {
+          riderHistory.add(element);
         }
       }
     }).catchError((onError) {
