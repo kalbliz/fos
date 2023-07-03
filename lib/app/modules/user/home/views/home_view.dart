@@ -187,8 +187,9 @@ class HomeView extends GetView<HomeController> {
                                       child: AuthButton(
                                           title: 'Order Now',
                                           onTap: () {
-                                            controller.orderServices
-                                                .getOrderList();
+                                            // controller.orderServices
+                                            //     .getOrderList();
+                                            Get.toNamed(Routes.CART);
                                           }))
                                 ],
                               ),
@@ -337,7 +338,7 @@ class FoodAvatar extends StatelessWidget {
           Text(
             controller.foodServices.foodMenus[index].foodName!.capitalize!,
             overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.Sixteen400TextBlack,
+            style: AppTextStyles.Fourteen600TextBlack,
           )
         ],
       ),
@@ -393,7 +394,7 @@ class ResturantAvatar extends StatelessWidget {
           ),
           Text(
             controller.foodServices.resturantsList[index].userName!.capitalize!,
-            style: AppTextStyles.Sixteen400TextBlack,
+            style: AppTextStyles.Fourteen600TextBlack,
           )
         ],
       ),
