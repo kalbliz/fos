@@ -77,9 +77,9 @@ class AssignRiderController extends GetxController {
       active: riderServices.riders.elementAt(index).active,
       address: riderServices.riders.elementAt(index).address,
       createdAt: riderServices.riders.elementAt(index).createdAt,
-   
       updatedAt: riderServices.riders.elementAt(index).updatedAt,
     );
+    foodService.ordersListInUse.elementAt(foodService.index).status = 'pending';
     await foodService
         .updateOrderRider(
             orderModel:

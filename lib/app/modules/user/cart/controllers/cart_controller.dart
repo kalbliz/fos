@@ -17,7 +17,6 @@ class CartController extends GetxController {
   void onInit() {
     super.onInit();
     getCart();
-  
   }
 
   @override
@@ -38,6 +37,7 @@ class CartController extends GetxController {
 
   Future deleteFromCart(String id) async {
     pageState.value = ViewState.busy;
+    debugPrint(id);
     await cartServices.deleteFoodFromCart(id);
     debugPrint('delete successful');
     pageState.value = ViewState.idle;

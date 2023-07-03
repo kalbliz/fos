@@ -125,7 +125,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                                     child: Obx(() {
                                       return Ten500AppBlack(
                                           text:
-                                              '${controller.foodService.completedOrdersList.value.length}');
+                                              '${controller.foodService.completedOrdersList.length}');
                                     }),
                                   ),
                                 )
@@ -133,7 +133,8 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                             ),
                             Tab(
                               child: Row(children: [
-                                const Fourteen400AppBlackNun(text: 'In Transit'),
+                                const Fourteen400AppBlackNun(
+                                    text: 'In Transit'),
                                 SizedBox(
                                   width: sizeFit(true, 4, context),
                                 ),
@@ -185,7 +186,7 @@ class ResturantHomeView extends GetView<ResturantHomeController> {
                               AllOrderView(),
                               PendingOrderView(),
                               CompletedOrdersView(),
-                               TransitOrdersView(),
+                              TransitOrdersView(),
                               CancelledOrderView()
                             ]),
                       )

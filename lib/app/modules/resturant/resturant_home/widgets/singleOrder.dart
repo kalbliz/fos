@@ -19,13 +19,12 @@ class SingleOrderWidget extends StatelessWidget {
   }) : super(key: key);
   final controller = Get.find<ResturantHomeController>();
   final int orderIndex;
-  final List<OrderModel> orderList;
+  final RxList<OrderModel> orderList;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        controller.foodService.ordersListInUse =
-            controller.foodService.allOrdersList;
+        controller.foodService.ordersListInUse = orderList;
         controller.foodService.index = orderIndex;
         Get.toNamed(
           Routes.RESTURANT_ORDER_DETAIL,
@@ -53,15 +52,14 @@ class SingleOrderWidget extends StatelessWidget {
                             style: AppTextStyles.Fourteen600TextBlack,
                           ),
                           Text(
-                            '${controller.foodService.allOrdersList.elementAt(orderIndex).id}'
+                            '${orderList.elementAt(orderIndex).id}'
                                 .substring(16),
                             style: AppTextStyles.Fourteen600TextBlack,
                           ),
                         ],
                       ),
                       Text(
-                        controller.formattedDate.format(controller
-                            .foodService.allOrdersList
+                        controller.formattedDate.format(orderList
                             .elementAt(orderIndex)
                             .cartList!
                             .elementAt(0)
@@ -77,10 +75,8 @@ class SingleOrderWidget extends StatelessWidget {
                       const Icon(Icons.info);
                       debugPrint(__.toString());
                     },
-                    backgroundImage: CachedNetworkImageProvider(controller
-                        .foodService.allOrdersList
-                        .elementAt(orderIndex)
-                        .clientPhoto!),
+                    backgroundImage: CachedNetworkImageProvider(
+                        orderList.elementAt(orderIndex).clientPhoto!),
                   )
                 ],
               ),
@@ -104,7 +100,7 @@ class SingleOrderWidget extends StatelessWidget {
                               debugPrint(__.toString());
                             },
                             backgroundImage: CachedNetworkImageProvider(
-                                controller.foodService.allOrdersList
+                                orderList
                                     .elementAt(orderIndex)
                                     .cartList!
                                     .elementAt(index)
@@ -116,7 +112,7 @@ class SingleOrderWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  controller.foodService.allOrdersList
+                                  orderList
                                       .elementAt(orderIndex)
                                       .cartList!
                                       .elementAt(index)
@@ -124,7 +120,7 @@ class SingleOrderWidget extends StatelessWidget {
                                   style: AppTextStyles.Fourteen600TextBlack,
                                 ),
                                 Text(
-                                  controller.foodService.allOrdersList
+                                  orderList
                                       .elementAt(orderIndex)
                                       .cartList!
                                       .elementAt(index)
@@ -137,12 +133,12 @@ class SingleOrderWidget extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'NGN${controller.foodService.allOrdersList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
+                                      'NGN${orderList.elementAt(orderIndex).cartList!.elementAt(index).foodPrice!}',
                                       overflow: TextOverflow.ellipsis,
                                       style: AppTextStyles.Fourteen600TextBlack,
                                     ),
                                     Text(
-                                      'Qty: ${controller.foodService.allOrdersList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
+                                      'Qty: ${orderList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
                                       overflow: TextOverflow.ellipsis,
                                       style: AppTextStyles.Fourteen600TextBlack,
                                     ),
@@ -160,10 +156,8 @@ class SingleOrderWidget extends StatelessWidget {
                         indent: sizeFit(true, 65, context),
                       );
                     },
-                    itemCount: controller.foodService.allOrdersList
-                        .elementAt(orderIndex)
-                        .cartList!
-                        .length),
+                    itemCount:
+                        orderList.elementAt(orderIndex).cartList!.length),
               ),
               const Divider(
                 color: AppDarkColors.AppAsh,

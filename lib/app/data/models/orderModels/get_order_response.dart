@@ -24,20 +24,32 @@ class OrderModel {
   String? clientPhoneNumber;
   String? resturantName;
   String? resturantId;
-  List<CartModel>? cartList;
+  List<CartList>? cartList;
   final String? userId;
   String? paymentStatus;
   dynamic id;
   String? createdAt;
 
   OrderModel(
-      {
-      this.createdAt,
-      this.resturantId,this.total,this.clientName,this.resturantName,this.clientPhoto,this.userId,this.clientLocation,this.rider,this.cartList,this.clientPhoneNumber,this.status,this.id,this.paymentStatus
-      });
+      {this.createdAt,
+      this.resturantId,
+      this.total,
+      this.clientName,
+      this.resturantName,
+      this.clientPhoto,
+      this.userId,
+      this.clientLocation,
+      this.rider,
+      this.cartList,
+      this.clientPhoneNumber,
+      this.status,
+      this.id,
+      this.paymentStatus});
 
   factory OrderModel.fromDocumentSnapShot(
       DocumentSnapshot<Map<String, dynamic>> json) {
+    print(json['cartList']);
+
     return OrderModel(
         status: json["status"],
         id: json.id,
@@ -52,8 +64,8 @@ class OrderModel {
         total: json["total"],
         cartList: json["cartList"] == null
             ? []
-            : List<CartModel>.from(
-                json["cartList"]!.map((x) => CartModel.from(x))),
+            : List<CartList>.from(
+                json["cartList"]!.map((x) => CartList.from(x))),
         userId: json['userId'],
         createdAt: json['createdAt']);
   }
@@ -106,6 +118,7 @@ class CartList {
       this.foodId});
 
   factory CartList.from(Map<String, dynamic> json) => CartList(
+      id: json['id'],
       foodName: json["foodName"],
       foodDescription: json["foodDescription"],
       foodImage: json["foodImage"],

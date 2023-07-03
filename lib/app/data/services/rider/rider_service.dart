@@ -46,7 +46,7 @@ class RiderServices extends GetxService {
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       for (var element in responseData) {
-        if (element.rider!.name == riderName) {
+        if (element.rider!.name == riderName && element.status != "completed") {
           riderOrders.add(element);
         }
       }

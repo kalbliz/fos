@@ -30,7 +30,9 @@ class CartModel {
       this.time,
       this.foodId});
 
-  factory CartModel.from(Map<String, dynamic> json) => CartModel(
+  factory CartModel.fromDocumentSnapshot(
+          DocumentSnapshot<Map<String, dynamic>> json) => CartModel(
+    id: json.id,
       foodName: json["foodName"],
       foodDescription: json["foodDescription"],
       foodImage: json["foodImage"],

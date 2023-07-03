@@ -221,7 +221,7 @@ class FoodServices extends GetxService {
         .get()
         .then((response) async {
       debugPrint(response.docs.toString());
-
+      pendingOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       responseData.sort(
@@ -240,13 +240,14 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'completed')
         .get()
         .then((response) async {
-      debugPrint("Completed${response.docs}");
+      debugPrint(response.docs.toString());
+      completedOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
+      responseData.sort(
+          (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
       completedOrdersList.value = responseData;
-      debugPrint("Completed List${completedOrdersList.value}");
     }).catchError((onError) {
-      print(onError);
       throw onError;
     });
   }
@@ -260,12 +261,12 @@ class FoodServices extends GetxService {
         .get()
         .then((response) async {
       debugPrint(response.docs.toString());
-
+      transitOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       responseData.sort(
           (a, b) => b.cartList!.first.time!.compareTo(a.cartList!.first.time!));
-      completedOrdersList.value = responseData;
+      transitOrdersList.value = responseData;
     }).catchError((onError) {
       throw onError;
     });
@@ -280,7 +281,7 @@ class FoodServices extends GetxService {
         .get()
         .then((response) async {
       debugPrint(response.docs.toString());
-
+      cancelledOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       responseData.sort(
@@ -298,8 +299,7 @@ class FoodServices extends GetxService {
         .where('resturantName', isEqualTo: resturantName)
         .get()
         .then((response) async {
-      print(response.docs.first.data().keys);
-
+      allOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
       responseData.sort(

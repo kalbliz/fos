@@ -106,6 +106,10 @@ class CartView extends GetView<CartController> {
                                                             .cartServices
                                                             .cartList[index]
                                                             .id);
+                                                    debugPrint(controller
+                                                        .cartServices
+                                                        .cartList[index]
+                                                        .id);
                                                   },
                                                 ),
                                               ],

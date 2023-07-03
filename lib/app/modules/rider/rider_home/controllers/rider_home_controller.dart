@@ -169,6 +169,22 @@ class RiderHomeController extends GetxController {
     deliveryRequestsViewState.value = ViewState.idle;
   }
 
+  Future acceptOrder() async {
+    deliveryRequestsViewState.value = ViewState.busy;
+    await riderServices
+        .updateRiderOrders(
+            orderId: riderServices.riderOrders
+                .elementAt(riderServices.selectedOrderIndex)
+                .id,
+            status: 'transit')
+        .then((value) async {
+      await riderServices.getRiderOrders(riderName: authServices.userName);
+    }).catchError((onError) {
+      throw onError;
+    });
+    deliveryRequestsViewState.value = ViewState.idle;
+  }
+
   Future confirmDelivery() async {
     confirmDeliveryViewState.value = ViewState.busy;
     await riderServices

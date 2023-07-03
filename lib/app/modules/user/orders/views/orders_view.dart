@@ -17,7 +17,11 @@ class OrdersView extends GetView<OrdersController> {
     return Scaffold(
         appBar: AppBar(
           leading: SizedBox(),
-          title: Text('Orders'),
+          title: InkWell(
+              onTap: () {
+                controller.getOrders();
+              },
+              child: Text('Orders')),
           centerTitle: true,
           actions: [
             IconButton(

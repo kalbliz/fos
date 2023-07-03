@@ -12,7 +12,7 @@ class OrderServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final RxList<OrderModel> orderList = <OrderModel>[].obs;
-int selectedOrderIndex = 0;
+  int selectedOrderIndex = 0;
   Future addOrderDetailToDb(
       {required CartModel cart, required String status}) async {
     firebaseFireStore = FirebaseFirestore.instance;
@@ -45,7 +45,6 @@ int selectedOrderIndex = 0;
         "address": order.rider?.address,
         "photo": order.rider?.photo,
         "active": order.rider?.active,
-       
         "createdAt": order.rider?.createdAt,
         "updatedAt": order.rider?.updatedAt
       },
@@ -88,7 +87,11 @@ int selectedOrderIndex = 0;
   Future getOrderList() async {
     firebaseFireStore = FirebaseFirestore.instance;
 
-    await firebaseFireStore.collection('orders').get().then((response) async {
+    await firebaseFireStore
+        .collection('orders')
+        .where("userId", isEqualTo: authService.userID)
+        .get()
+        .then((response) async {
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
 
