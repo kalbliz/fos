@@ -3,6 +3,7 @@ import 'package:fos/app/modules/global/auth/controllers/login_controller.dart';
 import 'package:fos/app/modules/global/auth/views/auth_view.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
+import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 import 'package:fos/app/utilities/text_style/styles.dart';
@@ -48,13 +49,16 @@ class LoginView extends GetView<LoginController> {
                             SizedBox(
                               height: sizeFit(false, 16, context),
                             ),
-                            FosTextFieldWidget(
-                              hintText: 'Password',
-                              textEditingController:
-                                  controller.passwordEditingController,
-                              validator: controller.passwordValidator,
-                              maxLines: 1,
-                            ),
+                            Obx(() {
+                              return FosTextFieldWidget(
+                                hintText: 'Password',
+                                textEditingController:
+                                    controller.passwordEditingController,
+                                validator: controller.passwordValidator,
+                                maxLines: 1,
+                                obscureText: controller.obscureText.value,
+                              );
+                            }),
                           ],
                         ),
                       ),
@@ -62,9 +66,44 @@ class LoginView extends GetView<LoginController> {
                         height: sizeFit(false, 8, context),
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Show',
+                                style: TextStyle(
+                                    color: AppDarkColors.AppPrimaryPink,
+                                    fontSize: sizeFit(false, 12, context)),
+                              ),
+                              SizedBox(
+                                width: sizeFit(true, 8, context),
+                              ),
+                              Obx(() {
+                                return InkWell(
+                                  onTap: () {
+                                    controller.obscureText.value =
+                                        !controller.obscureText.value;
+                                  },
+                                  child: controller.obscureText.value == false
+                                      ? Icon(
+                                          Icons.check_box,
+                                          color: AppDarkColors.AppPrimaryPink,
+                                          size: sizeFit(false, 18, context),
+                                        )
+                                      : Icon(
+                                          Icons.check_box_outline_blank,
+                                          color: AppDarkColors.AppPrimaryPink,
+                                          size: sizeFit(false, 18, context),
+                                        ),
+                                );
+                              }),
+                            ],
+                          ),
                           InkWell(
+                            onTap: () {
+                              controller.resetPassword();
+                            },
                             child: Text(
                               'Forgot password?',
                               style: AppTextStyles.Fourteen400TextPink,

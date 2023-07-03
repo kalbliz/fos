@@ -9,6 +9,7 @@ import 'package:fos/app/data/services/rider/rider_service.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
+import 'package:fos/app/utilities/global/custom_exceptions.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -24,11 +25,11 @@ class LoginController extends GetxController {
   final passwordValidator = MultiValidator([
     RequiredValidator(errorText: 'password is required'),
   ]);
-
+  final obscureText = false.obs;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final AuthService authService = Get.find<AuthService>();
-   final RiderServices riderServices = Get.find<RiderServices>();
+  final RiderServices riderServices = Get.find<RiderServices>();
   final pageViewState = ViewState.idle.obs;
   final count = 0.obs;
   @override
@@ -60,7 +61,6 @@ class LoginController extends GetxController {
       } else if (authService.box.read('userState') == 'resturant') {
         Get.offAllNamed(Routes.RESTURANT_NAV);
       } else {
-
         Get.offAllNamed(Routes.RIDER_NAV);
       }
     }).catchError((onError) {
@@ -84,7 +84,7 @@ class LoginController extends GetxController {
         .get()
         .then((response) {
       authService.box.write('userState', response.data()!['userState']);
-      authService.userID = currentUser.uid;   
+      authService.userID = currentUser.uid;
       authService.userEmail = response.data()!['userEmail'];
       authService.userName = response.data()!['userName'];
       authService.userPhoto = response.data()!['userPhoto'];
@@ -100,5 +100,30 @@ class LoginController extends GetxController {
             return ErrorDialog(message: onError.toString());
           });
     });
+  }
+
+  changeObscure() {
+    obscureText.value != obscureText.value;
+  }
+
+  Future resetPassword() async {
+    pageViewState.value = ViewState.busy;
+
+    try {
+      emailEditingController.value.text.isEmpty
+          ? null
+          : await firebaseAuth
+              .sendPasswordResetEmail(email: emailEditingController.value.text)
+              .then((value) {
+              const ErrorDialog(
+                message: 'Messagg',
+              );
+            });
+    } on FirebaseAuthException catch (error) {
+      final errorMessage = error.code;
+      ErrorDialog(message: errorMessage);
+    }
+
+    pageViewState.value = ViewState.idle;
   }
 }
