@@ -8,7 +8,9 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/rider/rider_service.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
+import 'package:fos/app/utilities/dialogues/general_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
+import 'package:fos/app/utilities/global/aut_status.dart';
 import 'package:fos/app/utilities/global/custom_exceptions.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +34,7 @@ class LoginController extends GetxController {
   final RiderServices riderServices = Get.find<RiderServices>();
   final pageViewState = ViewState.idle.obs;
   final count = 0.obs;
+  final status = AuthStatus.unknown.obs;
   @override
   void onInit() {
     super.onInit();
@@ -109,20 +112,21 @@ class LoginController extends GetxController {
   Future resetPassword() async {
     pageViewState.value = ViewState.busy;
 
-    try {
-      emailEditingController.value.text.isEmpty
-          ? null
-          : await firebaseAuth
-              .sendPasswordResetEmail(email: emailEditingController.value.text)
-              .then((value) {
-              const ErrorDialog(
-                message: 'Messagg',
-              );
-            });
-    } on FirebaseAuthException catch (error) {
-      final errorMessage = error.code;
-      ErrorDialog(message: errorMessage);
-    }
+    emailEditingController.value.text.isEmpty
+        ? GeneralDialog().errorMessage('No email')
+        : await firebaseAuth
+            .sendPasswordResetEmail(email: emailEditingController.value.text)
+            .then((value) {
+            status.value = AuthStatus.successful;
+            GeneralDialog().successCupertinoMessage(
+                'Please check your email for a password reset link');
+          }).catchError((onError) {
+            var message = AuthExceptionHandler.handleAuthException(onError);
+
+            var messageBug = AuthExceptionHandler.generateErrorMessage(message);
+
+            GeneralDialog().errorMessage(messageBug);
+          });
 
     pageViewState.value = ViewState.idle;
   }
