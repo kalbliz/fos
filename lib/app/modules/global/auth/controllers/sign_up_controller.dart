@@ -9,6 +9,7 @@ import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
+import 'package:fos/app/utilities/dialogues/general_dialog.dart';
 import 'package:fos/app/utilities/enums/user_type.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -202,6 +203,7 @@ class SignUpController extends GetxController {
     if (currentUser != null) {
       await registerUser(currentUser!).then((value) {
         Get.offAllNamed(Routes.LOGIN);
+        GeneralDialog().successCupertinoMessage('User Account Created');
       });
     }
     pageState.value = ViewState.idle;

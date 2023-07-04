@@ -15,15 +15,21 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> initServices() async {
+  Get.log('starting services ...');
+
   await GetStorage.init();
   await Get.putAsync<AuthService>(() async => AuthService());
   await Get.putAsync<ImageUploadService>(() async => ImageUploadService());
   await Get.putAsync<FoodServices>(() async => FoodServices());
   await Get.putAsync<OrderServices>(() async => OrderServices());
   await Get.putAsync<CartServices>(() async => CartServices());
-   await Get.putAsync<RiderServices>(() async => RiderServices());
+  await Get.putAsync<RiderServices>(() async => RiderServices());
+  Get.log('All services started...');
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -34,16 +40,19 @@ void main() async {
     storageBucket: 'fos-app-7d3a7.appspot.com',
   ));
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  
+
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
+  await initServices();
+  final authServices = Get.find<AuthService>();
   runApp(
     GetMaterialApp(
-      title: "Application",
-      initialRoute: AppPages.INITIAL,
+      title: "FOS",
+      // initialRoute: AppPages.INITIAL,
+      initialRoute: await authServices.initialRoute(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

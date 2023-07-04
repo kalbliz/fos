@@ -64,7 +64,10 @@ class AccountsView extends GetView<AccountsController> {
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return ListTile(
-                                  onTap: controller.menuList[index].onTap,
+                                  onTap: controller.menuList[index].title ==
+                                          'Log out'
+                                      ? controller.logOut
+                                      : controller.menuList[index].onTap,
                                   leading: Image.asset(
                                     controller.menuList[index].imagePath,
                                     scale: 4,
