@@ -58,6 +58,22 @@ class ResturantNavView extends GetView<ResturantNavController> {
               ),
               backgroundColor: AppColors.AppFabBackground,
               elevation: 0,
+              label: const Fourteen400AppBlackNun(text: 'Add Category'),
+              onPressed: () {
+                final state = controller.fabKey.currentState;
+                if (state != null) {
+                  state.toggle();
+                  Get.toNamed(Routes.CREATE_CATEGORY);
+                }
+              },
+            ),
+            FloatingActionButton.extended(
+              heroTag: UniqueKey(),
+              extendedPadding: EdgeInsets.symmetric(
+                horizontal: sizeFit(true, 8, context),
+              ),
+              backgroundColor: AppColors.AppFabBackground,
+              elevation: 0,
               label: const Fourteen400AppBlackNun(text: 'Add New Food'),
               onPressed: () {
                 final state = controller.fabKey.currentState;
@@ -95,7 +111,7 @@ class ResturantNavView extends GetView<ResturantNavController> {
                         color: AppDarkColors.AppAsh,
                       ),
                     )),
-             NavigationDestination(
+                NavigationDestination(
                     label: 'Menu',
                     selectedIcon: SizedBox(
                       child: Icon(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fos/app/data/models/categories/get_categories_response.dart';
@@ -8,21 +9,18 @@ import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
 import 'package:fos/app/data/services/auth_services/auth_services.dart';
 import 'package:fos/app/data/services/food_services/food_services.dart';
 import 'package:fos/app/data/services/upload/upload.dart';
-import 'package:fos/app/modules/resturant/resturant_nav/controllers/resturant_nav_controller.dart';
 import 'package:fos/app/routes/app_pages.dart';
-
 import 'package:fos/app/utilities/dialogues/error_dialog.dart';
 import 'package:fos/app/utilities/dialogues/general_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateFoodController extends GetxController {
-  //TODO: Implement CreateFoodController
+class CreateCategoryController extends GetxController {
+  //TODO: Implement CreateCategoryController
 
   final GlobalKey<FormState> foodFormKey = GlobalKey<FormState>();
   final pageState = ViewState.idle.obs;
-
   final ImageUploadService imageUploadService = Get.find<ImageUploadService>();
   final count = 0.obs;
   final TextEditingController foodTitleEditingController =
@@ -47,12 +45,10 @@ class CreateFoodController extends GetxController {
   final AuthService authService = Get.find<AuthService>();
   final FoodServices foodServices = Get.find<FoodServices>();
   final GeneralDialog generalDialog = GeneralDialog();
-  late FoodMenus foodMenu;
-  
+  late Categories categories;
   @override
   void onInit() {
     super.onInit();
-   
   }
 
   @override
@@ -74,7 +70,7 @@ class CreateFoodController extends GetxController {
 
   Future uploadImage() async {
     await imageUploadService
-        .uploadFile(imagePath: file.value, storagePath: 'foods')
+        .uploadFile(imagePath: file.value, storagePath: 'categories')
         .then((response) {
       foodImageUrl = response;
     });
@@ -89,30 +85,23 @@ class CreateFoodController extends GetxController {
   }
 
   Future saveFoodData() async {
-    foodMenu = FoodMenus(
-        foodName: foodTitleEditingController.value.text.trim(),
-        foodDescription: foodDescriptionEditingController.value.text.trim(),
-        foodImage: foodImageUrl,
-        foodPrice: int.tryParse(foodPriceEditingController.value.text.trim()),
-        resturantAddress: authService.userAddress,
-        resturantName: authService.userName,
-        resturantId: authService.userID);
+    categories = Categories(
+      categoryName: foodTitleEditingController.value.text.trim(),
+      categoryDescription: foodDescriptionEditingController.value.text.trim(),
+      categoryImage: foodImageUrl,
+    );
     await foodServices
-        .saveFoodData(
-            resturantId: foodMenu.resturantId!,
-            foodName: foodMenu.foodName!,
-            foodDescription: foodMenu.foodDescription!,
-            foodImage: foodMenu.foodImage!,
-            foodPrice: foodMenu.foodPrice!,
-            resturantName: foodMenu.resturantName!,
-            resturantAddress: foodMenu.resturantAddress!)
+        .createCategory(
+            categoryDescription: categories.categoryDescription!,
+            categoryImage: categories.categoryImage!,
+            categoryName: categories.categoryName!)
         .then((value) {
       Get.until((route) => route.settings.name == Routes.RESTURANT_NAV);
 
       foodServices.getFoodMenusFromResturant(
           resturantName: authService.userName);
       generalDialog
-          .foodUploadSuccessCupertinoMessage('Your food has been saved ');
+          .foodUploadSuccessCupertinoMessage('Your category has been saved ');
     }).catchError((onError) {
       debugPrint(onError.toString());
       showDialog(

@@ -27,7 +27,7 @@ class LoginController extends GetxController {
   final passwordValidator = MultiValidator([
     RequiredValidator(errorText: 'password is required'),
   ]);
-  final obscureText = false.obs;
+  final obscureText = true.obs;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final AuthService authService = Get.find<AuthService>();

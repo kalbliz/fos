@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/resturant/create_category/bindings/create_category_binding.dart';
+import '../modules/resturant/create_category/views/create_category_view.dart';
 import '../modules/global/auth/bindings/auth_binding.dart';
 import '../modules/global/auth/views/auth_view.dart';
 import '../modules/global/auth/views/login_view.dart';
@@ -244,6 +246,11 @@ class AppPages {
       name: _Paths.SHIPMENT_DETAILS,
       page: () => const ShipmentDetailsView(),
       binding: ShipmentDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_CATEGORY,
+      page: () => const CreateCategoryView(),
+      binding: CreateCategoryBinding(),
     ),
   ];
 }

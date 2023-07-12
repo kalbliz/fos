@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fos/app/data/models/cart/get_cart_model.dart';
+import 'package:fos/app/data/models/categories/get_categories_response.dart';
 import 'package:fos/app/data/models/food_models/getFoodResponseModel.dart';
 import 'package:fos/app/data/models/orderModels/get_order_response.dart';
 import 'package:fos/app/data/models/resturants/getResturantsResponseModel.dart';
@@ -14,6 +15,7 @@ class FoodServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
+   final RxList<Categories> categories = <Categories>[].obs;
   final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
   final List<UserModel> resturantsList = [];
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
@@ -51,6 +53,22 @@ class FoodServices extends GetxService {
       'resturantId': resturantId
     }).then((value) async {
       getFoodMenus();
+    });
+  }
+
+  Future createCategory(
+      {required String categoryName,
+      required String categoryDescription,
+      required String categoryImage,
+     }) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore.collection('categories').doc().set({
+      'categoryName': categoryName,
+      'categoryDescription': categoryDescription,
+      'categoryImage': categoryImage,
+     
+    }).then((value) async {
+      getCategories();
     });
   }
 
@@ -93,6 +111,29 @@ class FoodServices extends GetxService {
       foodMenus.sort(((a, b) {
         return Comparable.compare(
             a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
+      }));
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      throw onError;
+    });
+  }
+
+  Future getCategories() async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('categories')
+        .get()
+        .then((response) async {
+      var responseData =
+          response.docs.map((e) => Categories.fromDocumentSnapshot(e)).toList();
+
+      categories.clear();
+      for (var element in responseData) {
+        categories.add(element);
+      }
+      categories.sort(((a, b) {
+        return Comparable.compare(
+            a.categoryName!.toLowerCase(), b.categoryName!.toLowerCase());
       }));
     }).catchError((onError) {
       debugPrint(onError.toString());

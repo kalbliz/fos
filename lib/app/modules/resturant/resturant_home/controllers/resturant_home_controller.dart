@@ -89,6 +89,12 @@ class ResturantHomeController extends GetxController
     pageViewState.value = ViewState.idle;
   }
 
+  Future getCategories() async {
+    await foodService.getCategories().then((value) {}).catchError((onError) {
+      ErrorDialog(message: onError.toString());
+    });
+  }
+
   Future updateOrderStatus(
       {required OrderModel orderModel, required String status}) async {
     pageViewState.value = ViewState.busy;
