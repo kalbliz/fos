@@ -48,7 +48,7 @@ class CreateFoodController extends GetxController {
   final FoodServices foodServices = Get.find<FoodServices>();
   final GeneralDialog generalDialog = GeneralDialog();
   late FoodMenus foodMenu;
-  final List<Categories> categories = [];
+  
   final selectedCategories = <String>[].obs;
 
   @override
@@ -91,7 +91,7 @@ class CreateFoodController extends GetxController {
 
   Future saveFoodData() async {
     foodMenu = FoodMenus(
-        categories: categories,
+        categories: selectedCategories,
         foodName: foodTitleEditingController.value.text.trim(),
         foodDescription: foodDescriptionEditingController.value.text.trim(),
         foodImage: foodImageUrl,

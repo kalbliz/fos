@@ -29,10 +29,10 @@ class _IndividualCategoryState extends State<IndividualCategory> {
       onChanged: (value) {
         widget.value = value;
         if (value == true) {
-          controller.categories
+          controller.foodServices.categories
               .add(controller.foodServices.categories.elementAt(widget.index));
         } else {
-          controller.categories.remove(
+          controller.foodServices.categories.remove(
               controller.foodServices.categories.elementAt(widget.index));
         }
         setState(() {});

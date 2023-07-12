@@ -126,7 +126,28 @@ class FoodDetailsView extends GetView<FoodDetailsController> {
                               ],
                             ),
                             SizedBox(
-                              height: sizeFit(false, 36, context),
+                              height: sizeFit(false, 20, context),
+                            ),
+                            SizedBox(
+                              height: sizeFit(false, 60, context),
+                              child: ListView.builder(
+                                  itemCount: controller
+                                      .foodServices.similarFood.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return CircleAvatar(
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(controller
+                                              .foodServices.similarFood
+                                              .elementAt(index)
+                                              .foodImage!),
+                                      radius: sizeFit(false, 40, context),
+                                    );
+                                  }),
+                            ),
+                            SizedBox(
+                              height: sizeFit(false, 20, context),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

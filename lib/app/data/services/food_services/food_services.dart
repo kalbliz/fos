@@ -15,6 +15,7 @@ class FoodServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
+  final RxList<FoodMenus> similarFood = <FoodMenus>[].obs;
   final RxList<Categories> categories = <Categories>[].obs;
   final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
   final List<UserModel> resturantsList = [];
@@ -27,7 +28,7 @@ class FoodServices extends GetxService {
   final RxList<OrderModel> transitOrdersList = <OrderModel>[].obs;
   late RxList<OrderModel> ordersListInUse;
   late int index;
-
+  var selectedFoodIndex = 0;
   @override
   void onReady() {
     // TODO: implement onReady
@@ -44,18 +45,7 @@ class FoodServices extends GetxService {
       'resturantName': food.resturantName,
       'resturantAddress': food.resturantAddress,
       'resturantId': food.resturantId,
-      'categories': [
-        if (food.categories != null)
-          {
-            for (var element in food.categories!)
-              {
-                'categoryName': element.categoryName,
-                'id': element.id,
-                'categoryDescription': element.categoryDescription,
-                'categoryImage': element.categoryImage
-              }
-          }
-      ]
+      'categories': food.categories
     }).then((value) async {
       getFoodMenus();
     });
@@ -113,6 +103,30 @@ class FoodServices extends GetxService {
         foodMenus.add(element);
       }
       foodMenus.sort(((a, b) {
+        return Comparable.compare(
+            a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
+      }));
+    }).catchError((onError) {
+      debugPrint(onError.toString());
+      throw onError;
+    });
+  }
+
+  Future getSimilarFood({required List<String> category}) async {
+    firebaseFireStore = FirebaseFirestore.instance;
+    await firebaseFireStore
+        .collection('foodMenus')
+        .where('categories', arrayContainsAny: category)
+        .get()
+        .then((response) async {
+      var responseData =
+          response.docs.map((e) => FoodMenus.fromDocumentSnapshot(e)).toList();
+
+      similarFood.clear();
+      for (var element in responseData) {
+        similarFood.add(element);
+      }
+      similarFood.sort(((a, b) {
         return Comparable.compare(
             a.foodName!.toLowerCase(), b.foodName!.toLowerCase());
       }));

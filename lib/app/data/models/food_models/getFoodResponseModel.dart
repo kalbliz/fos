@@ -24,7 +24,7 @@ class FoodMenus {
   dynamic id;
   final String? resturantId;
   final String? resturantAddress;
-  final List<Categories>? categories;
+  final List<String>? categories;
 
   factory FoodMenus.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
@@ -38,8 +38,7 @@ class FoodMenus {
           resturantId: json['resturantId'],
           categories: json["categories"] == null
               ? []
-              : List<Categories>.from(json["categories"]!
-                  .map((x) => Categories.fromDocumentSnapshot(x))),
+              : List<String>.from(json["categories"]),
           id: json.id);
 
   Map<String, dynamic> toMap() => {

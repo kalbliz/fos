@@ -18,9 +18,11 @@ class FoodDetailsController extends GetxController {
   late FoodMenus foodMenus;
   final quantity = 1.obs;
   final status = 'pending'.obs;
+
   @override
   void onInit() {
     super.onInit();
+    getSimilarFood();
   }
 
   @override
@@ -58,6 +60,24 @@ class FoodDetailsController extends GetxController {
       });
     }
 
+    pageView.value = ViewState.idle;
+  }
+
+  Future getSimilarFood() async {
+    pageView.value = ViewState.busy;
+    await foodServices
+        .getSimilarFood(
+            category: foodServices.foodMenus
+                .elementAt(foodServices.selectedFoodIndex)
+                .categories!)
+        .then((value) => null)
+        .catchError((onError) {
+      showDialog(
+          context: Get.context!,
+          builder: (BuildContext context) {
+            return ErrorDialog(message: onError.toString());
+          });
+    });
     pageView.value = ViewState.idle;
   }
 }

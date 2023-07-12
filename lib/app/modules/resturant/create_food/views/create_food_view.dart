@@ -129,20 +129,6 @@ class CreateFoodView extends GetView<CreateFoodController> {
                                               value: (i, v) => v,
                                               label: (i, v) => v));
                                     })
-                              // controller.foodServices.categories.isEmpty
-                              //     ? SizedBox(
-                              //         child: Text('no categorise'),
-                              //       )
-                              //     : ListView.builder(
-                              //         shrinkWrap: true,
-                              //         itemBuilder: (context, index) {
-                              //           return ChipsChoice<String>.multiple(
-                              //             onChanged: (List<String> value) {},
-                              //             value: [],
-                              //           );
-                              //         },
-                              //         itemCount: controller
-                              //             .foodServices.categories.length)
                             ],
                           ),
                         ),
