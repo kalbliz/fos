@@ -25,6 +25,7 @@ class ResturantHomeController extends GetxController
     getFood();
     getresturantOrders();
     riderServices.getAllRiders();
+    getCategories();
     tabController = TabController(length: 5, vsync: this);
   }
 

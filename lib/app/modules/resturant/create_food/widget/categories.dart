@@ -9,13 +9,9 @@ import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/responsive/size_fit.dart';
 
 class IndividualCategory extends StatefulWidget {
-  const IndividualCategory({
-    Key? key,
-    required this.index,
-    this.value = false,
-  }) : super(key: key);
+  IndividualCategory({super.key, required this.index, this.value = false});
   final int index;
-  final bool? value;
+  bool? value;
   @override
   State<IndividualCategory> createState() => _IndividualCategoryState();
 }
@@ -31,10 +27,20 @@ class _IndividualCategoryState extends State<IndividualCategory> {
           horizontal: sizeFit(true, 24, context)),
       value: widget.value,
       onChanged: (value) {
-        widget.value == value;
+        widget.value = value;
+        if (value == true) {
+          controller.categories
+              .add(controller.foodServices.categories.elementAt(widget.index));
+        } else {
+          controller.categories.remove(
+              controller.foodServices.categories.elementAt(widget.index));
+        }
+        setState(() {});
       },
       activeColor: AppDarkColors.AppPrimaryPink,
-      title: Text(controller.foodServices.categories.elementAt(widget.index).categoryName!),
+      title: Text(controller.foodServices.categories
+          .elementAt(widget.index)
+          .categoryName!),
     );
   }
 }

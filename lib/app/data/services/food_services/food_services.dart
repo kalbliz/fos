@@ -15,7 +15,7 @@ class FoodServices extends GetxService {
   late FirebaseFirestore firebaseFireStore;
   final AuthService authService = Get.find<AuthService>();
   final RxList<FoodMenus> foodMenus = <FoodMenus>[].obs;
-   final RxList<Categories> categories = <Categories>[].obs;
+  final RxList<Categories> categories = <Categories>[].obs;
   final RxList<FoodMenus> orderList = <FoodMenus>[].obs;
   final List<UserModel> resturantsList = [];
   final RxList<FoodMenus> foodFromResturant = <FoodMenus>[].obs;
@@ -34,39 +34,43 @@ class FoodServices extends GetxService {
     super.onReady();
   }
 
-  Future saveFoodData(
-      {required String foodName,
-      required String foodDescription,
-      required String foodImage,
-      required num foodPrice,
-      required String resturantName,
-      required String resturantAddress,
-      required String resturantId}) async {
+  Future saveFoodData({required FoodMenus food}) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('foodMenus').doc().set({
-      'foodName': foodName,
-      'foodDescription': foodDescription,
-      'foodImage': foodImage,
-      'foodPrice': foodPrice,
-      'resturantName': resturantName,
-      'resturantAddress': resturantAddress,
-      'resturantId': resturantId
+      'foodName': food.foodName,
+      'foodDescription': food.foodDescription,
+      'foodImage': food.foodImage,
+      'foodPrice': food.foodPrice,
+      'resturantName': food.resturantName,
+      'resturantAddress': food.resturantAddress,
+      'resturantId': food.resturantId,
+      'categories': [
+        if (food.categories != null)
+          {
+            for (var element in food.categories!)
+              {
+                'categoryName': element.categoryName,
+                'id': element.id,
+                'categoryDescription': element.categoryDescription,
+                'categoryImage': element.categoryImage
+              }
+          }
+      ]
     }).then((value) async {
       getFoodMenus();
     });
   }
 
-  Future createCategory(
-      {required String categoryName,
-      required String categoryDescription,
-      required String categoryImage,
-     }) async {
+  Future createCategory({
+    required String categoryName,
+    required String categoryDescription,
+    required String categoryImage,
+  }) async {
     firebaseFireStore = FirebaseFirestore.instance;
     await firebaseFireStore.collection('categories').doc().set({
       'categoryName': categoryName,
       'categoryDescription': categoryDescription,
       'categoryImage': categoryImage,
-     
     }).then((value) async {
       getCategories();
     });
@@ -126,15 +130,9 @@ class FoodServices extends GetxService {
         .then((response) async {
       var responseData =
           response.docs.map((e) => Categories.fromDocumentSnapshot(e)).toList();
-
-      categories.clear();
-      for (var element in responseData) {
-        categories.add(element);
-      }
-      categories.sort(((a, b) {
-        return Comparable.compare(
-            a.categoryName!.toLowerCase(), b.categoryName!.toLowerCase());
-      }));
+      categories.value = responseData;
+      print(categories);
+      print(categories.length);
     }).catchError((onError) {
       debugPrint(onError.toString());
       throw onError;
@@ -261,7 +259,7 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'pending')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
+      // debugPrint(response.docs.toString());
       pendingOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
@@ -281,7 +279,7 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'completed')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
+      // debugPrint(response.docs.toString());
       completedOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
@@ -301,7 +299,7 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'transit')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
+      // debugPrint(response.docs.toString());
       transitOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();
@@ -321,7 +319,7 @@ class FoodServices extends GetxService {
         .where('status', isEqualTo: 'cancelled')
         .get()
         .then((response) async {
-      debugPrint(response.docs.toString());
+      // debugPrint(response.docs.toString());
       cancelledOrdersList.clear();
       var responseData =
           response.docs.map((e) => OrderModel.fromDocumentSnapShot(e)).toList();

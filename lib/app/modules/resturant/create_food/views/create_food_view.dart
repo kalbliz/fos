@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:fos/app/modules/resturant/create_food/widget/categories.dart';
 import 'package:fos/app/modules/user/home/controllers/home_controller.dart';
@@ -100,14 +101,48 @@ class CreateFoodView extends GetView<CreateFoodController> {
                                 ),
                               ),
                               controller.foodServices.categories.isEmpty
-                                  ? SizedBox()
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index) {
-                                        return IndividualCategory(index: index);
-                                      },
-                                      itemCount: controller
-                                          .foodServices.categories.length)
+                                  ? SizedBox(
+                                      child: Text('no categorise'),
+                                    )
+                                  : Obx(() {
+                                      return ChipsChoice<String>.multiple(
+                                          choiceStyle: C2ChipStyle.filled(
+                                              color: AppDarkColors.AppAsh,
+                                              selectedStyle: C2ChipStyle.filled(
+                                                  color: AppDarkColors
+                                                      .AppPrimaryPink)),
+                                          onChanged: (List<String> value) {
+                                            controller.selectedCategories
+                                                .value = value;
+
+                                            print(
+                                                controller.selectedCategories);
+                                          },
+                                          value: controller
+                                              .selectedCategories.value,
+                                          choiceItems: C2Choice.listFrom(
+                                              source: controller
+                                                  .foodServices.categories
+                                                  .map((element) =>
+                                                      element.categoryName!)
+                                                  .toList(),
+                                              value: (i, v) => v,
+                                              label: (i, v) => v));
+                                    })
+                              // controller.foodServices.categories.isEmpty
+                              //     ? SizedBox(
+                              //         child: Text('no categorise'),
+                              //       )
+                              //     : ListView.builder(
+                              //         shrinkWrap: true,
+                              //         itemBuilder: (context, index) {
+                              //           return ChipsChoice<String>.multiple(
+                              //             onChanged: (List<String> value) {},
+                              //             value: [],
+                              //           );
+                              //         },
+                              //         itemCount: controller
+                              //             .foodServices.categories.length)
                             ],
                           ),
                         ),

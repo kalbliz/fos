@@ -28,7 +28,8 @@ dependencies:
   google_maps_flutter: ^2.2.5
   firebase_messaging: ^14.4.0
   flutter_local_notifications: ^13.0.0
-  
+  chips_choice: ^3.0.0
+
   flutter:
     sdk: flutter
   firebase_core: ^2.9.0

@@ -48,11 +48,12 @@ class CreateFoodController extends GetxController {
   final FoodServices foodServices = Get.find<FoodServices>();
   final GeneralDialog generalDialog = GeneralDialog();
   late FoodMenus foodMenu;
-  
+  final List<Categories> categories = [];
+  final selectedCategories = <String>[].obs;
+
   @override
   void onInit() {
     super.onInit();
-   
   }
 
   @override
@@ -90,6 +91,7 @@ class CreateFoodController extends GetxController {
 
   Future saveFoodData() async {
     foodMenu = FoodMenus(
+        categories: categories,
         foodName: foodTitleEditingController.value.text.trim(),
         foodDescription: foodDescriptionEditingController.value.text.trim(),
         foodImage: foodImageUrl,
@@ -97,16 +99,7 @@ class CreateFoodController extends GetxController {
         resturantAddress: authService.userAddress,
         resturantName: authService.userName,
         resturantId: authService.userID);
-    await foodServices
-        .saveFoodData(
-            resturantId: foodMenu.resturantId!,
-            foodName: foodMenu.foodName!,
-            foodDescription: foodMenu.foodDescription!,
-            foodImage: foodMenu.foodImage!,
-            foodPrice: foodMenu.foodPrice!,
-            resturantName: foodMenu.resturantName!,
-            resturantAddress: foodMenu.resturantAddress!)
-        .then((value) {
+    await foodServices.saveFoodData(food: foodMenu).then((value) {
       Get.until((route) => route.settings.name == Routes.RESTURANT_NAV);
 
       foodServices.getFoodMenusFromResturant(

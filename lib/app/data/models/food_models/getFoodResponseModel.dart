@@ -1,10 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fos/app/data/models/categories/get_categories_response.dart';
 
 class FoodMenus {
   FoodMenus({
     this.foodName,
+    this.categories,
     this.id,
     this.foodDescription,
     this.foodImage,
@@ -22,6 +24,7 @@ class FoodMenus {
   dynamic id;
   final String? resturantId;
   final String? resturantAddress;
+  final List<Categories>? categories;
 
   factory FoodMenus.fromDocumentSnapshot(
           DocumentSnapshot<Map<String, dynamic>> json) =>
@@ -33,6 +36,10 @@ class FoodMenus {
           resturantAddress: json["resturantAddress"],
           resturantName: json['resturantName'],
           resturantId: json['resturantId'],
+          categories: json["categories"] == null
+              ? []
+              : List<Categories>.from(json["categories"]!
+                  .map((x) => Categories.fromDocumentSnapshot(x))),
           id: json.id);
 
   Map<String, dynamic> toMap() => {
@@ -43,6 +50,7 @@ class FoodMenus {
         "resturantName": resturantName,
         "resturantAddress": resturantAddress,
         "id": id,
-        "resturantId": resturantId
+        "resturantId": resturantId,
+        "categories": categories
       };
 }
