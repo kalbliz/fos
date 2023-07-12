@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fos/app/routes/app_pages.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
@@ -128,6 +129,9 @@ class FoodDetailsView extends GetView<FoodDetailsController> {
                             SizedBox(
                               height: sizeFit(false, 20, context),
                             ),
+                            Text(
+                              'Suggestions',
+                            ),
                             SizedBox(
                               height: sizeFit(false, 60, context),
                               child: ListView.builder(
@@ -136,13 +140,42 @@ class FoodDetailsView extends GetView<FoodDetailsController> {
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
-                                    return CircleAvatar(
-                                      backgroundImage:
-                                          CachedNetworkImageProvider(controller
-                                              .foodServices.similarFood
-                                              .elementAt(index)
-                                              .foodImage!),
-                                      radius: sizeFit(false, 40, context),
+                                    return InkWell(
+                                      onTap: () {
+                                        controller.foodServices
+                                            .selectedFoodIndex = index;
+
+                                        // Get.toNamed(Routes.FOOD_DETAILS,
+                                        //     arguments: [
+                                        //       {
+                                        //         "id": controller
+                                        //             .foodServices.foodMenus
+                                        //             .elementAt(index)
+                                        //             .id
+                                        //       },
+                                        //     ]);
+                                        controller.id = controller
+                                            .foodServices.foodMenus
+                                            .firstWhere((element) =>
+                                                element.id ==
+                                                controller
+                                                    .foodServices.similarFood
+                                                    .elementAt(index)
+                                                    .id)
+                                            .id;
+
+                                        Get.find<FoodDetailsController>()
+                                            .onInit();
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                            CachedNetworkImageProvider(
+                                                controller
+                                                    .foodServices.similarFood
+                                                    .elementAt(index)
+                                                    .foodImage!),
+                                        radius: sizeFit(false, 40, context),
+                                      ),
                                     );
                                   }),
                             ),
