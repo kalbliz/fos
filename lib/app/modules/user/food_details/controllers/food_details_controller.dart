@@ -22,6 +22,7 @@ class FoodDetailsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print(id);
     getSimilarFood();
   }
 

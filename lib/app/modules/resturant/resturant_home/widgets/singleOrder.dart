@@ -138,7 +138,8 @@ class SingleOrderWidget extends StatelessWidget {
                                       style: AppTextStyles.Fourteen600TextBlack,
                                     ),
                                     Text(
-                                      'Qty: ${orderList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
+                                      // 'Qty: ${orderList.elementAt(orderIndex).cartList!.elementAt(index).quantity}',
+                                      'Qty: 1',
                                       overflow: TextOverflow.ellipsis,
                                       style: AppTextStyles.Fourteen600TextBlack,
                                     ),

@@ -15,7 +15,7 @@ class ResturantListView extends GetView<ResturantListController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Restaurents in your location'),
+          title: Text('Food around your location'),
           centerTitle: true,
         ),
         body: SafeArea(
@@ -27,8 +27,9 @@ class ResturantListView extends GetView<ResturantListController> {
                 return InkWell(
                   onTap: () {
                     debugPrint(index.toString());
-                    Get.toNamed(Routes.RESTURANT_DETAILS, arguments: [
-                      {"index": index},
+                    // controller.foodServices.selectedFoodIndex = index;
+                    Get.toNamed(Routes.FOOD_DETAILS, arguments: [
+                      {"id": controller.foodServices.foodMenus[index].id!},
                     ]);
                   },
                   child: Column(

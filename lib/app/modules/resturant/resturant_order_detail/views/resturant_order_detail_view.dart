@@ -249,7 +249,9 @@ class ResturantOrderDetailView extends GetView<ResturantOrderDetailController> {
                               const Fourteen400AppAsh(text: 'Quantity'),
                               Fourteen500AppBlackNun(
                                   text:
-                                      '${controller.foodService.ordersListInUse.elementAt(controller.indexInUse).cartList!.elementAt(index).quantity}')
+                                      // '${controller.foodService.ordersListInUse.elementAt(controller.indexInUse).cartList!.elementAt(index).quantity}'
+                                       '1'
+                                      )
                             ],
                           ),
                         ],

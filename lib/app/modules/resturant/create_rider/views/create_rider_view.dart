@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fos/app/utilities/buttons/auth_button.dart';
 import 'package:fos/app/utilities/colors/app_colors.dart';
+import 'package:fos/app/utilities/dialogues/general_dialog.dart';
 import 'package:fos/app/utilities/enums/view_state.dart';
 import 'package:fos/app/utilities/loader/image_loader.dart';
 import 'package:fos/app/utilities/loader/progress.dart';
@@ -190,8 +191,11 @@ class CreateRiderView extends GetView<CreateRiderController> {
                               title: 'Create Rider',
                               onTap: () {
                                 if (controller.createRider.currentState!
-                                    .validate()) {
+                                    .validate()  &&
+                                  controller.file.value != '') {
                                   controller.uploadFoodDetails();
+                                }else{
+                                GeneralDialog().errorMessage('Rider image is required');
                                 }
                               }),
                         ),
