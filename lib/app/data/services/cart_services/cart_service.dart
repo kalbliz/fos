@@ -31,7 +31,7 @@ class CartServices extends GetxService {
       "clientLocation": authService.userAddress,
       "resturantName": foodMenus.resturantName,
       "resturantId": foodMenus.resturantId,
-      "quantity": "1",
+      "quantity": 1,
       "status": status,
       "foodId": foodMenus.id,
       "userId": authService.userID,
