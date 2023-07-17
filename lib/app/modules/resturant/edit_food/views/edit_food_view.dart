@@ -116,19 +116,29 @@ class EditFoodView extends GetView<EditFoodController> {
                           EdgeInsets.only(bottom: sizeFit(false, 10, context)),
                       child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: AuthButton(
-                            title: 'Upload Food',
-                            onTap: () {
-                              FocusScope.of(context).unfocus();
-                              if (controller.foodFormKey.currentState!
-                                      .validate() &&
-                                  controller.file.value == '') {
-                                controller.uploadFoodDetails();
-                              } else {
-                                GeneralDialog()
-                                    .errorMessage('Food image is required');
-                              }
-                            },
+                          child: Column(
+                            children: [
+                              AuthButton(
+                                title: 'Delete Food',
+                                onTap: () {
+                                  controller.deleteFood();
+                                },
+                              ),
+                              AuthButton(
+                                title: 'Upload Food',
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (controller.foodFormKey.currentState!
+                                          .validate() &&
+                                      controller.file.value == '') {
+                                    controller.uploadFoodDetails();
+                                  } else {
+                                    GeneralDialog()
+                                        .errorMessage('Food image is required');
+                                  }
+                                },
+                              ),
+                            ],
                           )),
                     )
                   ],

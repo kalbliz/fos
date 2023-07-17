@@ -106,6 +106,17 @@ class EditFoodController extends GetxController {
     pageState.value = ViewState.idle;
   }
 
+  Future deleteFood() async {
+    pageState.value = ViewState.busy;
+    await foodServices.deleteFood(foodId: id).then((value) {
+      GeneralDialog().successCupertinoMessage('Food Deleted');
+      Get.back();
+    }).catchError((onError) {
+      print(onError);
+    });
+    pageState.value = ViewState.idle;
+  }
+
   Future updateFoodData() async {
     pageState.value = ViewState.busy;
     foodMenu = FoodMenus(

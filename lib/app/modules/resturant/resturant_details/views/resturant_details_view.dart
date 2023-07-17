@@ -23,7 +23,7 @@ class ResturantDetailsView extends GetView<ResturantDetailsController> {
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             Stack(
@@ -67,57 +67,67 @@ class ResturantDetailsView extends GetView<ResturantDetailsController> {
             Text('Returant Menu', style: AppTextStyles.Eighteen600TextBlack),
             Obx(() {
               return controller.pageViewState.value == ViewState.busy
-                  ? Center(child: const CircularProgressIndicator.adaptive())
-                  : GridView.builder(
-                      controller: ScrollController(),
-                      scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(
-                          vertical: sizeFit(false, 24, context)),
-                      itemCount:
-                          controller.foodServices.foodFromResturant.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: sizeFit(false, 140, context),
-                          crossAxisCount: 2),
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Get.toNamed(Routes.FOOD_DETAILS, arguments: [
-                              {
-                                "id": controller
-                                    .foodServices.foodFromResturant[index].id!
+                  ? const Center(child: CircularProgressIndicator.adaptive())
+                  : controller.foodServices.foodFromResturant.isEmpty
+                      ? const Center(
+                          child: Text('There is no food available'),
+                        )
+                      : GridView.builder(
+                          controller: ScrollController(),
+                          scrollDirection: Axis.vertical,
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(
+                              vertical: sizeFit(false, 24, context)),
+                          itemCount:
+                              controller.foodServices.foodFromResturant.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisExtent: sizeFit(false, 140, context),
+                                  crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Get.toNamed(Routes.FOOD_DETAILS, arguments: [
+                                  {
+                                    "id": controller.foodServices
+                                        .foodFromResturant[index].id!
+                                  },
+                                ]);
                               },
-                            ]);
-                          },
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CircleAvatar(
-                                radius: sizeFit(false, 40, context),
-                                backgroundImage: CachedNetworkImageProvider(
-                                    controller.foodServices
-                                        .foodFromResturant[index].foodImage!),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CircleAvatar(
+                                    radius: sizeFit(false, 40, context),
+                                    backgroundImage: CachedNetworkImageProvider(
+                                        controller
+                                            .foodServices
+                                            .foodFromResturant[index]
+                                            .foodImage!),
+                                  ),
+                                  SizedBox(
+                                    height: sizeFit(false, 4, context),
+                                  ),
+                                  Text(
+                                    controller
+                                        .foodServices
+                                        .foodFromResturant[index]
+                                        .foodName!
+                                        .capitalize!,
+                                    style: AppTextStyles.Sixteen400TextBlack,
+                                  ),
+                                  SizedBox(
+                                    height: sizeFit(false, 2, context),
+                                  ),
+                                  Text(
+                                    ' NGN${controller.foodServices.foodFromResturant[index].foodPrice!.toString()}',
+                                    style: AppTextStyles.Fourteen400TextPink,
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: sizeFit(false, 4, context),
-                              ),
-                              Text(
-                                controller.foodServices.foodFromResturant[index]
-                                    .foodName!.capitalize!,
-                                style: AppTextStyles.Sixteen400TextBlack,
-                              ),
-                              SizedBox(
-                                height: sizeFit(false, 2, context),
-                              ),
-                              Text(
-                                ' NGN${controller.foodServices.foodFromResturant[index].foodPrice!.toString()}',
-                                style: AppTextStyles.Fourteen400TextPink,
-                              ),
-                            ],
-                          ),
-                        );
-                      });
+                            );
+                          });
             }),
             SizedBox(
               height: sizeFit(false, 160, context),
