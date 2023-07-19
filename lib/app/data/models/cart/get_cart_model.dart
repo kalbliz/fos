@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartModel {
@@ -7,7 +5,7 @@ class CartModel {
   final String? foodDescription;
   final String? foodImage;
   final num? foodPrice;
-  final int? quantity;
+  final String? quantity;
   final String? status;
   final String? clientName;
   final String? clientLocation;
@@ -31,19 +29,20 @@ class CartModel {
       this.foodId});
 
   factory CartModel.fromDocumentSnapshot(
-          DocumentSnapshot<Map<String, dynamic>> json) => CartModel(
-    id: json.id,
-      foodName: json["foodName"],
-      foodDescription: json["foodDescription"],
-      foodImage: json["foodImage"],
-      foodPrice: json["foodPrice"],
-      quantity: json['quantity'],
-      status: json['status'],
-      foodId: json['foodId'],
-      time: json['time'],
-      resturantName: json['resturantName'],
-      clientLocation: json['clientLocation'],
-      clientName: json['clientName']);
+          DocumentSnapshot<Map<String, dynamic>> json) =>
+      CartModel(
+          id: json.id,
+          foodName: json["foodName"],
+          foodDescription: json["foodDescription"],
+          foodImage: json["foodImage"],
+          foodPrice: json["foodPrice"],
+          quantity: json['quantity'],
+          status: json['status'],
+          foodId: json['foodId'],
+          time: json['time'],
+          resturantName: json['resturantName'],
+          clientLocation: json['clientLocation'],
+          clientName: json['clientName']);
 
   Map<String, dynamic> toJson() => {
         "foodName": foodName,
