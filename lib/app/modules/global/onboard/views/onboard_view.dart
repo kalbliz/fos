@@ -33,7 +33,7 @@ class OnboardView extends GetView<OnboardController> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: sizeFit(false, 344, context),
+              height: sizeFit(false, 380, context),
               width: double.infinity,
               padding: EdgeInsets.symmetric(
                   horizontal: sizeFit(true, 55, context),
@@ -67,7 +67,6 @@ class OnboardView extends GetView<OnboardController> {
                       height: sizeFit(false, 30, context),
                     ),
                     SizedBox(
-                      width: sizeFit(true, 140, context),
                       child: Obx(() {
                         return controller.currentPage.value != 3
                             ? LinearProgressIndicator(
@@ -87,8 +86,8 @@ class OnboardView extends GetView<OnboardController> {
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: sizeFit(true, 16, context),
-                                      vertical: sizeFit(false, 8, context)),
+                                      horizontal: sizeFit(true, 8, context),
+                                      vertical: sizeFit(false, 16, context)),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(16),
                                       border: Border.all(
